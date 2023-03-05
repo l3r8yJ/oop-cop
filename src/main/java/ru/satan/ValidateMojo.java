@@ -1,6 +1,5 @@
 package ru.satan;
 
-import com.jcabi.log.Logger;
 import java.nio.file.Paths;
 import java.util.Collection;
 import org.apache.maven.plugin.AbstractMojo;
@@ -24,7 +23,6 @@ public final class ValidateMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoFailureException {
         this.getLog().info("Running Satan plugin");
-        Logger.info(this, "SRC: " + this.project.getCompileSourceRoots().get(0));
         final Collection<Complaint> complaints = new CompositePathRule(
             Paths.get(this.project.getCompileSourceRoots().get(0))
         ).complaints();

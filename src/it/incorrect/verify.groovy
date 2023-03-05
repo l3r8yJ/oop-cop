@@ -1,4 +1,3 @@
 String log = new File(basedir, 'build.log').text;
-[
-].each { assert log.contains(it): ("Log doesn't contain ['$it']")}
+assert !log.contains("Violations not found")
 true

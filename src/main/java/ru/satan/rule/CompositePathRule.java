@@ -1,6 +1,5 @@
 package ru.satan.rule;
 
-import com.jcabi.log.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,7 +39,6 @@ public final class CompositePathRule implements Rule {
                 throw new IllegalStateException(ex);
             }
         } else {
-            Logger.info(this, "DICKDICKDICK");
             accum = Collections.emptyList();
         }
         return accum;

@@ -1,5 +1,3 @@
-package ru.incorrect;
-
 class HasSetters {
     private String field;
 
