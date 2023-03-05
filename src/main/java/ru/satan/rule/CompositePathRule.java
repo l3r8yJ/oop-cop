@@ -1,14 +1,12 @@
 package ru.satan.rule;
 
+import com.jcabi.log.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.function.Function;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import ru.satan.Complaint;
@@ -16,11 +14,11 @@ import ru.satan.Method;
 import ru.satan.Rule;
 import ru.satan.parser.ClassMethods;
 
-public final class CompositePath implements Rule {
+public final class CompositePathRule implements Rule {
 
     private final Path start;
 
-    public CompositePath(final Path start) {
+    public CompositePathRule(final Path start) {
         this.start = start;
     }
 
@@ -35,13 +33,14 @@ public final class CompositePath implements Rule {
                     .filter(p -> p.toString().endsWith(".java"))
                     .map(ClassMethods::new)
                     .map(ClassMethods::all)
-                    .map(CompositePath::checkAssigment)
+                    .map(CompositePathRule::checkAssigment)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             } catch (final IOException ex) {
                 throw new IllegalStateException(ex);
             }
         } else {
+            Logger.info(this, "DICKDICKDICK");
             accum = Collections.emptyList();
         }
         return accum;

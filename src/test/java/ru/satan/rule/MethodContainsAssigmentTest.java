@@ -20,7 +20,7 @@ class MethodContainsAssigmentTest {
             ).asBytes()
         );
         MatcherAssert.assertThat(
-            new CompositePath(temp).complaints(),
+            new CompositePathRule(temp).complaints(),
             Matchers.not(Matchers.empty())
         );
     }
@@ -34,7 +34,7 @@ class MethodContainsAssigmentTest {
             ).asBytes()
         );
         MatcherAssert.assertThat(
-            new CompositePath(temp).complaints(),
+            new CompositePathRule(temp).complaints(),
             Matchers.empty()
         );
     }
