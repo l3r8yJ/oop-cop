@@ -1,5 +1,7 @@
 ## Sa-tan
 
+The current version of the project works, but it is not published in Maven Central
+
 A plugin for Maven that will let you know you have a problem if it sees setters in your project. 
 When I talk about setters I don't mean method name signatures, I mean methods with a changeable object state
 
