@@ -1,0 +1,3 @@
+# Project exclude paths
+/src/it/incorrect/target/
+/target/
