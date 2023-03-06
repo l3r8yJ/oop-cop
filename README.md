@@ -1,4 +1,4 @@
-[<img src="https://raw.githubusercontent.com/l3r8yJ/sa-tan/8f6e97d0287f4f922b6cd685548490a48e26c496/s8an.svg" width="150"/>](https://l3r8yj.ru/sa-tan/)
+[<img src="https://raw.githubusercontent.com/l3r8yJ/sa-tan/8f6e97d0287f4f922b6cd685548490a48e26c496/s8an.svg" width="150"/>](https://l3r8y.ru/sa-tan/)
 
 The current version of the project works, but it is not published in Maven Central
 
