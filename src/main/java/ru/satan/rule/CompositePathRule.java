@@ -8,18 +8,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.AllArgsConstructor;
 import ru.satan.Complaint;
 import ru.satan.Method;
 import ru.satan.Rule;
 import ru.satan.parser.ClassMethods;
 
+@AllArgsConstructor
 public final class CompositePathRule implements Rule {
 
     private final Path start;
-
-    public CompositePathRule(final Path start) {
-        this.start = start;
-    }
 
     @Override
     public Collection<Complaint> complaints() {

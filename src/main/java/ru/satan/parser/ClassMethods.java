@@ -9,16 +9,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import lombok.AllArgsConstructor;
 import ru.satan.Method;
 import ru.satan.Methods;
 
+@AllArgsConstructor
 public class ClassMethods implements Methods {
 
     private final Path path;
-
-    public ClassMethods(final Path path) {
-        this.path = path;
-    }
 
     @Override
     public Collection<Method> all() {

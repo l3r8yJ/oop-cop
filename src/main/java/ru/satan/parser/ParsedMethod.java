@@ -1,30 +1,20 @@
 package ru.satan.parser;
 
 import java.nio.file.Path;
+import lombok.AllArgsConstructor;
 import ru.satan.Method;
 
+@AllArgsConstructor
 public final class ParsedMethod implements Method {
 
-    private final String className;
+    private final String owner;
     private final String name;
     private final String body;
     private final Path path;
 
-    public ParsedMethod(
-        final String className,
-        final String name,
-        final String body,
-        final Path path
-    ) {
-        this.className = className;
-        this.name = name;
-        this.body = body;
-        this.path = path;
-    }
-
     @Override
     public String className() {
-        return this.className;
+        return this.owner;
     }
 
     @Override

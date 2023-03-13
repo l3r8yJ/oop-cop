@@ -3,19 +3,16 @@ package ru.satan.rule;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Supplier;
+import lombok.AllArgsConstructor;
 import ru.satan.Complaint;
 import ru.satan.Rule;
 
-public final class Condition implements Rule {
+@AllArgsConstructor
+public final class ConditionRule implements Rule {
 
     private final Supplier<Boolean> predicate;
 
     private final Complaint complaint;
-
-    Condition(final Supplier<Boolean> predicate, final Complaint complaint) {
-        this.predicate = predicate;
-        this.complaint = complaint;
-    }
 
     @Override
     public Collection<Complaint> complaints() {

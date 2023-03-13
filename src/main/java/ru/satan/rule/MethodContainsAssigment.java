@@ -2,23 +2,21 @@ package ru.satan.rule;
 
 import java.util.Collection;
 import java.util.regex.Pattern;
+import lombok.AllArgsConstructor;
 import ru.satan.Complaint;
 import ru.satan.Method;
 import ru.satan.Rule;
 import ru.satan.complaint.WrongMethodSignature;
 
+@AllArgsConstructor
 public final class MethodContainsAssigment implements Rule {
 
-    private static final Pattern ASSIGMENT = Pattern.compile("this\\.[a-zA-Z_]\\w*\\s*=\\s*.+?;\n");
+    private static final Pattern PATTERN = Pattern.compile("this\\.[a-zA-Z_]\\w*\\s*=\\s*.+?;\n");
     private final Method method;
-
-    MethodContainsAssigment(final Method method) {
-        this.method = method;
-    }
 
     @Override
     public Collection<Complaint> complaints() {
-        return new Condition(
+        return new ConditionRule(
             this::containsAssigment,
             new WrongMethodSignature(
                 this.method,
@@ -28,6 +26,6 @@ public final class MethodContainsAssigment implements Rule {
     }
 
     private boolean containsAssigment() {
-        return MethodContainsAssigment.ASSIGMENT.matcher(this.method.body()).find();
+        return MethodContainsAssigment.PATTERN.matcher(this.method.body()).find();
     }
 }

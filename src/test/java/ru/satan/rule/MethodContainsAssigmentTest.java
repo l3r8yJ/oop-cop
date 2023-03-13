@@ -1,40 +1,29 @@
 package ru.satan.rule;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
-import org.cactoos.bytes.BytesOf;
-import org.cactoos.io.ResourceOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.api.extension.ExtendWith;
+import ru.satan.extensions.InvalidClass;
+import ru.satan.extensions.ValidClass;
 
-class MethodContainsAssigmentTest {
+final class MethodContainsAssigmentTest {
 
     @Test
-    void failsWhenInvalid(@TempDir final Path temp) throws Exception {
-        Files.write(
-            temp.resolve("Test.java"),
-            new BytesOf(
-                new ResourceOf("InvalidClass.java")
-            ).asBytes()
-        );
+    @ExtendWith(InvalidClass.class)
+    void failsWhenInvalid(final Path clazz) {
         MatcherAssert.assertThat(
-            new CompositePathRule(temp).complaints(),
+            new CompositePathRule(clazz).complaints(),
             Matchers.not(Matchers.empty())
         );
     }
 
     @Test
-    void notFailsWhenValid(@TempDir final Path temp) throws Exception {
-        Files.write(
-            temp.resolve("Test.java"),
-            new BytesOf(
-                new ResourceOf("ValidClass.java")
-            ).asBytes()
-        );
+    @ExtendWith(ValidClass.class)
+    void passesWhenValid(final Path clazz) {
         MatcherAssert.assertThat(
-            new CompositePathRule(temp).complaints(),
+            new CompositePathRule(clazz).complaints(),
             Matchers.empty()
         );
     }

@@ -1,18 +1,15 @@
 package ru.satan.complaint;
 
+import lombok.AllArgsConstructor;
 import ru.satan.Complaint;
 import ru.satan.Method;
 
+@AllArgsConstructor
 public class WrongMethodSignature implements Complaint {
 
     private final Method method;
 
     private final String explanation;
-
-    public WrongMethodSignature(final Method method, final String explanation) {
-        this.method = method;
-        this.explanation = explanation;
-    }
 
     @Override
     public final String message() {
