@@ -21,7 +21,7 @@
     <maven-invoker-plugin.version>3.5.0</maven-invoker-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <lombok.version>1.18.26</lombok.version>
-    <jtcop.version>0.1.8</jtcop.version>
+    <jtcop.version>0.1.9</jtcop.version>
     <jacoco.version>0.8.8</jacoco.version>
   </properties>
   <dependencies>
@@ -242,7 +242,7 @@
       </plugin>
       <plugin>
         <groupId>com.github.volodya-lombrozo</groupId>
-        <artifactId>test-naming-conventions</artifactId>
+        <artifactId>jtcop-maven-plugin</artifactId>
         <version>${jtcop.version}</version>
         <executions>
           <execution>
