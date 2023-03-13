@@ -1,5 +1,7 @@
 architect:
   - l3r8yJ
+docker:
+  image: l3r8y/rultor-image:1.0.2
 secrets:
   settings.xml: l3r8yJ/home#assets/settings.xml
 merge:
