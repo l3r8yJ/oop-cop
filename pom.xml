@@ -169,9 +169,7 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.version}</version>
         <configuration>
-          <output>
-            file
-          </output>
+          <output>file</output>
         </configuration>
         <executions>
           <execution>
