@@ -13,7 +13,7 @@ final class ClassMethodsTest {
     @ExtendWith(InvalidClass.class)
     void parsesRightWay(final Path clazz) {
         MatcherAssert.assertThat(
-            "Class contains only one method",
+            "Class contains 1 method",
             new ClassMethods(clazz).all().size(),
             Matchers.equalTo(1)
         );
