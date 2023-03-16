@@ -1,13 +1,13 @@
-package ru.satan.extensions;
+package ru.l3r8y.www.extensions;
 
 import java.nio.file.Path;
 import java.util.Objects;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolver;
-import ru.satan.fake.FakeClass;
+import ru.l3r8y.www.fake.FakeClass;
 
-public final class InvalidClass implements ParameterResolver {
+public class CaseWithoutThis implements ParameterResolver {
 
     @Override
     public boolean supportsParameter(
@@ -22,6 +22,7 @@ public final class InvalidClass implements ParameterResolver {
         final ParameterContext pctx,
         final ExtensionContext ectx
     ) {
-        return new FakeClass("InvalidClass.java").asPath();
+        return new FakeClass("CaseWithoutThis.java").asPath();
     }
+
 }

@@ -1,4 +1,4 @@
-package ru.satan.fake;
+package ru.l3r8y.www.fake;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;

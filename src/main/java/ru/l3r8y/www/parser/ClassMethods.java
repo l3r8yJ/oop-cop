@@ -1,4 +1,4 @@
-package ru.satan.parser;
+package ru.l3r8y.www.parser;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -10,8 +10,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
-import ru.satan.Method;
-import ru.satan.Methods;
+import ru.l3r8y.www.Method;
+import ru.l3r8y.www.Methods;
 
 @AllArgsConstructor
 public class ClassMethods implements Methods {

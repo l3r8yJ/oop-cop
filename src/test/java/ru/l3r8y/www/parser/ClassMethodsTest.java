@@ -1,11 +1,11 @@
-package ru.satan.parser;
+package ru.l3r8y.www.parser;
 
 import java.nio.file.Path;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import ru.satan.extensions.InvalidClass;
+import ru.l3r8y.www.extensions.InvalidClass;
 
 final class ClassMethodsTest {
 

@@ -1,11 +1,11 @@
-package ru.satan.rule;
+package ru.l3r8y.www.rule;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
-import ru.satan.Complaint;
-import ru.satan.Rule;
+import ru.l3r8y.www.Complaint;
+import ru.l3r8y.www.Rule;
 
 @AllArgsConstructor
 public final class ConditionRule implements Rule {

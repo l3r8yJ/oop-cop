@@ -1,4 +1,4 @@
-package ru.satan;
+package ru.l3r8y.www;
 
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -8,8 +8,8 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import ru.satan.complaint.CompoundComplaint;
-import ru.satan.rule.CompositePathRule;
+import ru.l3r8y.www.complaint.CompoundComplaint;
+import ru.l3r8y.www.rule.CompositePathRule;
 
 @Mojo(name = "check", defaultPhase = LifecyclePhase.VALIDATE)
 public final class ValidateMojo extends AbstractMojo {

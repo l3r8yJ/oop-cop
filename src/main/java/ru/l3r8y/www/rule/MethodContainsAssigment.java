@@ -1,12 +1,12 @@
-package ru.satan.rule;
+package ru.l3r8y.www.rule;
 
 import java.util.Collection;
 import java.util.regex.Pattern;
 import lombok.AllArgsConstructor;
-import ru.satan.Complaint;
-import ru.satan.Method;
-import ru.satan.Rule;
-import ru.satan.complaint.WrongMethodSignature;
+import ru.l3r8y.www.Complaint;
+import ru.l3r8y.www.Method;
+import ru.l3r8y.www.Rule;
+import ru.l3r8y.www.complaint.WrongMethodSignature;
 
 @AllArgsConstructor
 public final class MethodContainsAssigment implements Rule {

@@ -1,8 +1,8 @@
-package ru.satan.complaint;
+package ru.l3r8y.www.complaint;
 
 import lombok.AllArgsConstructor;
-import ru.satan.Complaint;
-import ru.satan.Method;
+import ru.l3r8y.www.Complaint;
+import ru.l3r8y.www.Method;
 
 @AllArgsConstructor
 public class WrongMethodSignature implements Complaint {

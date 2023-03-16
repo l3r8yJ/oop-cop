@@ -1,4 +1,4 @@
-package ru.satan;
+package ru.l3r8y.www;
 
 import java.nio.file.Path;
 

@@ -1,4 +1,4 @@
-package ru.satan;
+package ru.l3r8y.www;
 
 @FunctionalInterface
 public interface Complaint {

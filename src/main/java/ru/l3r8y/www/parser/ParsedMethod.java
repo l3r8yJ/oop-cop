@@ -1,8 +1,8 @@
-package ru.satan.parser;
+package ru.l3r8y.www.parser;
 
 import java.nio.file.Path;
 import lombok.AllArgsConstructor;
-import ru.satan.Method;
+import ru.l3r8y.www.Method;
 
 @AllArgsConstructor
 public final class ParsedMethod implements Method {
