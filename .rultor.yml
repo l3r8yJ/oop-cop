@@ -4,6 +4,8 @@ docker:
   image: l3r8y/rultor-image:1.0.2
 assets:
   settings.xml: l3r8yJ/home#assets/settings.xml
+  secring.gpg: l3r8yJ/home#assets/secring.gpg
+  pubring.gpg: l3r8yJ/home#assets/pubring.gpg
 merge:
   script:
     - "mvn clean install --errors --batch-mode"
