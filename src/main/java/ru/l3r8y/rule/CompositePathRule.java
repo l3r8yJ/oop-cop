@@ -1,4 +1,4 @@
-package ru.l3r8y.www.rule;
+package ru.l3r8y.rule;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,10 +9,10 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
-import ru.l3r8y.www.Complaint;
-import ru.l3r8y.www.Method;
-import ru.l3r8y.www.Rule;
-import ru.l3r8y.www.parser.ClassMethods;
+import ru.l3r8y.Complaint;
+import ru.l3r8y.Method;
+import ru.l3r8y.Rule;
+import ru.l3r8y.parser.ClassMethods;
 
 @AllArgsConstructor
 public final class CompositePathRule implements Rule {

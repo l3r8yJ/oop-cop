@@ -1,4 +1,4 @@
-package ru.l3r8y.www;
+package ru.l3r8y;
 
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -8,13 +8,13 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import ru.l3r8y.www.complaint.CompoundComplaint;
-import ru.l3r8y.www.rule.CompositePathRule;
+import ru.l3r8y.complaint.CompoundComplaint;
+import ru.l3r8y.rule.CompositePathRule;
 
-@Mojo(name = "check", defaultPhase = LifecyclePhase.VALIDATE)
+@Mojo(name = "search", defaultPhase = LifecyclePhase.VALIDATE)
 public final class ValidateMojo extends AbstractMojo {
 
-    @Parameter(defaultValue = "${project}")
+    @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
     @Parameter(defaultValue = "true")

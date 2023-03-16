@@ -28,14 +28,14 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>ru.sa-tan</groupId>
+        <groupId>ru.l3r8y</groupId>
         <artifactId>sa-tan</artifactId>
         <version>@project.version@</version>
         <executions>
           <execution>
             <id>integration-test</id>
             <goals>
-              <goal>check</goal>
+              <goal>search</goal>
             </goals>
             <configuration>
               <failOnError>false</failOnError>

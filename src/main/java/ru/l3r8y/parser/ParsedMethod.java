@@ -1,8 +1,8 @@
-package ru.l3r8y.www.parser;
+package ru.l3r8y.parser;
 
 import java.nio.file.Path;
 import lombok.AllArgsConstructor;
-import ru.l3r8y.www.Method;
+import ru.l3r8y.Method;
 
 @AllArgsConstructor
 public final class ParsedMethod implements Method {

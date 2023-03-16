@@ -1,4 +1,4 @@
-package ru.l3r8y.www;
+package ru.l3r8y;
 
 import java.nio.file.Path;
 

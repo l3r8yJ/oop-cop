@@ -1,4 +1,4 @@
-package ru.l3r8y.www.fake;
+package ru.l3r8y.fake;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

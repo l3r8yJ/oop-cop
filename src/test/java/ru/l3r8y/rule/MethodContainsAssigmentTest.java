@@ -1,4 +1,4 @@
-package ru.l3r8y.www.rule;
+package ru.l3r8y.rule;
 
 import java.nio.file.Path;
 import org.hamcrest.MatcherAssert;
@@ -6,9 +6,9 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import ru.l3r8y.www.extensions.CaseWithoutThis;
-import ru.l3r8y.www.extensions.InvalidClass;
-import ru.l3r8y.www.extensions.ValidClass;
+import ru.l3r8y.extensions.CaseWithoutThis;
+import ru.l3r8y.extensions.InvalidClass;
+import ru.l3r8y.extensions.ValidClass;
 
 final class MethodContainsAssigmentTest {
 

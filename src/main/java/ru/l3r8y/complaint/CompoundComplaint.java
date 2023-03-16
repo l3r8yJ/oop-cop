@@ -1,9 +1,9 @@
-package ru.l3r8y.www.complaint;
+package ru.l3r8y.complaint;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import ru.l3r8y.www.Complaint;
+import ru.l3r8y.Complaint;
 
 @AllArgsConstructor
 public final class CompoundComplaint implements Complaint {
