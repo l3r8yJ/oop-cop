@@ -55,7 +55,7 @@
     <jtcop.version>0.1.9</jtcop.version>
     <jacoco.version>0.8.8</jacoco.version>
     <nexus-staging.version>1.6.13</nexus-staging.version>
-    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+    <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
   </properties>
   <dependencies>
     <dependency>
@@ -367,16 +367,6 @@
               <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
             </configuration>
-            <executions>
-              <execution>
-                <id>deploy-to-sonatype</id>
-                <phase>deploy</phase>
-                <goals>
-                  <goal>deploy</goal>
-                  <goal>release</goal>
-                </goals>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>
