@@ -14,7 +14,7 @@ import ru.l3r8y.rule.CompositePathRule;
 @Mojo(name = "search", defaultPhase = LifecyclePhase.VALIDATE)
 public final class ValidateMojo extends AbstractMojo {
 
-    @Parameter(defaultValue = "${project}", required = true, readonly = true)
+    @Parameter(defaultValue = "${project}")
     private MavenProject project;
 
     @Parameter(defaultValue = "true")
