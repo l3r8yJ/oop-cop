@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public final class CompositePathRule implements Rule {
     private final Path start;
 
     @Override
-    public Collection<Complaint> complaints() {
-        final Collection<Complaint> accum;
+    public List<Complaint> complaints() {
+        final List<Complaint> accum;
         if (Files.exists(this.start)) {
             try(final Stream<Path> files = Files.walk(this.start)) {
                 accum = files

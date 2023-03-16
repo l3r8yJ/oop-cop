@@ -14,7 +14,7 @@ import ru.l3r8y.Method;
 import ru.l3r8y.Methods;
 
 @AllArgsConstructor
-public class ClassMethods implements Methods {
+public final class ClassMethods implements Methods {
 
     private final Path path;
 

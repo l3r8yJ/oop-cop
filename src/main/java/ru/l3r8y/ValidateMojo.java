@@ -1,7 +1,7 @@
 package ru.l3r8y;
 
 import java.nio.file.Paths;
-import java.util.Collection;
+import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -23,7 +23,7 @@ public final class ValidateMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoFailureException {
         this.getLog().info("Running Satan plugin");
-        final Collection<Complaint> complaints = new CompositePathRule(
+        final List<Complaint> complaints = new CompositePathRule(
             Paths.get(this.project.getCompileSourceRoots().get(0))
         ).complaints();
         if (!complaints.isEmpty() && this.failOnError) {
