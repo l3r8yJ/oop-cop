@@ -295,7 +295,7 @@
       <activation>
         <activeByDefault>false</activeByDefault>
         <property>
-          <name>3FF9B1F42FB9BD7DCE4276CF3093B52753E93208</name>
+          <name>gpg.keyname</name>
         </property>
       </activation>
       <distributionManagement>
