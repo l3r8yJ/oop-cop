@@ -5,6 +5,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.stmt.BlockStmt;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public final class ClassMethods implements Methods {
                 new ParsedMethod(
                     node.getNameAsString(),
                     mtd.getNameAsString(),
-                    mtd.getBody().orElseThrow().toString(),
+                    mtd.getBody().orElse(new BlockStmt()).toString(),
                     this.path
                 )
             );

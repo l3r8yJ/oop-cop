@@ -35,7 +35,13 @@ public final class CompositePathRule implements Rule {
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             } catch (final IOException ex) {
-                throw new IllegalStateException(ex);
+                throw new IllegalStateException(
+                    String.format(
+                        "Error occupied while checking java sources: %s\n",
+                        ex.getMessage()
+                    ),
+                    ex
+                );
             }
         } else {
             accum = Collections.emptyList();
@@ -44,14 +50,17 @@ public final class CompositePathRule implements Rule {
     }
 
     private static Collection<Complaint> checkAssigment(final Collection<Method> methods) {
+        final Collection<Complaint> result;
         if (methods.isEmpty()) {
-            throw new IllegalStateException("Project doesn't contains any methods");
+            result = Collections.emptyList();
+        } else {
+            final Collection<Complaint> cmps = new ArrayList<>(0);
+            methods.stream()
+                .map(MethodContainsAssigment::new)
+                .map(MethodContainsAssigment::complaints)
+                .forEach(cmps::addAll);
+            result = cmps;
         }
-        final Collection<Complaint> cmps = new ArrayList<>(0);
-        methods.stream()
-            .map(MethodContainsAssigment::new)
-            .map(MethodContainsAssigment::complaints)
-            .forEach(cmps::addAll);
-        return cmps;
+        return result;
     }
 }
