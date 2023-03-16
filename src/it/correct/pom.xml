@@ -37,9 +37,6 @@
             <goals>
               <goal>search</goal>
             </goals>
-            <configuration>
-              <failOnError>false</failOnError>
-            </configuration>
           </execution>
         </executions>
       </plugin>
