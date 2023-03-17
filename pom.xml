@@ -41,9 +41,10 @@
     <url>https://www.rultor.com/s/sa-tan</url>
   </ciManagement>
   <properties>
+    <java.version>8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <javaparser-core.version>3.25.1</javaparser-core.version>
     <cactoos.version>0.55.0</cactoos.version>
     <hamcrest.version>2.2</hamcrest.version>
