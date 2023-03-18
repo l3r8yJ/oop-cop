@@ -1,3 +1,26 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2023. Ivanchuck Ivan.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package ru.l3r8y.parser;
 
 import com.github.javaparser.StaticJavaParser;
@@ -14,9 +37,17 @@ import lombok.AllArgsConstructor;
 import ru.l3r8y.Method;
 import ru.l3r8y.Methods;
 
+/**
+ * The methods of class.
+ *
+ * @since 0.1.0
+ */
 @AllArgsConstructor
 public final class ClassMethods implements Methods {
 
+    /**
+     * Path to the class.
+     */
     private final Path path;
 
     @Override
@@ -24,9 +55,12 @@ public final class ClassMethods implements Methods {
         final Collection<Method> methods = new ArrayList<>(0);
         try {
             final CompilationUnit parsed = StaticJavaParser.parse(this.path);
-            for (final Node node : parsed.getChildNodes()) {
-                if (node instanceof ClassOrInterfaceDeclaration) {
-                    this.transferMethods(methods, (ClassOrInterfaceDeclaration) node);
+            for (final Node clazz : parsed.getChildNodes()) {
+                if (clazz instanceof ClassOrInterfaceDeclaration) {
+                    this.fromNodeToParsedMethod(
+                        methods,
+                        (ClassOrInterfaceDeclaration) clazz
+                    );
                 }
             }
         } catch (final IOException ex) {
@@ -38,16 +72,22 @@ public final class ClassMethods implements Methods {
         return methods;
     }
 
-    private void transferMethods(
+    /**
+     * Maps methods from {@link ClassOrInterfaceDeclaration} to {@link ParsedMethod}.
+     *
+     * @param methods The list of methods to map
+     * @param clazz The class
+     */
+    private void fromNodeToParsedMethod(
         final Collection<Method> methods,
-        final ClassOrInterfaceDeclaration node
+        final ClassOrInterfaceDeclaration clazz
     ) {
-        for (final MethodDeclaration mtd : node.getMethods()) {
+        for (final MethodDeclaration method : clazz.getMethods()) {
             methods.add(
                 new ParsedMethod(
-                    node.getNameAsString(),
-                    mtd.getNameAsString(),
-                    mtd.getBody().orElse(new BlockStmt()).toString(),
+                    clazz.getNameAsString(),
+                    method.getNameAsString(),
+                    method.getBody().orElse(new BlockStmt()).toString(),
                     this.path
                 )
             );

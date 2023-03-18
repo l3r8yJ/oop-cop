@@ -21,41 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.rule;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.function.Supplier;
-import lombok.AllArgsConstructor;
-import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
 
 /**
- * It's a rule that can be applied to a `Condition` object.
+ * The complaints.
  *
  * @since 0.1.0
  */
-@AllArgsConstructor
-public final class ConditionRule implements Rule {
-
-    /**
-     * The predicate.
-     */
-    private final Supplier<Boolean> predicate;
-
-    /**
-     * The complaint.
-     */
-    private final Complaint complaint;
-
-    @Override
-    public Collection<Complaint> complaints() {
-        final Collection<Complaint> accum;
-        if (this.predicate.get()) {
-            accum = Collections.singleton(this.complaint);
-        } else {
-            accum = Collections.emptyList();
-        }
-        return accum;
-    }
-}
+package ru.l3r8y.complaint;
