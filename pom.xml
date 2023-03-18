@@ -54,7 +54,7 @@
   </licenses>
   <ciManagement>
     <system>rultor</system>
-    <url>http://www.rultor.com/p/l3r8yJ/sa-tan</url>
+    <url>https://www.rultor.com/p/l3r8yJ/sa-tan</url>
   </ciManagement>
   <properties>
     <java.version>8</java.version>
