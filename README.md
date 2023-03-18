@@ -54,7 +54,7 @@ at least **Maven 3.1.+** and **Java 8+**.
     <plugin>
       <groupId>ru.l3r8y</groupId>
       <artifactId>sa-tan</artifactId>
-      <version>0.1.2</version>
+      <version>0.1.3</version>
       <executions>
         <execution>
           <goals>
