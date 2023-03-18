@@ -2,11 +2,14 @@
 
 ![](https://maven-badges.herokuapp.com/maven-central/ru.l3r8y/sa-tan/badge.svg)
 
-A plugin for Maven that will let you know you have a problem if it sees setters in your project. 
-When I talk about setters I don't mean method name signatures, I mean methods with a changeable object state
+A plugin for Maven that will let you know you have a problem if it sees setters
+in your project. When I talk about setters I don't mean method name signatures,
+I mean methods with a changeable object state
 
 ## Examples
+
 This class is valid
+
 ```java
 class MyValidClass {
     private final String name;
@@ -16,6 +19,7 @@ class MyValidClass {
     }
 }
 ```
+
 This class is invalid
 
 ```java
@@ -33,8 +37,12 @@ class MyInvalidClass {
 ```
 
 ## How to use
-The plugin could be run using several approaches but for both of them you need at least **Maven 3.1.+** and **Java 8+**.
+
+The plugin could be run using several approaches but for both of them you need
+at least **Maven 3.1.+** and **Java 8+**.
+
 ### Add as maven plugin into your `pom.xml`
+
 ```xml
 <build>
   <plugins>
@@ -53,7 +61,9 @@ The plugin could be run using several approaches but for both of them you need a
   </plugins>
 </build>
 ```
+
 ### Run plugin directly
+
 ```bash
 mvn ru.l3r8y:sa-tan:search
 ``` 

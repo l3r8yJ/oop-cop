@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) 2023. Ivanchuck Ivan.
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included
+  ~ in all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.l3r8y</groupId>
@@ -9,24 +33,16 @@
   <name>sa-tan</name>
   <url>https://www.l3r8y.ru/sa-tan</url>
   <scm>
-    <connection>
-      scm:git:git@github.com:l3r8yJ/sa-tan.git
-    </connection>
-    <developerConnection>
-      scm:git:ssh://@github.com:l3r8yJ/sa-tan.git
-    </developerConnection>
-    <url>
-      https://github.com/l3r8yJ/sa-tan/tree/master
-    </url>
+    <connection>scm:git:git@github.com:l3r8yJ/sa-tan.git</connection>
+    <developerConnection>scm:git:ssh://@github.com:l3r8yJ/sa-tan.git</developerConnection>
+    <url>https://github.com/l3r8yJ/sa-tan/tree/master</url>
   </scm>
   <developers>
     <developer>
       <name>Ivan Ivanchuk</name>
       <email>l3r8y@duck.com</email>
       <roles>
-        <role>
-          Architect
-        </role>
+        <role>Architect</role>
       </roles>
     </developer>
   </developers>
@@ -61,6 +77,8 @@
     <jacoco.version>0.8.8</jacoco.version>
     <nexus-staging.version>1.6.13</nexus-staging.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+    <qulice-maven-plugin.version>0.22.0</qulice-maven-plugin.version>
+    <sa-tan.version>0.1.2</sa-tan.version>
   </properties>
   <dependencies>
     <dependency>
@@ -256,24 +274,15 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>com.github.volodya-lombrozo</groupId>
-        <artifactId>jtcop-maven-plugin</artifactId>
-        <version>${jtcop.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <artifactId>maven-invoker-plugin</artifactId>
         <version>${maven-invoker-plugin.version}</version>
         <configuration>
-          <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+          <cloneProjectsTo>
+            ${project.build.directory}/it
+          </cloneProjectsTo>
           <settingsFile>src/it/settings.xml</settingsFile>
-          <localRepositoryPath>${project.build.directory}/local-repo
+          <localRepositoryPath>
+            ${project.build.directory}/local-repo
           </localRepositoryPath>
           <postBuildHookScript>verify</postBuildHookScript>
           <streamLogsOnFailures>true</streamLogsOnFailures>
@@ -292,6 +301,59 @@
   </build>
   <profiles>
     <profile>
+      <id>qulice</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.qulice</groupId>
+            <artifactId>qulice-maven-plugin</artifactId>
+            <version>${qulice-maven-plugin.version}</version>
+            <configuration>
+              <license>file:${basedir}/LICENSE.txt</license>
+              <excludes>
+                <exclude>pmd:/src/test/resources/.*</exclude>
+                <exclude>pmd:/src/it/.*</exclude>
+                <exclude>checkstyle:/src/test/resources/.*</exclude>
+                <exclude>checkstyle:/src/it/.*</exclude>
+                <exclude>duplicatefinder:.*</exclude>
+              </excludes>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>com.github.volodya-lombrozo</groupId>
+            <artifactId>jtcop-maven-plugin</artifactId>
+            <version>${jtcop.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>ru.l3r8y</groupId>
+            <artifactId>sa-tan</artifactId>
+            <version>${sa-tan.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>search</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>release</id>
       <activation>
         <activeByDefault>false</activeByDefault>
@@ -306,8 +368,7 @@
         </snapshotRepository>
         <repository>
           <id>ossrh</id>
-          <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-          </url>
+          <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
       </distributionManagement>
       <build>
