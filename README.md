@@ -1,5 +1,10 @@
 [<img src="https://raw.githubusercontent.com/l3r8yJ/sa-tan/8f6e97d0287f4f922b6cd685548490a48e26c496/s8an.svg" width="150"/>](https://www.l3r8y.ru/sa-tan/)
 
+
+[![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![DevOps By Rultor.com](http://www.rultor.com/b/objectionary/eo)](http://www.rultor.com/p/objectionary/eo)
+[![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
+
 ![](https://maven-badges.herokuapp.com/maven-central/ru.l3r8y/sa-tan/badge.svg)
 
 A plugin for Maven that will let you know you have a problem if it sees setters in your project. 
