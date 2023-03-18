@@ -45,7 +45,7 @@ public final class MethodContainsAssigment implements Rule {
      *  {@code this.field = newValue;}
      * </p>
      */
-    private static final Pattern PATTERN = Pattern.compile("this\\.[a-zA-Z_]\\w*\\s*=\\s*.+?;\n");
+    private static final Pattern PATTERN = Pattern.compile("this\\.[a-zA-Z_]\\w*\\s*=\\s*.+?;");
 
     /**
      * The method to check.

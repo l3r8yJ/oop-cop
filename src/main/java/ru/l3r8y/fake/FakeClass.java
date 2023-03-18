@@ -53,7 +53,7 @@ public final class FakeClass {
     @SneakyThrows
     public Path asPath() {
         try {
-            final Path temp = Files.createTempDirectory(".");
+            final Path temp = Files.createTempDirectory("");
             return Files.write(
                 temp.resolve("Test.java"),
                 new BytesOf(new ResourceOf(this.name)).asBytes()
