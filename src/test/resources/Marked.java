@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import ru.l3r8y.annotation.Mutable;
+import ru.l3r8y.annotations.Mutable;
 
 @Mutable
 class Marked {

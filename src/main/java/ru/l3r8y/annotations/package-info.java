@@ -27,4 +27,4 @@
  *
  * @since 0.1.4
  */
-package ru.l3r8y.annotation;
+package ru.l3r8y.annotations;
