@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.extensions.CaseWithoutThis;
 import ru.l3r8y.extensions.InvalidClass;
+import ru.l3r8y.extensions.Marked;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
@@ -48,8 +49,9 @@ final class MethodContainsAssigmentTest {
     @ExtendWith(InvalidClass.class)
     void failsWhenInvalid(final Path clazz) {
         MatcherAssert.assertThat(
-            new CompositePathRule(clazz).complaints().size(),
-            Matchers.equalTo(1)
+            "InvalidClass contains 1 broken method",
+            new CompositePathRule(clazz).complaints(),
+            Matchers.hasSize(1)
         );
     }
 
@@ -58,8 +60,9 @@ final class MethodContainsAssigmentTest {
     @Disabled
     void failsWithoutThisKeyword(final Path clazz) {
         MatcherAssert.assertThat(
-            new CompositePathRule(clazz).complaints().size(),
-            Matchers.equalTo(1)
+            "CaseWithoutThis contains 1 broken method",
+            new CompositePathRule(clazz).complaints(),
+            Matchers.hasSize(1)
         );
     }
 
@@ -67,6 +70,17 @@ final class MethodContainsAssigmentTest {
     @ExtendWith(ValidClass.class)
     void passesWhenValid(final Path clazz) {
         MatcherAssert.assertThat(
+            "ValidClass contains no broken methods",
+            new CompositePathRule(clazz).complaints(),
+            Matchers.empty()
+        );
+    }
+
+    @Test
+    @ExtendWith(Marked.class)
+    void passesWhenMutableMarked(final Path clazz) {
+        MatcherAssert.assertThat(
+            "Marked class wasn't checked",
             new CompositePathRule(clazz).complaints(),
             Matchers.empty()
         );

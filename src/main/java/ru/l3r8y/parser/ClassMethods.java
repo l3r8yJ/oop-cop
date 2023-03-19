@@ -28,11 +28,13 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import ru.l3r8y.Method;
 import ru.l3r8y.Methods;
@@ -52,24 +54,48 @@ public final class ClassMethods implements Methods {
 
     @Override
     public Collection<Method> all() {
-        final Collection<Method> methods = new ArrayList<>(0);
+        final Collection<Method> accumulator = new ArrayList<>(0);
+        this.pullMethods(accumulator);
+        return accumulator;
+    }
+
+    /**
+     * For each class in the file, add all of its methods to the collection.
+     *
+     * @param methods The collection of methods to add to.
+     */
+    private void pullMethods(final Collection<Method> methods) {
         try {
             final CompilationUnit parsed = StaticJavaParser.parse(this.path);
-            for (final Node clazz : parsed.getChildNodes()) {
-                if (clazz instanceof ClassOrInterfaceDeclaration) {
-                    this.fromNodeToParsedMethod(
-                        methods,
-                        (ClassOrInterfaceDeclaration) clazz
-                    );
-                }
-            }
+            parsed.getChildNodes().forEach(
+                clazz -> this.processNodeIfClassDeclaration(methods, clazz)
+            );
         } catch (final IOException ex) {
             throw new IllegalStateException(
                 String.format("Unable to get all methods: %s", ex.getMessage()),
                 ex
             );
         }
-        return methods;
+    }
+
+    /**
+     * If the node is a class, then process it.
+     *
+     * @param methods Collection of methods that will be filled with methods found in class.
+     * @param clazz The node that is being processed.
+     */
+    private void processNodeIfClassDeclaration(final Collection<Method> methods, final Node clazz) {
+        if (clazz instanceof ClassOrInterfaceDeclaration) {
+            final Optional<AnnotationExpr> annotation = ClassOrInterfaceDeclaration.class
+                .cast(clazz)
+                .getAnnotationByName("Mutable");
+            if (!annotation.isPresent()) {
+                this.fromNodeToParsedMethod(
+                    methods,
+                    (ClassOrInterfaceDeclaration) clazz
+                );
+            }
+        }
     }
 
     /**
