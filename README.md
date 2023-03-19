@@ -13,14 +13,25 @@ I mean methods with a changeable object state
 
 ## Examples
 
-This class is valid
+These classes are valid
 
 ```java
+import ru.l3r8y.annotations.Mutable;
+
 class MyValidClass {
     private final String name;
-    
+
     public MyValidClass(final String n) {
         this.name = n;
+    }
+}
+
+@Mutable
+class MarkedClass {
+    private String name;
+
+    public void setName(final String name) {
+        this.name = name;
     }
 }
 ```
@@ -72,3 +83,12 @@ at least **Maven 3.1.+** and **Java 8+**.
 ```bash
 mvn ru.l3r8y:sa-tan:search
 ``` 
+
+## How to Contribute
+Fork repository, make changes, send us a [pull request](https://www.yegor256.com/2014/04/15/github-guidelines.html).
+We will review your changes and apply them to the `master` branch shortly,
+provided they don't violate our quality standards. To avoid frustration,
+before sending us your pull request please run full Maven build:
+```bash
+mvn clean install -Pqulice
+```
