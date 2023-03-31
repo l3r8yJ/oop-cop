@@ -55,7 +55,7 @@ class MyInvalidClass {
 ## How to use
 
 The plugin could be run using several approaches but for both of them you need
-at least **Maven 3.1.+** and **Java 8+**.
+at least **Maven 3.8.+** and **Java 8+**.
 
 ### Add as maven plugin into your `pom.xml`
 
