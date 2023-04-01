@@ -27,7 +27,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.l3r8y</groupId>
   <artifactId>sa-tan</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1.5</version>
   <packaging>maven-plugin</packaging>
   <description>The Maven plugin for checking class mutability within your project</description>
   <name>sa-tan</name>
