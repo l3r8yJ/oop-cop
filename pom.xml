@@ -78,7 +78,7 @@
     <nexus-staging.version>1.6.13</nexus-staging.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
     <qulice-maven-plugin.version>0.22.0</qulice-maven-plugin.version>
-    <sa-tan.version>0.1.4</sa-tan.version>
+    <sa-tan.version>0.1.5</sa-tan.version>
   </properties>
   <dependencies>
     <dependency>
