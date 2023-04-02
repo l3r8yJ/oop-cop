@@ -47,7 +47,7 @@ public final class ValidateMojo extends AbstractMojo {
      * The project.
      */
     @Parameter(defaultValue = "${project}")
-    private MavenProject project;
+    MavenProject project;
 
     /**
      * The fail on error.
