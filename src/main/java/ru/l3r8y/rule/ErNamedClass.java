@@ -31,6 +31,11 @@ import ru.l3r8y.Complaint;
 import ru.l3r8y.Rule;
 import ru.l3r8y.complaint.WrongClassNamingComplaint;
 
+/*
+ * @todo #35 Annotations to skip rule.
+ * It is necessary to create an annotation for cases
+ * when the suffix '-er' cannot be avoided.
+ * */
 /**
  * It checks if class is -er named.
  *
