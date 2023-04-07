@@ -50,7 +50,7 @@ final class MethodContainsAssigmentTest {
     void failsWhenInvalid(final Path clazz) {
         MatcherAssert.assertThat(
             "InvalidClass contains 1 broken method",
-            new CompositePathRule(clazz).complaints(),
+            new CompositeMethodsContainsAssigment(clazz).complaints(),
             Matchers.hasSize(1)
         );
     }
@@ -61,7 +61,7 @@ final class MethodContainsAssigmentTest {
     void failsWithoutThisKeyword(final Path clazz) {
         MatcherAssert.assertThat(
             "CaseWithoutThis contains 1 broken method",
-            new CompositePathRule(clazz).complaints(),
+            new CompositeMethodsContainsAssigment(clazz).complaints(),
             Matchers.hasSize(1)
         );
     }
@@ -71,7 +71,7 @@ final class MethodContainsAssigmentTest {
     void passesWhenValid(final Path clazz) {
         MatcherAssert.assertThat(
             "ValidClass contains no broken methods",
-            new CompositePathRule(clazz).complaints(),
+            new CompositeMethodsContainsAssigment(clazz).complaints(),
             Matchers.empty()
         );
     }
@@ -81,7 +81,7 @@ final class MethodContainsAssigmentTest {
     void passesWhenMutableMarked(final Path clazz) {
         MatcherAssert.assertThat(
             "Marked class wasn't checked",
-            new CompositePathRule(clazz).complaints(),
+            new CompositeMethodsContainsAssigment(clazz).complaints(),
             Matchers.empty()
         );
     }

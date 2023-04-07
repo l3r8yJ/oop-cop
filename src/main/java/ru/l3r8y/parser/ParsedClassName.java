@@ -34,6 +34,7 @@ import ru.l3r8y.ClassName;
  * @since 0.1.6
  */
 @RequiredArgsConstructor
+@SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
 public final class ParsedClassName implements ClassName {
 
     /**
@@ -45,7 +46,6 @@ public final class ParsedClassName implements ClassName {
      * Path to file.
      */
     private final Path path;
-
 
     @Override
     public String value() {

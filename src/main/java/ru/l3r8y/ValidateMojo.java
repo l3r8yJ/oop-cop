@@ -23,7 +23,9 @@
  */
 package ru.l3r8y;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
@@ -32,7 +34,8 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import ru.l3r8y.complaint.CompoundComplaint;
-import ru.l3r8y.rule.CompositePathRule;
+import ru.l3r8y.rule.CompositeErNamedClass;
+import ru.l3r8y.rule.CompositeMethodsContainsAssigment;
 
 /**
  * It's a Maven plugin that runs a set of rules against the source code of the
@@ -47,7 +50,7 @@ public final class ValidateMojo extends AbstractMojo {
      * The project.
      */
     @Parameter(defaultValue = "${project}")
-    MavenProject project;
+    private MavenProject project;
 
     /**
      * The fail on error.
@@ -59,10 +62,11 @@ public final class ValidateMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoFailureException {
-        this.getLog().info("Running Satan plugin");
-        final List<Complaint> complaints = new CompositePathRule(
-            Paths.get(this.project.getCompileSourceRoots().get(0))
-        ).complaints();
+        this.getLog().info("Running Satan plugin...");
+        final Path start = Paths.get(this.project.getCompileSourceRoots().get(0));
+        final List<Complaint> complaints = new ArrayList<>(0);
+        complaints.addAll(new CompositeMethodsContainsAssigment(start).complaints());
+        complaints.addAll(new CompositeErNamedClass(start).complaints());
         if (!complaints.isEmpty() && this.failOnError) {
             throw new MojoFailureException(new CompoundComplaint(complaints).message());
         }

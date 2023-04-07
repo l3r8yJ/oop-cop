@@ -50,7 +50,7 @@ class CompoundComplaintTest {
     void mergesMessages() {
         final Collection<Complaint> complaints = Collections.nCopies(
             5,
-            new WrongMethodSignature(
+            new WrongMethodSignatureComplaint(
                 new ParsedMethod(
                     "ClassName",
                     "myCoolMethod()",

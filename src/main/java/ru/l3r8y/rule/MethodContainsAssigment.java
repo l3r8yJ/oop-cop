@@ -33,7 +33,7 @@ import lombok.AllArgsConstructor;
 import ru.l3r8y.Complaint;
 import ru.l3r8y.Method;
 import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongMethodSignature;
+import ru.l3r8y.complaint.WrongMethodSignatureComplaint;
 
 /**
  * It checks if a method contains an assignment.
@@ -60,7 +60,7 @@ public final class MethodContainsAssigment implements Rule {
     public Collection<Complaint> complaints() {
         return new ConditionRule(
             this::containsAssigment,
-            new WrongMethodSignature(
+            new WrongMethodSignatureComplaint(
                 this.method,
                 "method body contains an assignment, setters violates OOP principles"
             )

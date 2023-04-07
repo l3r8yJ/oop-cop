@@ -22,26 +22,8 @@
  * SOFTWARE.
  */
 
-package ru.l3r8y.complaint;
-
-import lombok.RequiredArgsConstructor;
-import ru.l3r8y.ClassName;
-import ru.l3r8y.Complaint;
-
-@RequiredArgsConstructor
-public final class ClassNamedWithEr implements Complaint {
-
-    private final ClassName clazz;
-
-    private final String explanation;
-
-    @Override
-    public String message() {
-        return String.format(
-            "'%s':\nClass %s named with '-er' suffix, %s\n",
-            this.clazz.path().toString(),
-            this.clazz.value(),
-            this.explanation
-        );
+class BadNamer {
+    public String call() {
+        return "I have a bad name!";
     }
 }

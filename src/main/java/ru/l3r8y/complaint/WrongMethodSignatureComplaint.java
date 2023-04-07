@@ -21,43 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package ru.l3r8y.complaint;
 
-package ru.l3r8y.rule;
-
-import java.util.Collection;
-import lombok.RequiredArgsConstructor;
-import ru.l3r8y.ClassName;
+import lombok.AllArgsConstructor;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongClassNamingComplaint;
+import ru.l3r8y.Method;
 
 /**
- * It checks if class is -er named.
+ * Complaint about wrong method signature.
  *
- * @since 0.1.6
+ * @since 0.1.0
  */
-@RequiredArgsConstructor
-public final class ErNamedClass implements Rule {
+@AllArgsConstructor
+public class WrongMethodSignatureComplaint implements Complaint {
 
     /**
-     * The name of class to check.
+     * The method.
      */
-    private final ClassName name;
+    private final Method method;
+
+    /**
+     * The explanation of what was wrong.
+     */
+    private final String explanation;
 
     @Override
-    public Collection<Complaint> complaints() {
-        return new ConditionRule(
-            this::isEndsWithEr,
-            new WrongClassNamingComplaint(this.name, "class ends with '-er' suffix")
-        ).complaints();
-    }
-
-    /**
-     * Is ends with -er.
-     *
-     * @return True if ends with '-er'.
-     */
-    private boolean isEndsWithEr() {
-        return this.name.value().endsWith("er");
+    public final String message() {
+        return String.format(
+            "'%s': Method '%s#%s' has wrong method signature, because %s",
+            this.method.path(),
+            this.method.className(),
+            this.method.name(),
+            this.explanation
+        );
     }
 }

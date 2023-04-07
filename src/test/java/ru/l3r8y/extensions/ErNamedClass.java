@@ -21,38 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.complaint;
+package ru.l3r8y.extensions;
 
-import lombok.AllArgsConstructor;
-import ru.l3r8y.Complaint;
-import ru.l3r8y.Method;
+import java.nio.file.Path;
+import java.util.Objects;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolver;
+import ru.l3r8y.fake.FakeClass;
 
 /**
- * Complaint about wrong method signature.
+ * It's a parameter resolver that resolves the `Path` parameter of a test method.
  *
- * @since 0.1.0
+ * @since 0.1.6
  */
-@AllArgsConstructor
-public class WrongMethodSignature implements Complaint {
-
-    /**
-     * The method.
-     */
-    private final Method method;
-
-    /**
-     * The explanation of what was wrong.
-     */
-    private final String explanation;
+public final class ErNamedClass implements ParameterResolver {
 
     @Override
-    public final String message() {
-        return String.format(
-            "'%s': Method '%s#%s' has wrong method signature, because %s",
-            this.method.path(),
-            this.method.className(),
-            this.method.name(),
-            this.explanation
-        );
+    public boolean supportsParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return Objects.equals(pctx.getParameter().getType(), Path.class);
     }
+
+    @Override
+    public Object resolveParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return new FakeClass("ErNamedClass.java").asPath();
+    }
+
 }

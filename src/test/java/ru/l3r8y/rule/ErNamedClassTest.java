@@ -24,40 +24,38 @@
 
 package ru.l3r8y.rule;
 
-import java.util.Collection;
-import lombok.RequiredArgsConstructor;
-import ru.l3r8y.ClassName;
-import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongClassNamingComplaint;
+import java.nio.file.Path;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import ru.l3r8y.extensions.ErNamedClass;
+import ru.l3r8y.extensions.ValidClass;
 
 /**
- * It checks if class is -er named.
+ * Test case for {@link ru.l3r8y.rule.ErNamedClass}.
  *
  * @since 0.1.6
  */
-@RequiredArgsConstructor
-public final class ErNamedClass implements Rule {
+final class ErNamedClassTest {
 
-    /**
-     * The name of class to check.
-     */
-    private final ClassName name;
-
-    @Override
-    public Collection<Complaint> complaints() {
-        return new ConditionRule(
-            this::isEndsWithEr,
-            new WrongClassNamingComplaint(this.name, "class ends with '-er' suffix")
-        ).complaints();
+    @Test
+    @ExtendWith(ErNamedClass.class)
+    void failsWithErOnEnd(final Path clazz) {
+        MatcherAssert.assertThat(
+            "Will fail with bad name",
+            new CompositeErNamedClass(clazz).complaints(),
+            Matchers.not(Matchers.empty())
+        );
     }
 
-    /**
-     * Is ends with -er.
-     *
-     * @return True if ends with '-er'.
-     */
-    private boolean isEndsWithEr() {
-        return this.name.value().endsWith("er");
+    @Test
+    @ExtendWith(ValidClass.class)
+    void passesWhenNameIsFine(final Path clazz) {
+        MatcherAssert.assertThat(
+            "Ok when class name without 'er' suffix",
+            new CompositeErNamedClass(clazz).complaints(),
+            Matchers.empty()
+        );
     }
 }

@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package ru.l3r8y.rule;
 
 import java.io.IOException;
@@ -32,27 +33,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Method;
 import ru.l3r8y.Rule;
-import ru.l3r8y.parser.ClassMethods;
+import ru.l3r8y.parser.ClassNames;
 
 /**
- * It's a rule that matches a path that is composed of other rules.
+ * Checks all java files with {@link ErNamedClass}.
  *
- * @since 0.1.0
+ * @since 0.1.6
  */
-@AllArgsConstructor
-public final class CompositePathRule implements Rule {
+@RequiredArgsConstructor
+public final class CompositeErNamedClass implements Rule {
 
     /**
-     * A path to the root of the project.
+     * The start path.
      */
     private final Path start;
 
     @Override
-    public List<Complaint> complaints() {
+    public Collection<Complaint> complaints() {
         final List<Complaint> accum;
         if (Files.exists(this.start)) {
             try (Stream<Path> files = Files.walk(this.start)) {
@@ -60,9 +61,9 @@ public final class CompositePathRule implements Rule {
                     .filter(Files::exists)
                     .filter(Files::isRegularFile)
                     .filter(p -> p.toString().endsWith(".java"))
-                    .map(ClassMethods::new)
-                    .map(ClassMethods::all)
-                    .map(CompositePathRule::checkAssigment)
+                    .map(ClassNames::new)
+                    .map(ClassNames::all)
+                    .map(CompositeErNamedClass::checkWithErNamedRule)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             } catch (final IOException ex) {
@@ -81,20 +82,20 @@ public final class CompositePathRule implements Rule {
     }
 
     /**
-     * It takes a collection of methods, and returns a collection of complaints.
+     * Checks with {@link ErNamedClass}.
      *
-     * @param methods A collection of methods to check
-     * @return A collection of complaints
+     * @param names Collection of class names.
+     * @return Collection of complaints.
      */
-    private static Collection<Complaint> checkAssigment(final Collection<Method> methods) {
+    private static Collection<Complaint> checkWithErNamedRule(final Collection<ClassName> names) {
         final Collection<Complaint> result;
-        if (methods.isEmpty()) {
+        if (names.isEmpty()) {
             result = Collections.emptyList();
         } else {
             final Collection<Complaint> cmps = new ArrayList<>(0);
-            methods.stream()
-                .map(MethodContainsAssigment::new)
-                .map(MethodContainsAssigment::complaints)
+            names.stream()
+                .map(ErNamedClass::new)
+                .map(ErNamedClass::complaints)
                 .forEach(cmps::addAll);
             result = cmps;
         }

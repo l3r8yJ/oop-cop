@@ -22,42 +22,37 @@
  * SOFTWARE.
  */
 
-package ru.l3r8y.rule;
+package ru.l3r8y.complaint;
 
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongClassNamingComplaint;
 
 /**
- * It checks if class is -er named.
+ * Complaint for naming issues.
  *
  * @since 0.1.6
  */
 @RequiredArgsConstructor
-public final class ErNamedClass implements Rule {
+public final class WrongClassNamingComplaint implements Complaint {
 
     /**
-     * The name of class to check.
+     * Class with bad naming.
      */
-    private final ClassName name;
+    private final ClassName clazz;
+
+    /**
+     * The explanation.
+     */
+    private final String explanation;
 
     @Override
-    public Collection<Complaint> complaints() {
-        return new ConditionRule(
-            this::isEndsWithEr,
-            new WrongClassNamingComplaint(this.name, "class ends with '-er' suffix")
-        ).complaints();
-    }
-
-    /**
-     * Is ends with -er.
-     *
-     * @return True if ends with '-er'.
-     */
-    private boolean isEndsWithEr() {
-        return this.name.value().endsWith("er");
+    public String message() {
+        return String.format(
+            "'%s': Class '%s' has bad naming, %s\n",
+            this.clazz.path().toString(),
+            this.clazz.value(),
+            this.explanation
+        );
     }
 }
