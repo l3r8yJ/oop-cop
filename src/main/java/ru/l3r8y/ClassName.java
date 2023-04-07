@@ -22,48 +22,25 @@
  * SOFTWARE.
  */
 
-package ru.l3r8y.complaint;
+package ru.l3r8y;
 
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.regex.Pattern;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-import ru.l3r8y.Complaint;
-import ru.l3r8y.parser.ParsedMethod;
+import java.nio.file.Path;
+import org.cactoos.Scalar;
 
 /**
- * Test case for {@link CompoundComplaint}.
+ * Just class name.
  *
- * @since 0.1.4
+ * @since 0.1.6
  */
-class CompoundComplaintTest {
+public interface ClassName extends Scalar<String> {
 
     /**
-     * Separator for test.
+     * The path.
+     *
+     * @return Path to java file.
      */
-    private static final Pattern SEP = Pattern.compile("<sep>");
+    Path path();
 
-    @Test
-    void mergesMessages() {
-        final Collection<Complaint> complaints = Collections.nCopies(
-            5,
-            new WrongMethodSignatureComplaint(
-                new ParsedMethod(
-                    "ClassName",
-                    "myCoolMethod()",
-                    "{ return null; }",
-                    Paths.get("")
-                ),
-                "some cool explanation!<sep>"
-            )
-        );
-        MatcherAssert.assertThat(
-            "Length before equals length after",
-            CompoundComplaintTest.SEP.split(new CompoundComplaint(complaints).message()).length,
-            Matchers.equalTo(complaints.size())
-        );
-    }
+    @Override
+    String value();
 }

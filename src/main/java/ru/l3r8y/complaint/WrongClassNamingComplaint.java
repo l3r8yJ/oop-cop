@@ -24,46 +24,35 @@
 
 package ru.l3r8y.complaint;
 
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.regex.Pattern;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import lombok.RequiredArgsConstructor;
+import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.parser.ParsedMethod;
 
 /**
- * Test case for {@link CompoundComplaint}.
+ * Complaint for naming issues.
  *
- * @since 0.1.4
+ * @since 0.1.6
  */
-class CompoundComplaintTest {
+@RequiredArgsConstructor
+public final class WrongClassNamingComplaint implements Complaint {
 
     /**
-     * Separator for test.
+     * Class with bad naming.
      */
-    private static final Pattern SEP = Pattern.compile("<sep>");
+    private final ClassName clazz;
 
-    @Test
-    void mergesMessages() {
-        final Collection<Complaint> complaints = Collections.nCopies(
-            5,
-            new WrongMethodSignatureComplaint(
-                new ParsedMethod(
-                    "ClassName",
-                    "myCoolMethod()",
-                    "{ return null; }",
-                    Paths.get("")
-                ),
-                "some cool explanation!<sep>"
-            )
-        );
-        MatcherAssert.assertThat(
-            "Length before equals length after",
-            CompoundComplaintTest.SEP.split(new CompoundComplaint(complaints).message()).length,
-            Matchers.equalTo(complaints.size())
+    /**
+     * The explanation.
+     */
+    private final String explanation;
+
+    @Override
+    public String message() {
+        return String.format(
+            "'%s': Class '%s' has bad naming, %s\n",
+            this.clazz.path().toString(),
+            this.clazz.value(),
+            this.explanation
         );
     }
 }

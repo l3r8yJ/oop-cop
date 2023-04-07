@@ -21,67 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/*
- * @todo #1 Write implementation to pass #failsWithoutThisKeyword test case
- * Assigment must fails not only with 'this.' construction.
- */
+
 package ru.l3r8y.rule;
 
 import java.nio.file.Path;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import ru.l3r8y.extensions.CaseWithoutThis;
-import ru.l3r8y.extensions.InvalidClass;
-import ru.l3r8y.extensions.Marked;
+import ru.l3r8y.extensions.ErNamedClass;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
- * Test case for {@link MethodContainsAssigment}.
+ * Test case for {@link ru.l3r8y.rule.ErNamedClass}.
  *
- * @since 0.1.0
+ * @since 0.1.6
  */
-final class MethodContainsAssigmentTest {
+final class ErNamedClassTest {
 
     @Test
-    @ExtendWith(InvalidClass.class)
-    void failsWhenInvalid(final Path clazz) {
+    @ExtendWith(ErNamedClass.class)
+    void failsWithErOnEnd(final Path clazz) {
         MatcherAssert.assertThat(
-            "InvalidClass contains 1 broken method",
-            new CompositeMethodsContainsAssigment(clazz).complaints(),
-            Matchers.hasSize(1)
-        );
-    }
-
-    @Test
-    @ExtendWith(CaseWithoutThis.class)
-    @Disabled
-    void failsWithoutThisKeyword(final Path clazz) {
-        MatcherAssert.assertThat(
-            "CaseWithoutThis contains 1 broken method",
-            new CompositeMethodsContainsAssigment(clazz).complaints(),
-            Matchers.hasSize(1)
+            "Will fail with bad name",
+            new CompositeErNamedClass(clazz).complaints(),
+            Matchers.not(Matchers.empty())
         );
     }
 
     @Test
     @ExtendWith(ValidClass.class)
-    void passesWhenValid(final Path clazz) {
+    void passesWhenNameIsFine(final Path clazz) {
         MatcherAssert.assertThat(
-            "ValidClass contains no broken methods",
-            new CompositeMethodsContainsAssigment(clazz).complaints(),
-            Matchers.empty()
-        );
-    }
-
-    @Test
-    @ExtendWith(Marked.class)
-    void passesWhenMutableMarked(final Path clazz) {
-        MatcherAssert.assertThat(
-            "Marked class wasn't checked",
-            new CompositeMethodsContainsAssigment(clazz).complaints(),
+            "Ok when class name without 'er' suffix",
+            new CompositeErNamedClass(clazz).complaints(),
             Matchers.empty()
         );
     }

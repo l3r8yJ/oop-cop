@@ -21,49 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package ru.l3r8y.complaint;
 
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.regex.Pattern;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import lombok.AllArgsConstructor;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.parser.ParsedMethod;
+import ru.l3r8y.Method;
 
 /**
- * Test case for {@link CompoundComplaint}.
+ * Complaint about wrong method signature.
  *
- * @since 0.1.4
+ * @since 0.1.0
  */
-class CompoundComplaintTest {
+@AllArgsConstructor
+public class WrongMethodSignatureComplaint implements Complaint {
 
     /**
-     * Separator for test.
+     * The method.
      */
-    private static final Pattern SEP = Pattern.compile("<sep>");
+    private final Method method;
 
-    @Test
-    void mergesMessages() {
-        final Collection<Complaint> complaints = Collections.nCopies(
-            5,
-            new WrongMethodSignatureComplaint(
-                new ParsedMethod(
-                    "ClassName",
-                    "myCoolMethod()",
-                    "{ return null; }",
-                    Paths.get("")
-                ),
-                "some cool explanation!<sep>"
-            )
-        );
-        MatcherAssert.assertThat(
-            "Length before equals length after",
-            CompoundComplaintTest.SEP.split(new CompoundComplaint(complaints).message()).length,
-            Matchers.equalTo(complaints.size())
+    /**
+     * The explanation of what was wrong.
+     */
+    private final String explanation;
+
+    @Override
+    public final String message() {
+        return String.format(
+            "'%s': Method '%s#%s' has wrong method signature, because %s",
+            this.method.path(),
+            this.method.className(),
+            this.method.name(),
+            this.explanation
         );
     }
 }

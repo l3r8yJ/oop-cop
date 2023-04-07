@@ -22,48 +22,38 @@
  * SOFTWARE.
  */
 
-package ru.l3r8y.complaint;
+package ru.l3r8y.parser;
 
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.regex.Pattern;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-import ru.l3r8y.Complaint;
-import ru.l3r8y.parser.ParsedMethod;
+import java.nio.file.Path;
+import lombok.RequiredArgsConstructor;
+import ru.l3r8y.ClassName;
 
 /**
- * Test case for {@link CompoundComplaint}.
+ * Parsed class name.
  *
- * @since 0.1.4
+ * @since 0.1.6
  */
-class CompoundComplaintTest {
+@RequiredArgsConstructor
+@SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
+public final class ParsedClassName implements ClassName {
 
     /**
-     * Separator for test.
+     * The class name value.
      */
-    private static final Pattern SEP = Pattern.compile("<sep>");
+    private final String clazz;
 
-    @Test
-    void mergesMessages() {
-        final Collection<Complaint> complaints = Collections.nCopies(
-            5,
-            new WrongMethodSignatureComplaint(
-                new ParsedMethod(
-                    "ClassName",
-                    "myCoolMethod()",
-                    "{ return null; }",
-                    Paths.get("")
-                ),
-                "some cool explanation!<sep>"
-            )
-        );
-        MatcherAssert.assertThat(
-            "Length before equals length after",
-            CompoundComplaintTest.SEP.split(new CompoundComplaint(complaints).message()).length,
-            Matchers.equalTo(complaints.size())
-        );
+    /**
+     * Path to file.
+     */
+    private final Path path;
+
+    @Override
+    public String value() {
+        return this.clazz;
+    }
+
+    @Override
+    public Path path() {
+        return this.path;
     }
 }

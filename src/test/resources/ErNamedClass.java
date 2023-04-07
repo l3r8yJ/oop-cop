@@ -22,9 +22,8 @@
  * SOFTWARE.
  */
 
-String log = new File(basedir, 'build.log').text;
-[
-  "Method 'HasSetters#setField' has wrong method signature, because method body contains an assignment, setters violates OOP principles",
-  "Class 'BadNamer' has bad naming, class ends with '-er' suffix"
-].each { assert log.contains(it): "Log doesn't contain ['$it']" }
-true
+class IHaveBadNameIsAResolver {
+    public String sayHi() {
+        return "hi, i'm resolver!";
+    }
+}
