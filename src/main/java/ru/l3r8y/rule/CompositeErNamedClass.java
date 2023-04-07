@@ -39,6 +39,13 @@ import ru.l3r8y.Complaint;
 import ru.l3r8y.Rule;
 import ru.l3r8y.parser.ClassNames;
 
+/*
+* @todo #35 Remove code duplications.
+* The CompositeErNamedClass#complaints
+* and CompositeErNamedClass#checkWithErNamedClassRule
+* are code duplication from CompositeMethodsContainsAssignment.
+* Refactoring is necessary.
+* */
 /**
  * Checks all java files with {@link ErNamedClass}.
  *
