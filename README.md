@@ -5,6 +5,7 @@
 [![DevOps By Rultor.com](http://www.rultor.com/b/objectionary/eo)](http://www.rultor.com/p/l3r8yJ/sa-tan)
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
+[![codecov](https://codecov.io/gh/l3r8yJ/sa-tan/branch/master/graph/badge.svg?token=G1YJ0GTB8W)](https://codecov.io/gh/l3r8yJ/sa-tan)
 ![](https://maven-badges.herokuapp.com/maven-central/ru.l3r8y/sa-tan/badge.svg)
 
 A plugin for Maven that will let you know you have a problem if it sees setters
