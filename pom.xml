@@ -73,7 +73,7 @@
     <maven-invoker-plugin.version>3.5.1</maven-invoker-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <lombok.version>1.18.26</lombok.version>
-    <jtcop.version>0.1.9</jtcop.version>
+    <jtcop.version>0.1.11</jtcop.version>
     <jacoco.version>0.8.9</jacoco.version>
     <nexus-staging.version>1.6.13</nexus-staging.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
