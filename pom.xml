@@ -61,7 +61,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <javaparser-core.version>3.25.2</javaparser-core.version>
+    <javaparser-core.version>3.25.3</javaparser-core.version>
     <cactoos.version>0.55.0</cactoos.version>
     <hamcrest.version>2.2</hamcrest.version>
     <jcabi-matchers.version>1.6.0</jcabi-matchers.version>
