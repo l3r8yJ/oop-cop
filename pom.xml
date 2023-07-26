@@ -66,7 +66,7 @@
     <hamcrest.version>2.2</hamcrest.version>
     <jcabi-matchers.version>1.6.0</jcabi-matchers.version>
     <junit.version>5.10.0</junit.version>
-    <maven-plugin.version>3.8.2</maven-plugin.version>
+    <maven-plugin.version>3.9.0</maven-plugin.version>
     <maven.version>3.9.1</maven.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
