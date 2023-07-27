@@ -68,7 +68,7 @@
     <junit.version>5.10.0</junit.version>
     <maven-plugin.version>3.9.0</maven-plugin.version>
     <maven.version>3.9.3</maven.version>
-    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+    <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
     <maven-invoker-plugin.version>3.6.0</maven-invoker-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
