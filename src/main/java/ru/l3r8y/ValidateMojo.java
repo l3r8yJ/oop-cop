@@ -35,6 +35,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import ru.l3r8y.complaint.CompoundComplaint;
 import ru.l3r8y.rule.CompositeErNamedClass;
+import ru.l3r8y.rule.CompositeLongClassName;
 import ru.l3r8y.rule.CompositeMethodsContainsAssigment;
 
 /**
@@ -54,11 +55,22 @@ public final class ValidateMojo extends AbstractMojo {
 
     /**
      * The fail on error.
+     *
      * @checkstyle MemberNameCheck (6 lines).
      */
     @SuppressWarnings("PMD.ImmutableField")
     @Parameter(defaultValue = "true")
     private boolean failOnError = true;
+
+    /**
+     * Length of Class Name.
+     *
+     * @see ru.l3r8y.rule.LongClassNameCheck
+     * @checkstyle MemberNameCheck (6 lines).
+     */
+    @SuppressWarnings("PMD.ImmutableField")
+    @Parameter
+    private int okClassNameLength = 13;
 
     @Override
     public void execute() throws MojoFailureException {
@@ -67,6 +79,11 @@ public final class ValidateMojo extends AbstractMojo {
         final List<Complaint> complaints = new ArrayList<>(0);
         complaints.addAll(new CompositeMethodsContainsAssigment(start).complaints());
         complaints.addAll(new CompositeErNamedClass(start).complaints());
+        complaints.addAll(
+            new CompositeLongClassName(
+                start, this.okClassNameLength
+            ).complaints()
+        );
         if (!complaints.isEmpty() && this.failOnError) {
             throw new MojoFailureException(new CompoundComplaint(complaints).message());
         }
