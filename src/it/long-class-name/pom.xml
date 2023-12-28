@@ -63,7 +63,7 @@
             </goals>
             <configuration>
               <failOnError>false</failOnError>
-              <okClassNameLength>15</okClassNameLength>
+              <maxClassNameLen>15</maxClassNameLen>
             </configuration>
           </execution>
         </executions>

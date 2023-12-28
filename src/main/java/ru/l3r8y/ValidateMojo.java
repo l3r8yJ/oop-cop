@@ -70,7 +70,7 @@ public final class ValidateMojo extends AbstractMojo {
      */
     @SuppressWarnings("PMD.ImmutableField")
     @Parameter
-    private int okClassNameLength = 13;
+    private int maxClassNameLen = 13;
 
     @Override
     public void execute() throws MojoFailureException {
@@ -81,7 +81,7 @@ public final class ValidateMojo extends AbstractMojo {
         complaints.addAll(new CompositeErNamedClass(start).complaints());
         complaints.addAll(
             new CompositeLongClassName(
-                start, this.okClassNameLength
+                start, this.maxClassNameLen
             ).complaints()
         );
         if (!complaints.isEmpty() && this.failOnError) {
