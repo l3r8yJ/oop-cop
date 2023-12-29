@@ -26,16 +26,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.l3r8y</groupId>
-  <artifactId>sa-tan</artifactId>
+  <artifactId>oop-cop</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <description>The Maven plugin for checking class mutability within your project</description>
-  <name>sa-tan</name>
+  <name>oop-cop</name>
   <url>https://www.l3r8y.ru/sa-tan</url>
   <scm>
-    <connection>scm:git:git@github.com:l3r8yJ/sa-tan.git</connection>
-    <developerConnection>scm:git:ssh://@github.com:l3r8yJ/sa-tan.git</developerConnection>
-    <url>https://github.com/l3r8yJ/sa-tan/tree/master</url>
+    <connection>scm:git:git@github.com:l3r8yJ/oop-cop.git</connection>
+    <developerConnection>scm:git:ssh://@github.com:l3r8yJ/oop-cop.git</developerConnection>
+    <url>https://github.com/l3r8yJ/oop-cop/tree/master</url>
   </scm>
   <developers>
     <developer>
@@ -54,7 +54,7 @@
   </licenses>
   <ciManagement>
     <system>rultor</system>
-    <url>https://www.rultor.com/p/l3r8yJ/sa-tan</url>
+    <url>https://www.rultor.com/p/l3r8yJ/oop-cop</url>
   </ciManagement>
   <properties>
     <java.version>8</java.version>
