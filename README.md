@@ -113,7 +113,27 @@ TBD..
 
 ## Long class names
 
-TBD..
+This example is valid:
+```java
+class PgUser {
+    ...
+}
+```
+
+while this is broken:
+```java
+class AbstractDatabaseConnection {
+    ...
+}
+```
+
+to configure the maximal reasonable length consider using the following parameter:
+```xml
+<configuration>
+  <maxClassNameLen>15</maxClassNameLen>
+  ...
+</configuration>
+```
 
 ## How to Contribute
 
