@@ -21,11 +21,11 @@ tells exactly where we are doing wrong.
 OOPCOP is a static analysis tool and a Maven plugin that will help you
 model your objects, classes, methods properly by rejecting your **non-perfect** code.
 These things we don't tolerate:
-* -ER class names e.g. Parser, Validator, Controller ([why?]())
-* Utility classes ([why?]())
-* Mutable Objects ([why?]())
-* Getters ([why?]())
-* Objects without state ([why?]())
+* -ER class names e.g. Parser, Validator, Controller ([why?](https://www.yegor256.com/2015/03/09/objects-end-with-er.html))
+* Utility classes ([why?](https://www.yegor256.com/2014/05/05/oop-alternative-to-utility-classes.html))
+* Mutable Objects ([why?](https://www.yegor256.com/2014/06/09/objects-should-be-immutable.html))
+* Getters ([why?](https://www.yegor256.com/2014/09/16/getters-and-setters-are-evil.html))
+* Objects without state ([why?](https://www.yegor256.com/2014/12/15/how-much-your-objects-encapsulate.html))
 * Long class names
 
 **How to use**. All you need is this (get the latest version [here](https://search.maven.org/artifact/ru.l3r8y/sa-tan)):
