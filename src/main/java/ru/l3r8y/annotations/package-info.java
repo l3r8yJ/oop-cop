@@ -23,7 +23,7 @@
  */
 
 /**
- * Sa-tan annotations.
+ * oop-cop annotations.
  *
  * @since 0.1.4
  */
