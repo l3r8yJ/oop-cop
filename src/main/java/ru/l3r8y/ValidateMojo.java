@@ -74,7 +74,6 @@ public final class ValidateMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoFailureException {
-        this.getLog().info("Running Satan plugin...");
         final Path start = Paths.get(this.project.getCompileSourceRoots().get(0));
         final List<Complaint> complaints = new ArrayList<>(0);
         complaints.addAll(new CompositeMethodsContainsAssigment(start).complaints());

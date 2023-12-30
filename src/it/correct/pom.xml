@@ -29,7 +29,7 @@
     <plugins>
       <plugin>
         <groupId>ru.l3r8y</groupId>
-        <artifactId>sa-tan</artifactId>
+        <artifactId>oop-cop</artifactId>
         <version>@project.version@</version>
         <executions>
           <execution>
