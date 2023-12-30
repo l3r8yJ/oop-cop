@@ -35,6 +35,7 @@ Maven:
     <plugin>
       <groupId>ru.l3r8y</groupId>
       <artifactId>oop-cop</artifactId>
+      <version>0.1.6</version>
       <executions>
         <execution>
           <goals>
