@@ -21,37 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package ru.l3r8y.complaint;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Method;
 
 /**
- * Complaint about wrong method signature.
+ * Complaint for naming issues.
  *
- * @since 0.1.0
+ * @since 0.1.6
  */
-@AllArgsConstructor
-public class WrongMethodSignatureComplaint implements Complaint {
+@RequiredArgsConstructor
+public final class WrongClassNaming implements Complaint {
 
     /**
-     * The method.
+     * Class with bad naming.
      */
-    private final Method method;
+    private final ClassName clazz;
 
     /**
-     * The explanation of what was wrong.
+     * The explanation.
      */
     private final String explanation;
 
     @Override
-    public final String message() {
+    public String message() {
         return String.format(
-            "'%s': Method '%s#%s' has wrong method signature, because %s",
-            this.method.path(),
-            this.method.className(),
-            this.method.name(),
+            "'%s': Class '%s' has bad naming, %s\n",
+            this.clazz.path().toString(),
+            this.clazz.value(),
             this.explanation
         );
     }

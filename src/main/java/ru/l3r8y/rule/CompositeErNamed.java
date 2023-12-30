@@ -52,7 +52,7 @@ import ru.l3r8y.parser.ClassNames;
  * @since 0.1.6
  */
 @RequiredArgsConstructor
-public final class CompositeErNamedClass implements Rule {
+public final class CompositeErNamed implements Rule {
 
     /**
      * The start path.
@@ -70,7 +70,7 @@ public final class CompositeErNamedClass implements Rule {
                     .filter(p -> p.toString().endsWith(".java"))
                     .map(ClassNames::new)
                     .map(ClassNames::all)
-                    .map(CompositeErNamedClass::checkWithErNamedRule)
+                    .map(CompositeErNamed::checkWithErNamedRule)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             } catch (final IOException ex) {

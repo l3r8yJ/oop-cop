@@ -78,7 +78,7 @@
     <nexus-staging.version>1.6.13</nexus-staging.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
     <qulice-maven-plugin.version>0.22.0</qulice-maven-plugin.version>
-    <sa-tan.version>0.1.5</sa-tan.version>
+    <oop-cop.version>0.1.6</oop-cop.version>
   </properties>
   <dependencies>
     <dependency>
@@ -340,8 +340,8 @@
           </plugin>
           <plugin>
             <groupId>ru.l3r8y</groupId>
-            <artifactId>sa-tan</artifactId>
-            <version>${sa-tan.version}</version>
+            <artifactId>oop-cop</artifactId>
+            <version>${oop-cop.version}</version>
             <executions>
               <execution>
                 <goals>
@@ -349,6 +349,9 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <maxClassNameLen>20</maxClassNameLen>
+            </configuration>
           </plugin>
         </plugins>
       </build>

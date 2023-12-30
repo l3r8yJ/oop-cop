@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
 import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongClassNamingComplaint;
+import ru.l3r8y.complaint.WrongClassNaming;
 
 /*
  * @todo #35 Annotations to skip rule.
@@ -53,7 +53,7 @@ public final class ErNamedClass implements Rule {
     public Collection<Complaint> complaints() {
         return new ConditionRule(
             this::isEndsWithEr,
-            new WrongClassNamingComplaint(this.name, "class ends with '-er' suffix")
+            new WrongClassNaming(this.name, "class ends with '-er' suffix")
         ).complaints();
     }
 

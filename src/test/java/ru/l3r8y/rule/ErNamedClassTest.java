@@ -44,7 +44,7 @@ final class ErNamedClassTest {
     void failsWithErOnEnd(final Path clazz) {
         MatcherAssert.assertThat(
             "Will fail with bad name",
-            new CompositeErNamedClass(clazz).complaints(),
+            new CompositeErNamed(clazz).complaints(),
             Matchers.not(Matchers.empty())
         );
     }
@@ -54,7 +54,7 @@ final class ErNamedClassTest {
     void passesWhenNameIsFine(final Path clazz) {
         MatcherAssert.assertThat(
             "Ok when class name without 'er' suffix",
-            new CompositeErNamedClass(clazz).complaints(),
+            new CompositeErNamed(clazz).complaints(),
             Matchers.empty()
         );
     }

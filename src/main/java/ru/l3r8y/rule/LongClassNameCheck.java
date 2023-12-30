@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
 import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongClassNamingComplaint;
+import ru.l3r8y.complaint.WrongClassNaming;
 
 /**
  * Check for Long class name.
@@ -52,7 +52,7 @@ public final class LongClassNameCheck implements Rule {
     public Collection<Complaint> complaints() {
         return new ConditionRule(
             this::longerThanOk,
-            new WrongClassNamingComplaint(
+            new WrongClassNaming(
                 this.name,
                 // @checkstyle StringLiteralsConcatenationCheck (4 lines).
                 String.format(

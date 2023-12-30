@@ -43,7 +43,7 @@ final class LongClassNameCheckTest {
     void failsWithErOnEnd(final Path clazz) {
         MatcherAssert.assertThat(
             "Build is not failed as expected",
-            new CompositeLongClassName(clazz, 15).complaints(),
+            new CompositeClassName(clazz, 15).complaints(),
             Matchers.not(Matchers.empty())
         );
     }
@@ -53,7 +53,7 @@ final class LongClassNameCheckTest {
     void passesWhenNameIsFine(final Path clazz) {
         MatcherAssert.assertThat(
             "Build is not successed as expected",
-            new CompositeLongClassName(clazz, 13).complaints(),
+            new CompositeClassName(clazz, 13).complaints(),
             Matchers.empty()
         );
     }

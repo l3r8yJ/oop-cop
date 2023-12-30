@@ -32,32 +32,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lombok.RequiredArgsConstructor;
-import ru.l3r8y.ClassName;
+import lombok.AllArgsConstructor;
 import ru.l3r8y.Complaint;
+import ru.l3r8y.Method;
 import ru.l3r8y.Rule;
-import ru.l3r8y.parser.ClassNames;
+import ru.l3r8y.parser.ClassMethods;
 
 /**
- * Composite Long Class Name.
+ * It's a rule that matches a path that is composed of other rules.
  *
- * @since 0.2.0
+ * @since 0.1.0
  */
-@RequiredArgsConstructor
-public final class CompositeLongClassName implements Rule {
+@AllArgsConstructor
+public final class AssigmentCheck implements Rule {
 
     /**
-     * Path to start.
+     * A path to the root of the project.
      */
     private final Path start;
 
-    /**
-     * Length to pass.
-     */
-    private final int fine;
-
     @Override
-    public Collection<Complaint> complaints() {
+    public List<Complaint> complaints() {
         final List<Complaint> accum;
         if (Files.exists(this.start)) {
             try (Stream<Path> files = Files.walk(this.start)) {
@@ -65,9 +60,9 @@ public final class CompositeLongClassName implements Rule {
                     .filter(Files::exists)
                     .filter(Files::isRegularFile)
                     .filter(p -> p.toString().endsWith(".java"))
-                    .map(ClassNames::new)
-                    .map(ClassNames::all)
-                    .map(this::checkLongName)
+                    .map(ClassMethods::new)
+                    .map(ClassMethods::all)
+                    .map(AssigmentCheck::checkAssigment)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             } catch (final IOException ex) {
@@ -86,23 +81,20 @@ public final class CompositeLongClassName implements Rule {
     }
 
     /**
-     * Checks long class name in a collection of names.
-     * @param names Class names
-     * @return Complaints.
-     * @todo #81 Introduce new class from #checkLongName private method.
-     *  we should introduce new reusable class from private method
-     *  #checkLongName.
-     *  Don't forget to remove this puzzle.
+     * It takes a collection of methods, and returns a collection of complaints.
+     *
+     * @param methods A collection of methods to check
+     * @return A collection of complaints
      */
-    private Collection<Complaint> checkLongName(final Collection<ClassName> names) {
+    private static Collection<Complaint> checkAssigment(final Collection<Method> methods) {
         final Collection<Complaint> result;
-        if (names.isEmpty()) {
+        if (methods.isEmpty()) {
             result = Collections.emptyList();
         } else {
             final Collection<Complaint> cmps = new ArrayList<>(0);
-            names.stream()
-                .map(cl -> new LongClassNameCheck(cl, this.fine))
-                .map(LongClassNameCheck::complaints)
+            methods.stream()
+                .map(MethodChangesState::new)
+                .map(MethodChangesState::complaints)
                 .forEach(cmps::addAll);
             result = cmps;
         }

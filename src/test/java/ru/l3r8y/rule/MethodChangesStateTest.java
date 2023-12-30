@@ -39,18 +39,18 @@ import ru.l3r8y.extensions.Marked;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
- * Test case for {@link MethodContainsAssigment}.
+ * Test case for {@link MethodChangesState}.
  *
  * @since 0.1.0
  */
-final class MethodContainsAssigmentTest {
+final class MethodChangesStateTest {
 
     @Test
     @ExtendWith(InvalidClass.class)
     void failsWhenInvalid(final Path clazz) {
         MatcherAssert.assertThat(
             "InvalidClass contains 1 broken method",
-            new CompositeMethodsContainsAssigment(clazz).complaints(),
+            new AssigmentCheck(clazz).complaints(),
             Matchers.hasSize(1)
         );
     }
@@ -61,7 +61,7 @@ final class MethodContainsAssigmentTest {
     void failsWithoutThisKeyword(final Path clazz) {
         MatcherAssert.assertThat(
             "CaseWithoutThis contains 1 broken method",
-            new CompositeMethodsContainsAssigment(clazz).complaints(),
+            new AssigmentCheck(clazz).complaints(),
             Matchers.hasSize(1)
         );
     }
@@ -71,7 +71,7 @@ final class MethodContainsAssigmentTest {
     void passesWhenValid(final Path clazz) {
         MatcherAssert.assertThat(
             "ValidClass contains no broken methods",
-            new CompositeMethodsContainsAssigment(clazz).complaints(),
+            new AssigmentCheck(clazz).complaints(),
             Matchers.empty()
         );
     }
@@ -81,7 +81,7 @@ final class MethodContainsAssigmentTest {
     void passesWhenMutableMarked(final Path clazz) {
         MatcherAssert.assertThat(
             "Marked class wasn't checked",
-            new CompositeMethodsContainsAssigment(clazz).complaints(),
+            new AssigmentCheck(clazz).complaints(),
             Matchers.empty()
         );
     }

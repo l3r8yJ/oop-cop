@@ -34,9 +34,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import ru.l3r8y.complaint.CompoundComplaint;
-import ru.l3r8y.rule.CompositeErNamedClass;
-import ru.l3r8y.rule.CompositeLongClassName;
-import ru.l3r8y.rule.CompositeMethodsContainsAssigment;
+import ru.l3r8y.rule.AssigmentCheck;
+import ru.l3r8y.rule.CompositeClassName;
+import ru.l3r8y.rule.CompositeErNamed;
 
 /**
  * It's a Maven plugin that runs a set of rules against the source code of the
@@ -76,10 +76,10 @@ public final class ValidateMojo extends AbstractMojo {
     public void execute() throws MojoFailureException {
         final Path start = Paths.get(this.project.getCompileSourceRoots().get(0));
         final List<Complaint> complaints = new ArrayList<>(0);
-        complaints.addAll(new CompositeMethodsContainsAssigment(start).complaints());
-        complaints.addAll(new CompositeErNamedClass(start).complaints());
+        complaints.addAll(new AssigmentCheck(start).complaints());
+        complaints.addAll(new CompositeErNamed(start).complaints());
         complaints.addAll(
-            new CompositeLongClassName(
+            new CompositeClassName(
                 start, this.maxClassNameLen
             ).complaints()
         );
