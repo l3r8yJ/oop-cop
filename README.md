@@ -1,5 +1,3 @@
-[<img src="https://raw.githubusercontent.com/l3r8yJ/oop-cop/8f6e97d0287f4f922b6cd685548490a48e26c496/s8an.svg" width="150"/>](https://www.l3r8y.ru/oop-cop/)
-
 [![Managed By Self XDSD](https://self-xdsd.com/b/mbself.svg)](https://self-xdsd.com/p/l3r8yJ/oop-cop?provider=github)
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
