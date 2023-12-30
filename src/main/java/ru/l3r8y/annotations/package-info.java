@@ -23,7 +23,7 @@
  */
 
 /**
- * oop-cop annotations.
+ * Oop-cop annotations.
  *
  * @since 0.1.4
  */
