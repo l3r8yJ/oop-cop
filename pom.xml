@@ -71,7 +71,7 @@
     <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
     <maven-invoker-plugin.version>3.6.0</maven-invoker-plugin.version>
-    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
     <lombok.version>1.18.30</lombok.version>
     <jtcop.version>1.1.1</jtcop.version>
     <jacoco.version>0.8.10</jacoco.version>
