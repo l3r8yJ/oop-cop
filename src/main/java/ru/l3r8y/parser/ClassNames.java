@@ -77,7 +77,11 @@ public final class ClassNames implements Names {
         if (clazz instanceof ClassOrInterfaceDeclaration) {
             final ClassOrInterfaceDeclaration declaration =
                 ClassOrInterfaceDeclaration.class.cast(clazz);
-            if (!new IsSuppressedErSuffix(declaration).value()) {
+            if (!new IsSuppressed(
+                declaration,
+                "WorkerCheck"
+                ).value()
+            ) {
                 this.accum.add(
                     new ParsedClassName(
                         declaration.getNameAsString(), this.path

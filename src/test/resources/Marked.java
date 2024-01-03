@@ -22,9 +22,7 @@
  * SOFTWARE.
  */
 
-import ru.l3r8y.annotations.Mutable;
-
-@Mutable
+@SuppressWarnings("OOP.MutableStateCheck")
 class Marked {
     private String name;
 

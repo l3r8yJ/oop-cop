@@ -21,23 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package ru.l3r8y.extensions;
 
-package ru.l3r8y.annotations;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.nio.file.Path;
+import java.util.Objects;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolver;
+import ru.l3r8y.fake.FakeClass;
 
 /**
- * Mark annotation for mutable classes.
- * If you marked class as mutable it <b>have to</b> be mutable.
+ * JUnit's extension for class where 2+ checks are suppressed.
  *
- * @since 0.1.4
+ * @since 0.2.6
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Mutable {
+public final class ManySuppressions implements ParameterResolver {
+
+    @Override
+    public boolean supportsParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return Objects.equals(pctx.getParameter().getType(), Path.class);
+    }
+
+    @Override
+    public Object resolveParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx) {
+        return new FakeClass("Parser.java").asPath();
+    }
 }

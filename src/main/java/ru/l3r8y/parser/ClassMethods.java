@@ -28,13 +28,11 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import ru.l3r8y.Method;
 import ru.l3r8y.Methods;
@@ -86,10 +84,9 @@ public final class ClassMethods implements Methods {
      */
     private void processNodeIfClassDeclaration(final Collection<Method> methods, final Node clazz) {
         if (clazz instanceof ClassOrInterfaceDeclaration) {
-            final Optional<AnnotationExpr> annotation = ClassOrInterfaceDeclaration.class
-                .cast(clazz)
-                .getAnnotationByName("Mutable");
-            if (!annotation.isPresent()) {
+            final ClassOrInterfaceDeclaration declaration = ClassOrInterfaceDeclaration.class
+                .cast(clazz);
+            if (!new IsSuppressed(declaration, "MutableStateCheck").value()) {
                 this.fromNodeToParsedMethod(
                     methods,
                     (ClassOrInterfaceDeclaration) clazz

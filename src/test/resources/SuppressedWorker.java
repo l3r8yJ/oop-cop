@@ -1,4 +1,2 @@
-import ru.l3r8y.annotations.Worker;
-
-@Worker
+@SuppressWarnings("OOP.WorkerCheck")
 class SuppressedWorker {}

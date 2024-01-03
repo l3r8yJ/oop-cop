@@ -33,6 +33,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.extensions.InvalidClass;
 import ru.l3r8y.extensions.IsSuppressedErSuffix;
+import ru.l3r8y.extensions.ManySuppressions;
 
 /**
  * Test cases for {@link ClassNames}.
@@ -61,6 +62,23 @@ final class ClassNamesTest {
     @Test
     @ExtendWith(IsSuppressedErSuffix.class)
     void skipsSuppressedWorker(final Path clazz) {
+        final int expected = 0;
+        final Collection<ClassName> names = new ClassNames(clazz).all();
+        MatcherAssert.assertThat(
+            String.format(
+                "Class names %s size is not valid: %s, expected %s",
+                names,
+                names.size(),
+                expected
+            ),
+            names.size(),
+            new IsEqual<>(expected)
+        );
+    }
+
+    @Test
+    @ExtendWith(ManySuppressions.class)
+    void skipsManySuppressedChecks(final Path clazz) {
         final int expected = 0;
         final Collection<ClassName> names = new ClassNames(clazz).all();
         MatcherAssert.assertThat(
