@@ -55,7 +55,7 @@ $ mvn ru.l3r8y:oop-cop:search
 
 ## Mutable Objects
 
-These classes are valid
+These classes are valid:
 
 ```java
 import ru.l3r8y.annotations.Mutable;
@@ -69,7 +69,7 @@ class MyValidClass {
 }
 ```
 
-This class is invalid
+This class is invalid:
 
 ```java
 class MyInvalidClass {
