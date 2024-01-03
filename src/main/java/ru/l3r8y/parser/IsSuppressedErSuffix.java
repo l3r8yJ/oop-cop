@@ -21,48 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package ru.l3r8y.parser;
 
-package ru.l3r8y.rule;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import org.cactoos.Scalar;
+import ru.l3r8y.annotations.Worker;
 
-import java.util.Collection;
-import lombok.RequiredArgsConstructor;
-import ru.l3r8y.ClassName;
-import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongClassNaming;
-
-/*
- * @todo #35 Annotations to skip rule.
- * It is necessary to create an annotation for cases
- * when the suffix '-er' cannot be avoided.
- * */
 /**
- * It checks if class is -er named.
+ * Is class worker?
  *
- * @since 0.1.6
+ * @since 0.2.6
  */
-@RequiredArgsConstructor
-public final class ErNamedClass implements Rule {
+@Worker
+public final class IsSuppressedErSuffix implements Scalar<Boolean> {
 
     /**
-     * The name of class to check.
+     * Declaration.
      */
-    private final ClassName name;
+    private final ClassOrInterfaceDeclaration declaration;
+
+    /**
+     * Ctor.
+     *
+     * @param dclrtn Declaration
+     */
+    public IsSuppressedErSuffix(final ClassOrInterfaceDeclaration dclrtn) {
+        this.declaration = dclrtn;
+    }
 
     @Override
-    public Collection<Complaint> complaints() {
-        return new ConditionRule(
-            this::isEndsWithEr,
-            new WrongClassNaming(this.name, "class ends with '-er' suffix")
-        ).complaints();
+    public Boolean value() {
+        return this.declaration.getAnnotationByName("Worker").isPresent();
     }
 
-    /**
-     * Is ends with -er.
-     *
-     * @return True if ends with '-er'.
-     */
-    private boolean isEndsWithEr() {
-        return this.name.value().endsWith("er");
-    }
 }

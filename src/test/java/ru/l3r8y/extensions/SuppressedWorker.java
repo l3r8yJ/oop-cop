@@ -21,41 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package ru.l3r8y.rule;
+package ru.l3r8y.extensions;
 
 import java.nio.file.Path;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import ru.l3r8y.extensions.ErNamedClass;
-import ru.l3r8y.extensions.ValidClass;
+import java.util.Objects;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolver;
+import ru.l3r8y.fake.FakeClass;
+import ru.l3r8y.rule.ErClassNameCheck;
 
 /**
- * Test case for {@link ru.l3r8y.rule.ErNamedClass}.
+ * Suppressed worker for {@link ErClassNameCheck}.
  *
- * @since 0.1.6
+ * @since 0.2.6
  */
-final class ErNamedClassTest {
+public final class SuppressedWorker implements ParameterResolver {
 
-    @Test
-    @ExtendWith(ErNamedClass.class)
-    void failsWithErOnEnd(final Path clazz) {
-        MatcherAssert.assertThat(
-            "Will fail with bad name",
-            new CompositeErNamed(clazz).complaints(),
-            Matchers.not(Matchers.empty())
-        );
+    @Override
+    public boolean supportsParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return Objects.equals(pctx.getParameter().getType(), Path.class);
     }
 
-    @Test
-    @ExtendWith(ValidClass.class)
-    void passesWhenNameIsFine(final Path clazz) {
-        MatcherAssert.assertThat(
-            "Ok when class name without 'er' suffix",
-            new CompositeErNamed(clazz).complaints(),
-            Matchers.empty()
-        );
+    @Override
+    public Object resolveParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return new FakeClass("SuppressedWorker.java").asPath();
     }
 }

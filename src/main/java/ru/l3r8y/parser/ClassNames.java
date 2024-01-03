@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package ru.l3r8y.parser;
 
 import com.github.javaparser.StaticJavaParser;
@@ -76,10 +75,15 @@ public final class ClassNames implements Names {
      */
     private void addIfEndsWithEr(final Node clazz) {
         if (clazz instanceof ClassOrInterfaceDeclaration) {
-            final String name = ClassOrInterfaceDeclaration.class
-                .cast(clazz)
-                .getNameAsString();
-            this.accum.add(new ParsedClassName(name, this.path));
+            final ClassOrInterfaceDeclaration declaration =
+                ClassOrInterfaceDeclaration.class.cast(clazz);
+            if (!new IsSuppressedErSuffix(declaration).value()) {
+                this.accum.add(
+                    new ParsedClassName(
+                        declaration.getNameAsString(), this.path
+                    )
+                );
+            }
         }
     }
 

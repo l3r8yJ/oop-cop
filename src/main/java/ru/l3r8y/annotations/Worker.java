@@ -21,10 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package ru.l3r8y.annotations;
 
-String log = new File(basedir, 'build.log').text;
-[
-  "Method 'HasSetters#setField' has wrong method signature, because method body contains an assignment, setters violates OOP principles, read: https://www.l3r8y.ru/2023/03/17/hands-off-the-state-of-the-object",
-  "Class 'BadNamer' has bad naming, class ends with '-er' suffix, it's prohibited, read: https://www.yegor256.com/2015/03/09/objects-end-with-er.html"
-].each { assert log.contains(it): "Log doesn't contain ['$it']" }
-true
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * Annotation for Worker (those end up with -ER suffix).
+ *
+ * @since 0.2.6
+ */
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Worker {
+}

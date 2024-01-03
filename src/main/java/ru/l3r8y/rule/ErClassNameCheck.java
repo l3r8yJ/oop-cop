@@ -21,59 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/*
- * #22:15m/DEV Message about annotation.
- * Suggest removing mutability of class or mark class with {@code @Mutable}.
- */
+
 package ru.l3r8y.rule;
 
 import java.util.Collection;
-import java.util.regex.Pattern;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Method;
 import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongMethodSignature;
+import ru.l3r8y.complaint.WrongClassNaming;
 
 /**
- * It checks if a method contains an assignment.
+ * It checks if class is -er named.
  *
- * @since 0.1.0
+ * @since 0.1.6
  */
-@AllArgsConstructor
-public final class MethodChangesState implements Rule {
+@RequiredArgsConstructor
+public final class ErClassNameCheck implements Rule {
 
     /**
-     * Pattern which matches this assignments.
-     * <p>
-     *  {@code this.field = newValue;}
-     * </p>
+     * The name of class to check.
      */
-    private static final Pattern PATTERN = Pattern.compile("this\\.[a-zA-Z_]\\w*\\s*=\\s*.+?;");
-
-    /**
-     * The method to check.
-     */
-    private final Method method;
+    private final ClassName name;
 
     @Override
     public Collection<Complaint> complaints() {
         return new ConditionRule(
-            this::containsAssigment,
-            new WrongMethodSignature(
-                this.method,
-                "method body contains an assignment, setters violates OOP principles,"
-                + " read: https://www.l3r8y.ru/2023/03/17/hands-off-the-state-of-the-object"
+            this::isEndsWithEr,
+            new WrongClassNaming(
+                this.name,
+                "class ends with '-er' suffix, it's prohibited"
+                + " read: https://www.yegor256.com/2015/03/09/objects-end-with-er.html"
             )
         ).complaints();
     }
 
     /**
-     * If the method body contains an assignment, return true.
+     * Is ends with -er.
      *
-     * @return A boolean value.
+     * @return True if ends with '-er'.
      */
-    private boolean containsAssigment() {
-        return MethodChangesState.PATTERN.matcher(this.method.body()).find();
+    private boolean isEndsWithEr() {
+        return this.name.value().endsWith("er");
     }
 }
