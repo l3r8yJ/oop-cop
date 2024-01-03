@@ -55,7 +55,7 @@ $ mvn ru.l3r8y:oop-cop:search
 
 ## Mutable Objects
 
-These classes are valid
+These classes are valid:
 
 ```java
 import ru.l3r8y.annotations.Mutable;
@@ -67,18 +67,9 @@ class MyValidClass {
         this.name = n;
     }
 }
-
-@Mutable
-class MarkedClass {
-    private String name;
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-}
 ```
 
-This class is invalid
+This class is invalid:
 
 ```java
 class MyInvalidClass {
@@ -94,9 +85,33 @@ class MyInvalidClass {
 }
 ```
 
+check can be suppressed using: `@SuppressedWarnings("OOP.MutableStateCheck")`.
+
 ## Parsers, Validators, Controllers
 
-TBD..
+These examples are valid:
+
+```java
+class ParsedFile {
+  ...
+  public String asText() {
+      ...
+  }   
+}
+```
+
+While this is invalid:
+
+```java
+class FileParser {
+    ...
+    public String parse() {
+        ...
+    }
+}
+```
+
+this check can be suppressed using: `@SupressWarnings("OOP.ErSuffixCheck")`.
 
 ## Utility classes
 
@@ -113,8 +128,9 @@ TBD..
 ## Long class names
 
 This example is valid:
+
 ```java
-class PgUser {
+class PgItem {
     ...
 }
 ```
@@ -128,10 +144,15 @@ class AbstractDatabaseConnection {
 
 to configure the maximal reasonable length consider using the following parameter:
 ```xml
-<configuration>
-  <maxClassNameLen>15</maxClassNameLen>
+<plugin>
+  <groupId>ru.l3r8y</groupId>
+  <artifactId>oop-cop</artifactId>
   ...
-</configuration>
+  <configuration>
+    <maxClassNameLen>15</maxClassNameLen>
+    <!-- default is 13 -->
+  </configuration>
+</plugin>
 ```
 
 ## How to Contribute
