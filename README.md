@@ -154,6 +154,7 @@ to configure the maximal reasonable length consider using the following paramete
   ...
   <configuration>
     <maxClassNameLen>15</maxClassNameLen>
+    <!-- default is 13 -->
   </configuration>
 </plugin>
 ```
