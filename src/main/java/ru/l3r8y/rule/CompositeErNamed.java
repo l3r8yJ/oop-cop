@@ -47,7 +47,7 @@ import ru.l3r8y.parser.ClassNames;
 * Refactoring is necessary.
 * */
 /**
- * Checks all java files with {@link ErClassNameCheck}.
+ * Checks all java files with {@link WorkerCheck}.
  *
  * @since 0.1.6
  */
@@ -89,20 +89,22 @@ public final class CompositeErNamed implements Rule {
     }
 
     /**
-     * Checks with {@link ErClassNameCheck}.
+     * Checks with {@link WorkerCheck}.
      *
      * @param names Collection of class names.
      * @return Collection of complaints.
      */
-    private static Collection<Complaint> checkWithErNamedRule(final Collection<ClassName> names) {
+    private static Collection<Complaint> checkWithErNamedRule(
+        final Collection<ClassName> names
+    ) {
         final Collection<Complaint> result;
         if (names.isEmpty()) {
             result = Collections.emptyList();
         } else {
             final Collection<Complaint> cmps = new ArrayList<>(0);
             names.stream()
-                .map(ErClassNameCheck::new)
-                .map(ErClassNameCheck::complaints)
+                .map(WorkerCheck::new)
+                .map(WorkerCheck::complaints)
                 .forEach(cmps::addAll);
             result = cmps;
         }

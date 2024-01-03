@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2024. Ivanchuck Ivan.
+ * Copyright (c) 2023. Ivanchuck Ivan.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.extensions.InvalidClass;
-import ru.l3r8y.extensions.SuppressedWorker;
+import ru.l3r8y.extensions.IsSuppressedErSuffix;
 
 /**
  * Test cases for {@link ClassNames}.
@@ -59,7 +59,7 @@ final class ClassNamesTest {
     }
 
     @Test
-    @ExtendWith(SuppressedWorker.class)
+    @ExtendWith(IsSuppressedErSuffix.class)
     void skipsSuppressedWorker(final Path clazz) {
         final int expected = 0;
         final Collection<ClassName> names = new ClassNames(clazz).all();

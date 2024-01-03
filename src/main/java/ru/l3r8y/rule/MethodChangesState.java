@@ -62,6 +62,7 @@ public final class MethodChangesState implements Rule {
             this::containsAssigment,
             new WrongMethodSignature(
                 this.method,
+                // @checkstyle StringLiteralsConcatenationCheck (4 lines).
                 "method body contains an assignment, setters violates OOP principles,"
                 + " read: https://www.l3r8y.ru/2023/03/17/hands-off-the-state-of-the-object"
             )

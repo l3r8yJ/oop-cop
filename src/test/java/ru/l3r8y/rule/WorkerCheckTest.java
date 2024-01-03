@@ -26,7 +26,6 @@ package ru.l3r8y.rule;
 
 import java.nio.file.Path;
 import java.util.Collection;
-
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.hamcrest.core.IsEqual;
@@ -34,15 +33,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.Complaint;
 import ru.l3r8y.extensions.ErNamedClass;
-import ru.l3r8y.extensions.SuppressedWorker;
+import ru.l3r8y.extensions.IsSuppressedErSuffix;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
- * Test case for {@link ErClassNameCheck}.
+ * Test case for {@link WorkerCheck}.
  *
  * @since 0.1.6
  */
-final class ErClassNameCheckTest {
+final class WorkerCheckTest {
 
     @Test
     @ExtendWith(ErNamedClass.class)
@@ -65,7 +64,7 @@ final class ErClassNameCheckTest {
     }
 
     @Test
-    @ExtendWith(SuppressedWorker.class)
+    @ExtendWith(IsSuppressedErSuffix.class)
     void passesSuppressedWorker(final Path clazz) {
         final Collection<Complaint> complaints =
             new CompositeErNamed(clazz).complaints();

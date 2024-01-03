@@ -21,47 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package ru.l3r8y.extensions;
 
-package ru.l3r8y.rule;
-
-import java.util.Collection;
-import lombok.RequiredArgsConstructor;
-import ru.l3r8y.ClassName;
-import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongClassNaming;
+import java.nio.file.Path;
+import java.util.Objects;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolver;
+import ru.l3r8y.fake.FakeClass;
+import ru.l3r8y.rule.WorkerCheck;
 
 /**
- * It checks if class is -er named.
+ * Suppressed worker for {@link WorkerCheck}.
  *
- * @since 0.1.6
+ * @since 0.2.6
  */
-@RequiredArgsConstructor
-public final class ErClassNameCheck implements Rule {
-
-    /**
-     * The name of class to check.
-     */
-    private final ClassName name;
+public final class IsSuppressedErSuffix implements ParameterResolver {
 
     @Override
-    public Collection<Complaint> complaints() {
-        return new ConditionRule(
-            this::isEndsWithEr,
-            new WrongClassNaming(
-                this.name,
-                "class ends with '-er' suffix, it's prohibited"
-                + " read: https://www.yegor256.com/2015/03/09/objects-end-with-er.html"
-            )
-        ).complaints();
+    public boolean supportsParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return Objects.equals(pctx.getParameter().getType(), Path.class);
     }
 
-    /**
-     * Is ends with -er.
-     *
-     * @return True if ends with '-er'.
-     */
-    private boolean isEndsWithEr() {
-        return this.name.value().endsWith("er");
+    @Override
+    public Object resolveParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return new FakeClass("SuppressedWorker.java").asPath();
     }
 }
