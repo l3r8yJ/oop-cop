@@ -31,14 +31,16 @@ import ru.l3r8y.Complaint;
 import ru.l3r8y.Rule;
 import ru.l3r8y.complaint.WrongClassNaming;
 
-/**
- * It checks if class is -er named.
- *
- * @since 0.1.6
+/*
  * @todo #38 Implement Linked decorator for Rule.
  *  We should implement decorator for Rule that attaches
  *  the link to the message.
  *  Don't forget to remove this puzzle.
+ */
+/**
+ * It checks if class is -er named.
+ *
+ * @since 0.1.6
  */
 @RequiredArgsConstructor
 public final class ErSuffixCheck implements Rule {

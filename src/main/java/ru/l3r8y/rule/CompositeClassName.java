@@ -85,14 +85,16 @@ public final class CompositeClassName implements Rule {
         return accum;
     }
 
-    /**
-     * Checks long class name in a collection of names.
-     * @param names Class names
-     * @return Complaints.
+    /*
      * @todo #81 Introduce new class from #checkLongName private method.
      *  we should introduce new reusable class from private method
      *  #checkLongName.
      *  Don't forget to remove this puzzle.
+     */
+    /**
+     * Checks long class name in a collection of names.
+     * @param names Class names
+     * @return Complaints.
      */
     private Collection<Complaint> checkLongName(final Collection<ClassName> names) {
         final Collection<Complaint> result;

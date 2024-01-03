@@ -33,20 +33,23 @@ import java.util.stream.Collectors;
 import org.cactoos.Scalar;
 import org.cactoos.list.ListOf;
 
-/**
- * Suppressed checks.
- *
- * @since 0.2.6
+/*
  * @todo #38 This class is too complex.
  *  We should decompose it on many small, cohesive objects.
  *  What's missing: an object for singe/many suppression check,
  *  this object will just aggregate all suppressions.
  *  Don't forget to remove this puzzle.
+ *
  * @todo #38 This class lacks off unit testing.
  *  ClassOrInterfaceDeclaration can't be provided in tests,
  *  so we need to do something with it in order to create small
  *  unit tests for this and other classes (see puzzle above).
  *  Don't forget to remove this puzzle.
+ * */
+/**
+ * Suppressed checks.
+ *
+ * @since 0.2.6
  */
 public final class SuppressedChecks implements Scalar<List<String>> {
 

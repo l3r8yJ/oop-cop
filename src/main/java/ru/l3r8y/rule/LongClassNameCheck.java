@@ -65,13 +65,15 @@ public final class LongClassNameCheck implements Rule {
         ).complaints();
     }
 
-    /**
-     * Is name ok?
-     * @return True if longer
+    /*
      * @todo #81 Introduce new class from #longerThanOk private method.
      *  we should introduce new reusable class from private method
      *  #longerThanOk.
      *  Don't forget to remove this puzzle.
+     */
+    /**
+     * Is name ok?
+     * @return True if longer
      */
     private boolean longerThanOk() {
         return this.name.value().length() > this.fine;
