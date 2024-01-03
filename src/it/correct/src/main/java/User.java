@@ -1,3 +1,3 @@
-@SuppressWarnings("OOP.WorkerCheck")
+@SuppressWarnings("OOP.ErSuffixCheck")
 final class User {
 }

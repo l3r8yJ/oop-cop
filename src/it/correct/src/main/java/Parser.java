@@ -1,6 +1,6 @@
 import java.io.File;
 
-@SuppressWarnings({"OOP.WorkerCheck", "OOP.MutableStateCheck"})
+@SuppressWarnings({"OOP.ErSuffixCheck", "OOP.MutableStateCheck"})
 class Parser {
     private File file;
 

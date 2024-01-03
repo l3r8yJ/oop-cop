@@ -38,7 +38,7 @@ final class IsSuppressedTest {
 
     @Test
     void suppressesCheck() {
-        final String check = "WorkerCheck";
+        final String check = "ErSuffixCheck";
         final List<String> checks = new ListOf<>(
             String.format("OOP.%s", check)
         );
@@ -59,7 +59,7 @@ final class IsSuppressedTest {
     @Test
     void returnsFalseOnNotSuppressedCheck() {
         final String check = "MutableStateCheck";
-        final List<String> checks = new ListOf<>("OOP.WorkerCheck");
+        final List<String> checks = new ListOf<>("OOP.ErSuffixCheck");
         MatcherAssert.assertThat(
             String.format(
                 "Check %s is not suppressed, suppressed checks %s",

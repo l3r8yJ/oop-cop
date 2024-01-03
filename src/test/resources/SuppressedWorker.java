@@ -1,2 +1,2 @@
-@SuppressWarnings("OOP.WorkerCheck")
+@SuppressWarnings("OOP.ErSuffixCheck")
 class SuppressedWorker {}

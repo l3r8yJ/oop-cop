@@ -29,10 +29,10 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import ru.l3r8y.fake.FakeClass;
-import ru.l3r8y.rule.WorkerCheck;
+import ru.l3r8y.rule.ErSuffixCheck;
 
 /**
- * Suppressed worker for {@link WorkerCheck}.
+ * Suppressed worker for {@link ErSuffixCheck}.
  *
  * @since 0.2.6
  */

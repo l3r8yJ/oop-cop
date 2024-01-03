@@ -37,11 +37,11 @@ import ru.l3r8y.extensions.IsSuppressedErSuffix;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
- * Test case for {@link WorkerCheck}.
+ * Test case for {@link ErSuffixCheck}.
  *
  * @since 0.1.6
  */
-final class WorkerCheckTest {
+final class ErSuffixCheckTest {
 
     @Test
     @ExtendWith(ErNamedClass.class)

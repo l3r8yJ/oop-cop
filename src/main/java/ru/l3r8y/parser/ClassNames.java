@@ -80,7 +80,7 @@ public final class ClassNames implements Names {
             if (
                 !new IsSuppressed(
                     new SuppressedChecks(declaration),
-                    "WorkerCheck"
+                    "ErSuffixCheck"
                 ).value()
             ) {
                 this.accum.add(
