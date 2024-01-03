@@ -26,6 +26,7 @@ package ru.l3r8y.parser;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -81,32 +82,36 @@ public final class IsSuppressed implements Scalar<Boolean> {
 
     // @checkstyle ReturnCountCheck (40 lines).
     @Override
-    @SuppressWarnings("PMD.OnlyOneReturn")
+    @SuppressWarnings({"PMD.OnlyOneReturn", "PMD.AvoidDeeplyNestedIfStmts"})
     public Boolean value() {
         final Optional<AnnotationExpr> annotation =
             this.declaration.getAnnotationByName("SuppressWarnings");
         if (annotation.isPresent()) {
             final List<String> suppressions = annotation.map(
                 (Function<AnnotationExpr, List<String>>) expr -> {
-                    final Expression members = expr
-                        .toSingleMemberAnnotationExpr()
-                        .get()
-                        .getMemberValue();
-                    if (members.isStringLiteralExpr()) {
-                        return new ListOf<>(
-                            members.asStringLiteralExpr()
-                                .asString()
-                        );
-                    }
-                    if (members.isArrayInitializerExpr()) {
-                        return members.asArrayInitializerExpr()
-                            .getValues()
-                            .stream()
-                            .map(
-                                expression ->
-                                    expression.asStringLiteralExpr()
-                                        .asString()
-                            ).collect(Collectors.toList());
+                    final Optional<SingleMemberAnnotationExpr> single =
+                        expr.toSingleMemberAnnotationExpr();
+                    if (single.isPresent()) {
+                        final Expression members =
+                            single.get().getMemberValue();
+                        // @checkstyle NestedIfDepthCheck (6 lines).
+                        if (members.isStringLiteralExpr()) {
+                            return new ListOf<>(
+                                members.asStringLiteralExpr()
+                                    .asString()
+                            );
+                        }
+                        // @checkstyle NestedIfDepthCheck (6 lines).
+                        if (members.isArrayInitializerExpr()) {
+                            return members.asArrayInitializerExpr()
+                                .getValues()
+                                .stream()
+                                .map(
+                                    expression ->
+                                        expression.asStringLiteralExpr()
+                                            .asString()
+                                ).collect(Collectors.toList());
+                        }
                     }
                     return new ListOf<>();
                 }
@@ -121,5 +126,4 @@ public final class IsSuppressed implements Scalar<Boolean> {
         }
         return false;
     }
-
 }
