@@ -121,4 +121,5 @@ public final class IsSuppressed implements Scalar<Boolean> {
         }
         return false;
     }
+
 }
