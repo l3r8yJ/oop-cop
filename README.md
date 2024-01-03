@@ -67,15 +67,6 @@ class MyValidClass {
         this.name = n;
     }
 }
-
-@Mutable
-class MarkedClass {
-    private String name;
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-}
 ```
 
 This class is invalid
@@ -93,6 +84,8 @@ class MyInvalidClass {
     }
 }
 ```
+
+check can be suppressed using: `@SuppressedWarnings("OOP.MutableStateCheck")`.
 
 ## Parsers, Validators, Controllers
 
@@ -117,6 +110,8 @@ class FileParser {
     }
 }
 ```
+
+this check can be suppressed using: `@SupressWarnings("OOP.ErSuffixCheck")`.
 
 ## Utility classes
 
