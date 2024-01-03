@@ -96,7 +96,27 @@ class MyInvalidClass {
 
 ## Parsers, Validators, Controllers
 
-TBD..
+These examples are valid:
+
+```java
+class ParsedFile {
+  ...
+  public String asText() {
+      ...
+  }   
+}
+```
+
+While this is invalid:
+
+```java
+class FileParser {
+    ...
+    public String parse() {
+        ...
+    }
+}
+```
 
 ## Utility classes
 
@@ -128,10 +148,14 @@ class AbstractDatabaseConnection {
 
 to configure the maximal reasonable length consider using the following parameter:
 ```xml
-<configuration>
-  <maxClassNameLen>15</maxClassNameLen>
+<plugin>
+  <groupId>ru.l3r8y</groupId>
+  <artifactId>oop-cop</artifactId>
   ...
-</configuration>
+  <configuration>
+    <maxClassNameLen>15</maxClassNameLen>
+  </configuration>
+</plugin>
 ```
 
 ## How to Contribute
