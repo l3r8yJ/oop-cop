@@ -77,11 +77,10 @@ public final class ClassNames implements Names {
         if (clazz instanceof ClassOrInterfaceDeclaration) {
             final ClassOrInterfaceDeclaration declaration =
                 ClassOrInterfaceDeclaration.class.cast(clazz);
-            if (!new IsSuppressed(
-                new SuppressedChecks(
-                    declaration
-                ),
-                "WorkerCheck"
+            if (
+                !new IsSuppressed(
+                    new SuppressedChecks(declaration),
+                    "WorkerCheck"
                 ).value()
             ) {
                 this.accum.add(
