@@ -48,7 +48,8 @@ public final class ManySuppressions implements ParameterResolver {
     @Override
     public Object resolveParameter(
         final ParameterContext pctx,
-        final ExtensionContext ectx) {
+        final ExtensionContext ectx
+    ) {
         return new FakeClass("Parser.java").asPath();
     }
 }
