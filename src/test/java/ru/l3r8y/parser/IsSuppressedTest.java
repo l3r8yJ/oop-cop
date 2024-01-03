@@ -24,53 +24,53 @@
 package ru.l3r8y.parser;
 
 import java.util.List;
-import lombok.SneakyThrows;
-import org.cactoos.Scalar;
+import org.cactoos.list.ListOf;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.junit.jupiter.api.Test;
 
 /**
- * Is check suppressed?
+ * Test case for {@link IsSuppressed}.
  *
  * @since 0.2.6
  */
-public final class IsSuppressed implements Scalar<Boolean> {
+final class IsSuppressedTest {
 
-    /**
-     * Suppression prefix.
-     */
-    private static final String PREFIX = "OOP";
-
-    /**
-     * Suppressions.
-     */
-    private final Scalar<List<String>> suppressions;
-
-    /**
-     * Check to suppress.
-     */
-    private final String check;
-
-    /**
-     * Ctor.
-     * @param spprs Suppressions
-     * @param chk Check to suppress
-     */
-    public IsSuppressed(
-        final Scalar<List<String>> spprs,
-        final String chk
-    ) {
-        this.suppressions = spprs;
-        this.check = chk;
+    @Test
+    void suppressesCheck() {
+        final String check = "WorkerCheck";
+        final List<String> checks = new ListOf<>(
+            String.format("OOP.%s", check)
+        );
+        MatcherAssert.assertThat(
+            String.format(
+                "Check %s is not suppressed, suppressed checks %s",
+                check,
+                checks
+            ),
+            new IsSuppressed(
+                () -> checks,
+                check
+            ).value(),
+            new IsEqual<>(true)
+        );
     }
 
-    @Override
-    @SneakyThrows
-    public Boolean value() {
-        return this.suppressions.value().contains(
+    @Test
+    void returnsFalseOnNotSuppressedCheck() {
+        final String check = "MutableStateCheck";
+        final List<String> checks = new ListOf<>("OOP.WorkerCheck");
+        MatcherAssert.assertThat(
             String.format(
-                "%s.%s",
-                IsSuppressed.PREFIX,
-                this.check
-            )
+                "Check %s is not suppressed, suppressed checks %s",
+                check,
+                checks
+            ),
+            new IsSuppressed(
+                () -> checks,
+                check
+            ).value(),
+            new IsEqual<>(false)
         );
     }
 }

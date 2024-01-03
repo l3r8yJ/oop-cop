@@ -78,7 +78,9 @@ public final class ClassNames implements Names {
             final ClassOrInterfaceDeclaration declaration =
                 ClassOrInterfaceDeclaration.class.cast(clazz);
             if (!new IsSuppressed(
-                declaration,
+                new SuppressedChecks(
+                    declaration
+                ),
                 "WorkerCheck"
                 ).value()
             ) {

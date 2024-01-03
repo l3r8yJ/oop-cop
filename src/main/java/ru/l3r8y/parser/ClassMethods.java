@@ -86,7 +86,12 @@ public final class ClassMethods implements Methods {
         if (clazz instanceof ClassOrInterfaceDeclaration) {
             final ClassOrInterfaceDeclaration declaration = ClassOrInterfaceDeclaration.class
                 .cast(clazz);
-            if (!new IsSuppressed(declaration, "MutableStateCheck").value()) {
+            if (
+                !new IsSuppressed(
+                    new SuppressedChecks(declaration),
+                    "MutableStateCheck"
+                ).value()
+            ) {
                 this.fromNodeToParsedMethod(
                     methods,
                     (ClassOrInterfaceDeclaration) clazz
