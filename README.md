@@ -128,8 +128,9 @@ TBD..
 ## Long class names
 
 This example is valid:
+
 ```java
-class PgUser {
+class PgItem {
     ...
 }
 ```
