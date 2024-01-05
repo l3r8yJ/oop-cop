@@ -78,6 +78,15 @@ public final class ClassMethods implements Methods {
         }
     }
 
+    /*
+     * @todo #85 Make new class instead.
+     *   Let's make a new class that will do the same
+     *   what we are doing with class names but with methods.
+     *   Don't forget to remove this puzzle.
+     * @todo #85 Resolve all available checks into one list.
+     *   Let's merge all checks we got from ClassNames and here,
+     *   ClassMethods. Merge them and resolve.
+     */
     /**
      * If the node is a class, then process it.
      *
