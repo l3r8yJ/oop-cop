@@ -23,73 +23,77 @@
  */
 package ru.l3r8y.parser;
 
-import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.expr.SimpleName;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import ru.l3r8y.ClassName;
-import ru.l3r8y.extensions.InvalidClass;
+import ru.l3r8y.extensions.ManySuppressionsDeclaration;
 import ru.l3r8y.extensions.ParserDeclaration;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Test case for {@link IgnoresSuppressed}.
+ * Test case for {@link SuppressedChecks}.
  *
  * @since 0.3.6
  */
-final class IgnoresSuppressedTest {
+final class SuppressedChecksTest {
 
     @Test
     @ExtendWith(ParserDeclaration.class)
-    void ignoresSuppressed(final ClassOrInterfaceDeclaration declaration) {
-        final List<ClassName> accum = new ListOf<>();
-        new IgnoresSuppressed(
-            new Default(accum, Paths.get("test")),
-            new ListOf<>(
-                "ErSuffixCheck"
-            )
-        ).add(declaration);
+    void parsesSuppression(final ClassOrInterfaceDeclaration declaration) {
+        final String suppress = "OOP.ErSuffixCheck";
+        final List<String> found = new SuppressedChecks(declaration).value();
+        final ListOf<String> expected = new ListOf<>(suppress);
         MatcherAssert.assertThat(
             String.format(
-                "Class %s does not ignored, but it should",
-                declaration.getNameAsString()
+                "Suppressed checks %s do not match with expected format %s",
+                found,
+                expected
             ),
-            accum.isEmpty(),
-            new IsEqual<>(true)
+            found,
+            new IsEqual<>(
+                expected
+            )
         );
     }
 
     @Test
-    @ExtendWith(InvalidClass.class)
-    void addsInvalid(final Path clazz) throws IOException {
-        final List<ClassName> accum = new ListOf<>();
-        StaticJavaParser.parse(clazz)
-            .getChildNodes()
-            .forEach(
-                node ->
-                    new IgnoresSuppressed(
-                        new Default(accum, clazz),
-                        new ListOf<>(
-                            "ErSuffixCheck",
-                            "MutableStateCheck"
-                        )
-                    ).add((ClassOrInterfaceDeclaration) node)
-            );
-        final String expected = "InvalidClass";
-        final String name = accum.get(0).value();
+    @ExtendWith(ManySuppressionsDeclaration.class)
+    void parsesManySuppressions(final ClassOrInterfaceDeclaration declaration) {
+        final List<String> found = new SuppressedChecks(declaration).value();
+        final ListOf<String> expected = new ListOf<>(
+            "OOP.MutableStateCheck",
+            "OOP.ErSuffixCheck"
+        );
         MatcherAssert.assertThat(
             String.format(
-                "Class %s does not matches with expected one %s",
-                name, expected
+                "Suppressed checks %s do not match with expected format %s",
+                found,
+                expected
             ),
-            name,
-            new IsEqual<>(expected)
+            found,
+            new IsEqual<>(
+                expected
+            )
+        );
+    }
+
+    @Test
+    void parsesWithNoSuppression() {
+        final ClassOrInterfaceDeclaration declaration =
+            new ClassOrInterfaceDeclaration();
+        declaration.setName(new SimpleName("Parser"));
+        final List<String> found = new SuppressedChecks(declaration).value();
+        MatcherAssert.assertThat(
+            String.format(
+                "Suppressed checks %s are not empty as expected",
+                found
+            ),
+            found.isEmpty(),
+            new IsEqual<>(true)
         );
     }
 }
