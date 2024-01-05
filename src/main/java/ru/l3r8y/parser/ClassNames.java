@@ -24,7 +24,6 @@
 package ru.l3r8y.parser;
 
 import com.github.javaparser.StaticJavaParser;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -64,6 +63,12 @@ public final class ClassNames implements Names {
                             new IgnoresSuppressed(
                                 new Default(this.accum, this.path),
                                 new ListOf<>(
+                                    /*
+                                     * @todo #85:90min Fetch check names from rule/*
+                                     *   package (or check/*). Instead of hard-coding,
+                                     *   we should fetch the ruleset from related package.
+                                     *   Don't forget to remove this puzzle.
+                                     */
                                     "ErSuffixCheck",
                                     "MutableStateCheck",
                                     "LongClassNameCheck"
