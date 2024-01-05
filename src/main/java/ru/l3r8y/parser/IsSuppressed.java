@@ -25,6 +25,7 @@ package ru.l3r8y.parser;
 
 import java.util.HashSet;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.cactoos.Scalar;
 import org.cactoos.list.ListOf;
@@ -34,6 +35,7 @@ import org.cactoos.list.ListOf;
  *
  * @since 0.2.6
  */
+@RequiredArgsConstructor
 public final class IsSuppressed implements Scalar<Boolean> {
 
     /**
@@ -51,32 +53,16 @@ public final class IsSuppressed implements Scalar<Boolean> {
      */
     private final List<String> checks;
 
-    /**
-     * Ctor.
-     *
-     * @param spprs Suppressions
-     * @param chks  Checks to suppress
-     */
-    public IsSuppressed(
-        final List<String> spprs,
-        final List<String> chks
-    ) {
-        this.suppressions = spprs;
-        this.checks = chks;
-    }
-
     @Override
     @SneakyThrows
     public Boolean value() {
-        final List<String> suppressed = this.suppressions;
         final List<String> prefixed = new ListOf<>();
         this.checks.forEach(
             check -> prefixed.add(
                 String.format("%s.%s", IsSuppressed.PREFIX, check)
             )
         );
-        System.out.println(String.format("All: %s", prefixed));
-        System.out.println(String.format("S: %s", suppressed));
-        return new HashSet<>(prefixed).containsAll(suppressed);
+        return new HashSet<>(prefixed).containsAll(this.suppressions);
     }
+
 }

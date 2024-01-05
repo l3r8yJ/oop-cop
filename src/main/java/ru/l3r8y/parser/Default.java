@@ -53,4 +53,5 @@ public final class Default implements Code {
             new ParsedClassName(declaration.getNameAsString(), this.path)
         );
     }
+
 }

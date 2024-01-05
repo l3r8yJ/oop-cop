@@ -60,4 +60,5 @@ public final class IgnoresSuppressed implements Code {
             this.origin.add(declaration);
         }
     }
+
 }

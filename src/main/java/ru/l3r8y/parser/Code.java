@@ -38,4 +38,5 @@ public interface Code {
      * @param declaration Java class declaration to add
      */
     void add(ClassOrInterfaceDeclaration declaration);
+
 }

@@ -57,4 +57,5 @@ public final class Declaration implements CodeClass {
             this.code.add((ClassOrInterfaceDeclaration) this.clazz);
         }
     }
+
 }

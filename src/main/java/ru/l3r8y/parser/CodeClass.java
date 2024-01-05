@@ -34,4 +34,5 @@ public interface CodeClass {
      * Declare code class.
      */
     void declare();
+
 }

@@ -64,10 +64,11 @@ public final class ClassNames implements Names {
                                 new Default(this.accum, this.path),
                                 new ListOf<>(
                                     /*
-                                     * @todo #85:90min Fetch check names from rule/*
-                                     *   package (or check/*). Instead of hard-coding,
-                                     *   we should fetch the ruleset from related package.
-                                     *   Don't forget to remove this puzzle.
+                                     * @todo #85:90min Fetch check names
+                                     *  from rule/* package (or check/*).
+                                     *  Instead of hard-coding, we should fetch
+                                     *  the ruleset from related package.
+                                     *  Don't forget to remove this puzzle.
                                      */
                                     "ErSuffixCheck",
                                     "MutableStateCheck",
