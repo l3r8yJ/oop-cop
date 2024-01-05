@@ -29,6 +29,8 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.extensions.LongNamedClass;
+import ru.l3r8y.extensions.ManySuppressions;
+import ru.l3r8y.extensions.SuppressedLongClassName;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
@@ -54,6 +56,16 @@ final class LongClassNameCheckTest {
         MatcherAssert.assertThat(
             "Build is not successed as expected",
             new CompositeClassName(clazz, 13).complaints(),
+            Matchers.empty()
+        );
+    }
+
+    @Test
+    @ExtendWith(SuppressedLongClassName.class)
+    void passesWhenSuppressed(final Path clazz) {
+        MatcherAssert.assertThat(
+            "Suppressed class has complaints, but it shouldn't",
+            new CompositeClassName(clazz, 12).complaints(),
             Matchers.empty()
         );
     }

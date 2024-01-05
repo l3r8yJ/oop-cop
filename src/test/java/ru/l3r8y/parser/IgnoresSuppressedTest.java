@@ -49,7 +49,7 @@ import java.util.List;
 final class IgnoresSuppressedTest {
 
     @Test
-    void ignoresSuppressed() throws IOException {
+    void ignoresSuppressed() {
         final List<ClassName> accum = new ListOf<>();
         final ClassOrInterfaceDeclaration declaration = new ClassOrInterfaceDeclaration();
         declaration.setName(new SimpleName("MutableParser"));
