@@ -23,46 +23,20 @@
  */
 package ru.l3r8y.parser;
 
-import java.util.HashSet;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.cactoos.Scalar;
-import org.cactoos.list.ListOf;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 
 /**
- * Is check suppressed?
+ * Code to analyze.
  *
- * @since 0.2.6
+ * @since 0.3.6
  */
-@RequiredArgsConstructor
-public final class IsSuppressed implements Scalar<Boolean> {
+public interface Code {
 
     /**
-     * Suppression prefix.
+     * Add class to analyze.
+     *
+     * @param declaration Java class declaration to add
      */
-    private static final String PREFIX = "OOP";
-
-    /**
-     * Suppressions.
-     */
-    private final List<String> suppressions;
-
-    /**
-     * Checks to suppress.
-     */
-    private final List<String> checks;
-
-    @Override
-    @SneakyThrows
-    public Boolean value() {
-        final List<String> prefixed = new ListOf<>();
-        this.checks.forEach(
-            check -> prefixed.add(
-                String.format("%s.%s", IsSuppressed.PREFIX, check)
-            )
-        );
-        return new HashSet<>(prefixed).containsAll(this.suppressions);
-    }
+    void add(ClassOrInterfaceDeclaration declaration);
 
 }

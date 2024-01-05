@@ -37,6 +37,9 @@
             <goals>
               <goal>search</goal>
             </goals>
+            <configuration>
+              <maxClassNameLen>12</maxClassNameLen>
+            </configuration>
           </execution>
         </executions>
       </plugin>

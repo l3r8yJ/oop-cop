@@ -21,51 +21,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.rule;
+package ru.l3r8y.parser;
 
+import com.github.javaparser.StaticJavaParser;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import ru.l3r8y.extensions.LongNamedClass;
-import ru.l3r8y.extensions.SuppressedLongClassName;
+import ru.l3r8y.ClassName;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
- * Test case for {@link ru.l3r8y.rule.LongClassNameCheck}.
+ * Test case for {@link Declaration}.
  *
- * @since 0.2.0
+ * @since 0.3.6
  */
-final class LongClassNameCheckTest {
-
-    @Test
-    @ExtendWith(LongNamedClass.class)
-    void failsWithErOnEnd(final Path clazz) {
-        MatcherAssert.assertThat(
-            "Build is not failed as expected",
-            new CompositeClassName(clazz, 15).complaints(),
-            Matchers.not(Matchers.empty())
-        );
-    }
+final class DeclarationTest {
 
     @Test
     @ExtendWith(ValidClass.class)
-    void passesWhenNameIsFine(final Path clazz) {
+    void declaresClass(final Path clazz) throws IOException {
+        final List<ClassName> names = new ListOf<>();
+        StaticJavaParser.parse(clazz)
+            .getChildNodes()
+            .forEach(
+                node -> new Declaration(
+                    new Default(names, clazz),
+                    node
+                ).declare()
+            );
+        final String name = names.get(0).value();
+        final String expected = "ValidClass";
         MatcherAssert.assertThat(
-            "Build is not successed as expected",
-            new CompositeClassName(clazz, 13).complaints(),
-            Matchers.empty()
+            String.format(
+                "Class name %s does not match with expected one %s",
+                name,
+                expected
+            ),
+            name,
+            new IsEqual<>(expected)
         );
     }
 
-    @Test
-    @ExtendWith(SuppressedLongClassName.class)
-    void passesWhenSuppressed(final Path clazz) {
-        MatcherAssert.assertThat(
-            "Suppressed class has complaints, but it shouldn't",
-            new CompositeClassName(clazz, 12).complaints(),
-            Matchers.empty()
-        );
-    }
 }

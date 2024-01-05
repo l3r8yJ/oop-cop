@@ -24,14 +24,13 @@
 package ru.l3r8y.parser;
 
 import com.github.javaparser.StaticJavaParser;
-import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
+import org.cactoos.list.ListOf;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Names;
 
@@ -53,12 +52,33 @@ public final class ClassNames implements Names {
      */
     private final Collection<ClassName> accum = new ArrayList<>(0);
 
+    // @checkstyle MethodBodyCommentsCheck (25 lines)
     @Override
     public Collection<ClassName> all() {
         try {
             StaticJavaParser.parse(this.path)
                 .getChildNodes()
-                .forEach(this::addIfEndsWithEr);
+                .forEach(
+                    clazz ->
+                        new Declaration(
+                            new IgnoresSuppressed(
+                                new Default(this.accum, this.path),
+                                new ListOf<>(
+                                    /*
+                                     * @todo #85:90min Fetch check names
+                                     *  from rule/* package (or check/*).
+                                     *  Instead of hard-coding, we should fetch
+                                     *  the ruleset from related package.
+                                     *  Don't forget to remove this puzzle.
+                                     */
+                                    "ErSuffixCheck",
+                                    "MutableStateCheck",
+                                    "LongClassNameCheck"
+                                )
+                            ),
+                            clazz
+                        ).declare()
+                );
         } catch (final IOException ex) {
             throw new IllegalStateException(
                 String.format("Unable to get class names: %s\n", ex.getMessage()),
@@ -66,30 +86,6 @@ public final class ClassNames implements Names {
             );
         }
         return Collections.unmodifiableCollection(this.accum);
-    }
-
-    /**
-     * Addition of name which ends with "er".
-     *
-     * @param clazz Node from file
-     */
-    private void addIfEndsWithEr(final Node clazz) {
-        if (clazz instanceof ClassOrInterfaceDeclaration) {
-            final ClassOrInterfaceDeclaration declaration =
-                ClassOrInterfaceDeclaration.class.cast(clazz);
-            if (
-                !new IsSuppressed(
-                    new SuppressedChecks(declaration),
-                    "ErSuffixCheck"
-                ).value()
-            ) {
-                this.accum.add(
-                    new ParsedClassName(
-                        declaration.getNameAsString(), this.path
-                    )
-                );
-            }
-        }
     }
 
 }

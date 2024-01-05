@@ -33,7 +33,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
+import org.cactoos.list.ListOf;
 import ru.l3r8y.Method;
 import ru.l3r8y.Methods;
 
@@ -76,6 +78,15 @@ public final class ClassMethods implements Methods {
         }
     }
 
+    /*
+     * @todo #85 Make new class instead.
+     *   Let's make a new class that will do the same
+     *   what we are doing with class names but with methods.
+     *   Don't forget to remove this puzzle.
+     * @todo #85 Resolve all available checks into one list.
+     *   Let's merge all checks we got from ClassNames and here,
+     *   ClassMethods. Merge them and resolve.
+     */
     /**
      * If the node is a class, then process it.
      *
@@ -86,10 +97,20 @@ public final class ClassMethods implements Methods {
         if (clazz instanceof ClassOrInterfaceDeclaration) {
             final ClassOrInterfaceDeclaration declaration = ClassOrInterfaceDeclaration.class
                 .cast(clazz);
+            final List<String> suppressed = new SuppressedChecks(declaration).value();
+            if (suppressed.isEmpty()) {
+                this.fromNodeToParsedMethod(
+                    methods,
+                    (ClassOrInterfaceDeclaration) clazz
+                );
+            }
             if (
                 !new IsSuppressed(
-                    new SuppressedChecks(declaration),
-                    "MutableStateCheck"
+                    suppressed,
+                    new ListOf<>(
+                        "MutableStateCheck",
+                        "ErSuffixCheck"
+                    )
                 ).value()
             ) {
                 this.fromNodeToParsedMethod(

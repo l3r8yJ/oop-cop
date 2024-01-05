@@ -23,8 +23,11 @@
  */
 package ru.l3r8y.parser;
 
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collection;
+import java.util.List;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
@@ -32,63 +35,55 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.extensions.InvalidClass;
-import ru.l3r8y.extensions.IsSuppressedErSuffix;
-import ru.l3r8y.extensions.ManySuppressions;
+import ru.l3r8y.extensions.ValidClass;
 
 /**
- * Test cases for {@link ClassNames}.
+ * Test case for {@link Default}.
  *
- * @since 0.2.6
+ * @since 0.3.6
  */
-final class ClassNamesTest {
+final class DefaultTest {
 
     @Test
-    @ExtendWith(InvalidClass.class)
-    void parsesInvalidClassNamesInRightFormat(final Path clazz) {
-        final String name = new ListOf<>(
-            new ClassNames(clazz).all()
-        ).get(0).value();
+    @ExtendWith(ValidClass.class)
+    void addsToAccum(final Path clazz) throws IOException {
+        final List<ClassName> accum = new ListOf<>();
+        StaticJavaParser.parse(clazz)
+            .getChildNodes()
+            .forEach(
+                node -> new Default(accum, clazz)
+                    .add((ClassOrInterfaceDeclaration) node)
+            );
+        final String expected = "ValidClass";
+        final String name = accum.get(0).value();
         MatcherAssert.assertThat(
             String.format(
-                "Class name %s is not valid, expected %s",
-                name,
-                InvalidClass.class.getSimpleName()
+                "Class %s does not matches with expected one %s",
+                name, expected
             ),
             name,
-            new IsEqual<>("InvalidClass")
-        );
-    }
-
-    @Test
-    @ExtendWith(IsSuppressedErSuffix.class)
-    void skipsSuppressedWorker(final Path clazz) {
-        final int expected = 0;
-        final Collection<ClassName> names = new ClassNames(clazz).all();
-        MatcherAssert.assertThat(
-            String.format(
-                "Class names %s size is not valid: %s, expected %s",
-                names,
-                names.size(),
-                expected
-            ),
-            names.size(),
             new IsEqual<>(expected)
         );
     }
 
     @Test
-    @ExtendWith(ManySuppressions.class)
-    void skipsManySuppressedChecks(final Path clazz) {
-        final int expected = 0;
-        final Collection<ClassName> names = new ClassNames(clazz).all();
+    @ExtendWith(InvalidClass.class)
+    void addsEvenInvalidClass(final Path clazz) throws IOException {
+        final List<ClassName> accum = new ListOf<>();
+        StaticJavaParser.parse(clazz)
+            .getChildNodes()
+            .forEach(
+                node -> new Default(accum, clazz)
+                    .add((ClassOrInterfaceDeclaration) node)
+            );
+        final String expected = "InvalidClass";
+        final String name = accum.get(0).value();
         MatcherAssert.assertThat(
             String.format(
-                "Class names %s size is not valid: %s, expected %s",
-                names,
-                names.size(),
-                expected
+                "Class %s does not matches with expected one %s",
+                name, expected
             ),
-            names.size(),
+            name,
             new IsEqual<>(expected)
         );
     }

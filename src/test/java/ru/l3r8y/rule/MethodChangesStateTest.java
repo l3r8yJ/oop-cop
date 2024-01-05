@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.extensions.CaseWithoutThis;
 import ru.l3r8y.extensions.InvalidClass;
+import ru.l3r8y.extensions.ManySuppressions;
 import ru.l3r8y.extensions.Marked;
 import ru.l3r8y.extensions.ValidClass;
 
@@ -81,6 +82,16 @@ final class MethodChangesStateTest {
     void passesWhenMutableMarked(final Path clazz) {
         MatcherAssert.assertThat(
             "Marked class wasn't checked",
+            new AssigmentCheck(clazz).complaints(),
+            Matchers.empty()
+        );
+    }
+
+    @Test
+    @ExtendWith(ManySuppressions.class)
+    void passesWhenManySuppressed(final Path clazz) {
+        MatcherAssert.assertThat(
+            "Class with many suppressions is checked, but it shouldn't",
             new AssigmentCheck(clazz).complaints(),
             Matchers.empty()
         );

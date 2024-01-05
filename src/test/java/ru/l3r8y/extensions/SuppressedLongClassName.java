@@ -21,48 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.parser;
+package ru.l3r8y.extensions;
 
-import java.util.HashSet;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.cactoos.Scalar;
-import org.cactoos.list.ListOf;
+import java.nio.file.Path;
+import java.util.Objects;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolver;
+import ru.l3r8y.fake.FakeClass;
 
 /**
- * Is check suppressed?
- *
- * @since 0.2.6
+ * JUnit extension with suppressed {@link ru.l3r8y.rule.LongClassNameCheck}.
+ * @since 0.3.6
  */
-@RequiredArgsConstructor
-public final class IsSuppressed implements Scalar<Boolean> {
-
-    /**
-     * Suppression prefix.
-     */
-    private static final String PREFIX = "OOP";
-
-    /**
-     * Suppressions.
-     */
-    private final List<String> suppressions;
-
-    /**
-     * Checks to suppress.
-     */
-    private final List<String> checks;
+public final class SuppressedLongClassName implements ParameterResolver {
 
     @Override
-    @SneakyThrows
-    public Boolean value() {
-        final List<String> prefixed = new ListOf<>();
-        this.checks.forEach(
-            check -> prefixed.add(
-                String.format("%s.%s", IsSuppressed.PREFIX, check)
-            )
-        );
-        return new HashSet<>(prefixed).containsAll(this.suppressions);
+    public boolean supportsParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return Objects.equals(pctx.getParameter().getType(), Path.class);
     }
 
+    @Override
+    public Object resolveParameter(
+        final ParameterContext pctx,
+        final ExtensionContext ectx
+    ) {
+        return new FakeClass("VeryLongClassName.java").asPath();
+    }
 }
