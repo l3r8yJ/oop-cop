@@ -23,33 +23,48 @@
  */
 package ru.l3r8y.parser;
 
-import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import lombok.RequiredArgsConstructor;
+import com.github.javaparser.StaticJavaParser;
+import org.cactoos.list.ListOf;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import ru.l3r8y.ClassName;
+import ru.l3r8y.extensions.ValidClass;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 
 /**
- * Class declaration.
+ * Test case for {@link Declaration}.
  *
  * @since 0.3.6
  */
-@RequiredArgsConstructor
-public final class Declaration implements CodeClass {
+final class DeclarationTest {
 
-    /**
-     * Origin.
-     */
-    private final Code code;
-
-    /**
-     * Class.
-     */
-    private final Node clazz;
-
-    @Override
-    public void declare() {
-        if (this.clazz instanceof ClassOrInterfaceDeclaration) {
-            this.code.add((ClassOrInterfaceDeclaration) this.clazz);
-        }
+    @Test
+    @ExtendWith(ValidClass.class)
+    void declaresClass(final Path clazz) throws IOException {
+        final List<ClassName> names = new ListOf<>();
+        StaticJavaParser.parse(clazz)
+            .getChildNodes()
+            .forEach(
+                node -> new Declaration(
+                    new Default(names, clazz),
+                    node
+                ).declare()
+            );
+        final String name = names.get(0).value();
+        final String expected = "ValidClass";
+        MatcherAssert.assertThat(
+            String.format(
+                "Class name %s does not match with expected one %s",
+                name,
+                expected
+            ),
+            name,
+            new IsEqual<>(expected)
+        );
     }
 
 }
