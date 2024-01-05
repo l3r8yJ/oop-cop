@@ -23,9 +23,11 @@
  */
 package ru.l3r8y.parser;
 
+import java.util.HashSet;
 import java.util.List;
 import lombok.SneakyThrows;
 import org.cactoos.Scalar;
+import org.cactoos.list.ListOf;
 
 /**
  * Is check suppressed?
@@ -42,35 +44,39 @@ public final class IsSuppressed implements Scalar<Boolean> {
     /**
      * Suppressions.
      */
-    private final Scalar<List<String>> suppressions;
+    private final List<String> suppressions;
 
     /**
-     * Check to suppress.
+     * Checks to suppress.
      */
-    private final String check;
+    private final List<String> checks;
 
     /**
      * Ctor.
+     *
      * @param spprs Suppressions
-     * @param chk Check to suppress
+     * @param chks  Checks to suppress
      */
     public IsSuppressed(
-        final Scalar<List<String>> spprs,
-        final String chk
+        final List<String> spprs,
+        final List<String> chks
     ) {
         this.suppressions = spprs;
-        this.check = chk;
+        this.checks = chks;
     }
 
     @Override
     @SneakyThrows
     public Boolean value() {
-        return this.suppressions.value().contains(
-            String.format(
-                "%s.%s",
-                IsSuppressed.PREFIX,
-                this.check
+        final List<String> suppressed = this.suppressions;
+        final List<String> prefixed = new ListOf<>();
+        this.checks.forEach(
+            check -> prefixed.add(
+                String.format("%s.%s", IsSuppressed.PREFIX, check)
             )
         );
+        System.out.println(String.format("All: %s", prefixed));
+        System.out.println(String.format("S: %s", suppressed));
+        return new HashSet<>(prefixed).containsAll(suppressed);
     }
 }

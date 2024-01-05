@@ -33,7 +33,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
+import org.cactoos.list.ListOf;
 import ru.l3r8y.Method;
 import ru.l3r8y.Methods;
 
@@ -86,10 +89,20 @@ public final class ClassMethods implements Methods {
         if (clazz instanceof ClassOrInterfaceDeclaration) {
             final ClassOrInterfaceDeclaration declaration = ClassOrInterfaceDeclaration.class
                 .cast(clazz);
+            final List<String> suppressed = new SuppressedChecks(declaration).value();
+            if (suppressed.isEmpty()) {
+                this.fromNodeToParsedMethod(
+                    methods,
+                    (ClassOrInterfaceDeclaration) clazz
+                );
+            }
             if (
                 !new IsSuppressed(
-                    new SuppressedChecks(declaration),
-                    "MutableStateCheck"
+                    suppressed,
+                    new ListOf<>(
+                        "MutableStateCheck",
+                        "ErSuffixCheck"
+                    )
                 ).value()
             ) {
                 this.fromNodeToParsedMethod(

@@ -44,7 +44,7 @@ final class ClassNamesTest {
 
     @Test
     @ExtendWith(InvalidClass.class)
-    void parsesClassNamesInRightFormat(final Path clazz) {
+    void parsesInvalidClassNamesInRightFormat(final Path clazz) {
         final String name = new ListOf<>(
             new ClassNames(clazz).all()
         ).get(0).value();
