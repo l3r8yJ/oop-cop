@@ -66,6 +66,29 @@ final class IgnoresSuppressedTest {
     }
 
     @Test
+    @ExtendWith(ParserDeclaration.class)
+    void addsIfSuppressionsAreInvalid(
+        final ClassOrInterfaceDeclaration declaration
+    ) {
+        final List<ClassName> accum = new ListOf<>();
+        new IgnoresSuppressed(
+            new Default(accum, Paths.get("test")),
+            new ListOf<>()
+        ).add(declaration);
+        final String expected = "Parser";
+        final String name = accum.get(0).value();
+        MatcherAssert.assertThat(
+            String.format(
+                "Class %s does not matches with expected one %s",
+                name,
+                expected
+            ),
+            name,
+            new IsEqual<>(expected)
+        );
+    }
+
+    @Test
     @ExtendWith(InvalidClass.class)
     void addsInvalid(final Path clazz) throws IOException {
         final List<ClassName> accum = new ListOf<>();
