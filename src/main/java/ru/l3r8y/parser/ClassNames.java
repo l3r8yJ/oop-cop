@@ -52,6 +52,7 @@ public final class ClassNames implements Names {
      */
     private final Collection<ClassName> accum = new ArrayList<>(0);
 
+    // @checkstyle MethodBodyCommentsCheck (25 lines)
     @Override
     public Collection<ClassName> all() {
         try {

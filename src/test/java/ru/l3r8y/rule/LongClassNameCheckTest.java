@@ -29,7 +29,6 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.extensions.LongNamedClass;
-import ru.l3r8y.extensions.ManySuppressions;
 import ru.l3r8y.extensions.SuppressedLongClassName;
 import ru.l3r8y.extensions.ValidClass;
 

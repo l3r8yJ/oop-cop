@@ -23,9 +23,9 @@
  */
 package ru.l3r8y.parser;
 
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import java.nio.file.Path;
 import java.util.Collection;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import lombok.RequiredArgsConstructor;
 import ru.l3r8y.ClassName;
 

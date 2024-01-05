@@ -23,12 +23,12 @@
  */
 package ru.l3r8y.extensions;
 
+import java.nio.file.Path;
+import java.util.Objects;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import ru.l3r8y.fake.FakeClass;
-import java.nio.file.Path;
-import java.util.Objects;
 
 /**
  * JUnit extension with suppressed {@link ru.l3r8y.rule.LongClassNameCheck}.

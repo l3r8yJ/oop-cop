@@ -28,7 +28,6 @@
 package ru.l3r8y.rule;
 
 import java.nio.file.Path;
-
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Disabled;

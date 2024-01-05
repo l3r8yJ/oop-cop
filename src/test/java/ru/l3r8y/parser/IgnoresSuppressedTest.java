@@ -25,6 +25,10 @@ package ru.l3r8y.parser;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
@@ -33,10 +37,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.extensions.InvalidClass;
 import ru.l3r8y.extensions.ParserDeclaration;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 
 /**
  * Test case for {@link IgnoresSuppressed}.

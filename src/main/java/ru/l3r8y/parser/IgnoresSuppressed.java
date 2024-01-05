@@ -23,8 +23,8 @@
  */
 package ru.l3r8y.parser;
 
-import java.util.List;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 /**

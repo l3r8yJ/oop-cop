@@ -33,7 +33,7 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 public interface Code {
 
     /**
-     * Add class to analyze
+     * Add class to analyze.
      *
      * @param declaration Java class declaration to add
      */
