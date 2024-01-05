@@ -53,17 +53,15 @@ if you want to run plugin directly:
 $ mvn ru.l3r8y:oop-cop:search
 ```
 
-## Mutable Objects
+## MutableStateCheck
 
 These classes are valid:
 
 ```java
-import ru.l3r8y.annotations.Mutable;
-
-class MyValidClass {
+class Pet {
     private final String name;
 
-    public MyValidClass(final String n) {
+    public Pet(final String n) {
         this.name = n;
     }
 }
@@ -72,10 +70,10 @@ class MyValidClass {
 This class is invalid:
 
 ```java
-class MyInvalidClass {
+class Pet {
     private String name;
 
-    public MyValidClass(final String n) {
+    public Pet(final String n) {
         this.name = n;
     }
 
@@ -85,9 +83,12 @@ class MyInvalidClass {
 }
 ```
 
-check can be suppressed using: `@SuppressedWarnings("OOP.MutableStateCheck")`.
+However, you can suppress this check by adding:
+```java
+@SupressWarnings("OOP.MutableStateCheck")
+```
 
-## Parsers, Validators, Controllers
+## ErSuffixCheck
 
 These examples are valid:
 
@@ -111,7 +112,10 @@ class FileParser {
 }
 ```
 
-this check can be suppressed using: `@SupressWarnings("OOP.ErSuffixCheck")`.
+However, you can suppress this check by adding: 
+```java
+@SupressWarnings("OOP.ErSuffixCheck")
+```
 
 ## Utility classes
 
