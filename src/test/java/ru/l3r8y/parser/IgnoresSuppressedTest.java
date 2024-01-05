@@ -115,4 +115,5 @@ final class IgnoresSuppressedTest {
             new IsEqual<>(expected)
         );
     }
+
 }
