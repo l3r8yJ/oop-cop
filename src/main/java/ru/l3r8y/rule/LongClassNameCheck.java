@@ -41,12 +41,6 @@ import ru.l3r8y.complaint.WrongClassNaming;
 public final class LongClassNameCheck implements Rule {
 
     /**
-     * Blog post link.
-     */
-    private static final String BLOG_POST =
-        "https://www.yegor256.com/2015/01/12/compound-name-is-code-smell.html";
-
-    /**
      * Class name.
      */
     private final ClassName name;
@@ -69,7 +63,7 @@ public final class LongClassNameCheck implements Rule {
                             this.fine
                         )
                     ),
-                    LongClassNameCheck.BLOG_POST
+                    "https://www.yegor256.com/2015/01/12/compound-name-is-code-smell.html"
                 ),
                 this.getClass()
             )

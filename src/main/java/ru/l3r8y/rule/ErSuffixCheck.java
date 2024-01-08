@@ -42,19 +42,13 @@ import ru.l3r8y.complaint.WrongClassNaming;
 public final class ErSuffixCheck implements Rule {
 
     /**
-     * Blog post link.
-     */
-    private static final String ER_BLOG_POST =
-        "https://www.yegor256.com/2015/03/09/objects-end-with-er.html";
-
-    /**
      * The name of class to check.
      */
     private final ClassName name;
 
     @Override
     public Collection<Complaint> complaints() {
-        return new ConditionRule(
+        return new ConditionCheck(
             this::isEndsWithEr,
             new ClassifiedComplaint(
                 new LinkedComplaint(
@@ -62,7 +56,7 @@ public final class ErSuffixCheck implements Rule {
                         this.name,
                         "class ends with '-er' suffix, it's prohibited"
                     ),
-                    ErSuffixCheck.ER_BLOG_POST
+                    "https://www.yegor256.com/2015/03/09/objects-end-with-er.html"
                 ),
                 this.getClass()
             )
