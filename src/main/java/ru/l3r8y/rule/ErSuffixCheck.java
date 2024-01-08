@@ -48,7 +48,7 @@ public final class ErSuffixCheck implements Rule {
 
     @Override
     public Collection<Complaint> complaints() {
-        return new ConditionCheck(
+        return new ConditionRule(
             this::isEndsWithEr,
             new ClassifiedComplaint(
                 new LinkedComplaint(
