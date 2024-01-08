@@ -28,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
 import ru.l3r8y.Rule;
+import ru.l3r8y.complaint.ClassifiedComplaint;
+import ru.l3r8y.complaint.LinkedComplaint;
 import ru.l3r8y.complaint.WrongClassNaming;
 
 /**
@@ -37,6 +39,12 @@ import ru.l3r8y.complaint.WrongClassNaming;
  */
 @RequiredArgsConstructor
 public final class LongClassNameCheck implements Rule {
+
+    /**
+     * Blog post link.
+     */
+    private static final String BLOG_POST =
+        "https://www.yegor256.com/2015/01/12/compound-name-is-code-smell.html";
 
     /**
      * Class name.
@@ -52,15 +60,18 @@ public final class LongClassNameCheck implements Rule {
     public Collection<Complaint> complaints() {
         return new ConditionRule(
             this::longerThanOk,
-            new WrongClassNaming(
-                this.name,
-                // @checkstyle StringLiteralsConcatenationCheck (4 lines).
-                String.format(
-                    "class name is more than %s, it's too complex."
-                    + " Consider more simple name,"
-                    + " read: https://www.yegor256.com/2015/01/12/compound-name-is-code-smell.html",
-                    this.fine
-                )
+            new ClassifiedComplaint(
+                new LinkedComplaint(
+                    new WrongClassNaming(
+                        this.name,
+                        String.format(
+                            "class name is more than %s, consider more simple name",
+                            this.fine
+                        )
+                    ),
+                    LongClassNameCheck.BLOG_POST
+                ),
+                this.getClass()
             )
         ).complaints();
     }
@@ -71,8 +82,10 @@ public final class LongClassNameCheck implements Rule {
      *  #longerThanOk.
      *  Don't forget to remove this puzzle.
      */
+
     /**
      * Is name ok?
+     *
      * @return True if longer
      */
     private boolean longerThanOk() {

@@ -21,9 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package ru.l3r8y.complaint;
 
-String log = new File(basedir, 'build.log').text;
-[
-  "'ClassNameIsTooComplex' has bad naming, class name is more than 15, consider more simple name; read: https://www.yegor256.com/2015/01/12/compound-name-is-code-smell.html"
-].each { assert log.contains(it): "Log doesn't contain ['$it']" }
-true
+import lombok.RequiredArgsConstructor;
+import ru.l3r8y.Complaint;
+
+/**
+ * Classified Complaint.
+ *
+ * @since 0.3.7
+ */
+@RequiredArgsConstructor
+public final class ClassifiedComplaint implements Complaint {
+
+    /**
+     * Origin.
+     */
+    private final Complaint origin;
+
+    /**
+     * Check.
+     */
+    private final Class<?> check;
+
+    @Override
+    public String message() {
+        return String.format(
+            "%s (%s)",
+            this.origin.message(),
+            this.check.getSimpleName()
+        );
+    }
+}

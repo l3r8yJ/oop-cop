@@ -21,38 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package ru.l3r8y.complaint;
 
-import lombok.RequiredArgsConstructor;
+import java.nio.file.Path;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import ru.l3r8y.ClassName;
-import ru.l3r8y.Complaint;
+import ru.l3r8y.extensions.ValidClass;
+import ru.l3r8y.parser.ParsedClassName;
 
 /**
- * Complaint for naming issues.
+ * Test case for {@link LinkedComplaint}.
  *
- * @since 0.1.6
+ * @since 0.3.7
  */
-@RequiredArgsConstructor
-public final class WrongClassNaming implements Complaint {
+final class LinkedComplaintTest {
 
-    /**
-     * Class with bad naming.
-     */
-    private final ClassName clazz;
-
-    /**
-     * The explanation.
-     */
-    private final String explanation;
-
-    @Override
-    public String message() {
-        return String.format(
-            "'%s': '%s' has bad naming, %s",
-            this.clazz.path().toString(),
-            this.clazz.value(),
-            this.explanation
+    @Test
+    @ExtendWith(ValidClass.class)
+    void complainsWithLink(final Path clazz) {
+        final String name = "Test.java";
+        final ClassName parsed = new ParsedClassName(name, clazz);
+        final String explanation = "don't use that!";
+        final String link = "www.blogposts.com/link-to-guide";
+        final String linked = new LinkedComplaint(
+            new WrongClassNaming(parsed, explanation), link
+        ).message();
+        final String expected = String.format(
+            "'%s': '%s' has bad naming, %s; read: %s",
+            parsed.path(), name, explanation, link
+        );
+        MatcherAssert.assertThat(
+            String.format(
+                "Complaint %s does not match with expected format %s",
+                linked,
+                expected
+            ),
+            linked,
+            new IsEqual<>(expected)
         );
     }
 }
