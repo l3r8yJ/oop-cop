@@ -57,7 +57,7 @@
     <url>https://www.rultor.com/p/l3r8yJ/oop-cop</url>
   </ciManagement>
   <properties>
-    <java.version>8</java.version>
+    <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
