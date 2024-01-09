@@ -25,7 +25,6 @@ package ru.l3r8y.checks;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.cactoos.Scalar;
 import org.cactoos.list.ListOf;
 
@@ -38,7 +37,6 @@ import org.cactoos.list.ListOf;
 public final class ClassCanSuppress implements Scalar<List<String>> {
 
     @Override
-    @SneakyThrows
     public List<String> value() {
         return new ListOf<>(
             ErSuffixCheck.class.getSimpleName(),
