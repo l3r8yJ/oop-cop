@@ -33,10 +33,11 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import ru.l3r8y.checks.AssignmentCheck;
+import ru.l3r8y.checks.CompositeClassName;
+import ru.l3r8y.checks.CompositeErNamed;
+import ru.l3r8y.checks.LongClassNameCheck;
 import ru.l3r8y.complaint.CompoundComplaint;
-import ru.l3r8y.rule.AssigmentCheck;
-import ru.l3r8y.rule.CompositeClassName;
-import ru.l3r8y.rule.CompositeErNamed;
 
 /**
  * It's a Maven plugin that runs a set of rules against the source code of the
@@ -65,7 +66,7 @@ public final class ValidateMojo extends AbstractMojo {
     /**
      * Length of Class Name.
      *
-     * @see ru.l3r8y.rule.LongClassNameCheck
+     * @see LongClassNameCheck
      * @checkstyle MemberNameCheck (6 lines).
      */
     @SuppressWarnings("PMD.ImmutableField")
@@ -76,7 +77,7 @@ public final class ValidateMojo extends AbstractMojo {
     public void execute() throws MojoFailureException {
         final Path start = Paths.get(this.project.getCompileSourceRoots().get(0));
         final List<Complaint> complaints = new ArrayList<>(0);
-        complaints.addAll(new AssigmentCheck(start).complaints());
+        complaints.addAll(new AssignmentCheck(start).complaints());
         complaints.addAll(new CompositeErNamed(start).complaints());
         complaints.addAll(
             new CompositeClassName(

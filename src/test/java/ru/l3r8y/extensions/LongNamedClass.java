@@ -28,10 +28,11 @@ import java.util.Objects;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolver;
+import ru.l3r8y.checks.LongClassNameCheck;
 import ru.l3r8y.fake.FakeClass;
 
 /**
- * JUnit parameter resolver for {@link ru.l3r8y.rule.LongClassNameCheck}.
+ * JUnit parameter resolver for {@link LongClassNameCheck}.
  *
  * @since 0.2.0
  */

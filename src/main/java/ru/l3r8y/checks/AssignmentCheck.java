@@ -21,8 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package ru.l3r8y.rule;
+package ru.l3r8y.checks;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,34 +32,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lombok.RequiredArgsConstructor;
-import ru.l3r8y.ClassName;
+import lombok.AllArgsConstructor;
+import ru.l3r8y.Check;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
-import ru.l3r8y.parser.ClassNames;
+import ru.l3r8y.Method;
+import ru.l3r8y.parser.ClassMethods;
 
-/*
-* @todo #35 Remove code duplications.
-* The CompositeErNamedClass#complaints
-* and CompositeErNamedClass#checkWithErNamedClassRule
-* are code duplication from CompositeMethodsContainsAssignment.
-* Refactoring is necessary.
-* */
 /**
- * Checks all java files with {@link ErSuffixCheck}.
+ * It's a rule that matches a path that is composed of other rules.
  *
- * @since 0.1.6
+ * @since 0.1.0
  */
-@RequiredArgsConstructor
-public final class CompositeErNamed implements Rule {
+@AllArgsConstructor
+public final class AssignmentCheck implements Check {
 
     /**
-     * The start path.
+     * A path to the root of the project.
      */
     private final Path start;
 
     @Override
-    public Collection<Complaint> complaints() {
+    public List<Complaint> complaints() {
         final List<Complaint> accum;
         if (Files.exists(this.start)) {
             try (Stream<Path> files = Files.walk(this.start)) {
@@ -68,9 +60,9 @@ public final class CompositeErNamed implements Rule {
                     .filter(Files::exists)
                     .filter(Files::isRegularFile)
                     .filter(p -> p.toString().endsWith(".java"))
-                    .map(ClassNames::new)
-                    .map(ClassNames::all)
-                    .map(CompositeErNamed::checkWithErNamedRule)
+                    .map(ClassMethods::new)
+                    .map(ClassMethods::all)
+                    .map(AssignmentCheck::checkAssigment)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             } catch (final IOException ex) {
@@ -89,22 +81,20 @@ public final class CompositeErNamed implements Rule {
     }
 
     /**
-     * Checks with {@link ErSuffixCheck}.
+     * It takes a collection of methods, and returns a collection of complaints.
      *
-     * @param names Collection of class names.
-     * @return Collection of complaints.
+     * @param methods A collection of methods to check
+     * @return A collection of complaints
      */
-    private static Collection<Complaint> checkWithErNamedRule(
-        final Collection<ClassName> names
-    ) {
+    private static Collection<Complaint> checkAssigment(final Collection<Method> methods) {
         final Collection<Complaint> result;
-        if (names.isEmpty()) {
+        if (methods.isEmpty()) {
             result = Collections.emptyList();
         } else {
             final Collection<Complaint> cmps = new ArrayList<>(0);
-            names.stream()
-                .map(ErSuffixCheck::new)
-                .map(ErSuffixCheck::complaints)
+            methods.stream()
+                .map(MutableStateCheck::new)
+                .map(MutableStateCheck::complaints)
                 .forEach(cmps::addAll);
             result = cmps;
         }

@@ -35,9 +35,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.cactoos.list.ListOf;
 import ru.l3r8y.Method;
 import ru.l3r8y.Methods;
+import ru.l3r8y.checks.ClassCanSuppress;
 
 /**
  * The methods of class.
@@ -83,9 +83,6 @@ public final class ClassMethods implements Methods {
      *   Let's make a new class that will do the same
      *   what we are doing with class names but with methods.
      *   Don't forget to remove this puzzle.
-     * @todo #85 Resolve all available checks into one list.
-     *   Let's merge all checks we got from ClassNames and here,
-     *   ClassMethods. Merge them and resolve.
      */
     /**
      * If the node is a class, then process it.
@@ -107,10 +104,7 @@ public final class ClassMethods implements Methods {
             if (
                 !new IsSuppressed(
                     suppressed,
-                    new ListOf<>(
-                        "MutableStateCheck",
-                        "ErSuffixCheck"
-                    )
+                    new ClassCanSuppress().value()
                 ).value()
             ) {
                 this.fromNodeToParsedMethod(

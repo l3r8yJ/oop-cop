@@ -23,8 +23,8 @@
  */
 
 /**
- * The rules.
+ * Test cases for rule package.
  *
  * @since 0.1.0
  */
-package ru.l3r8y.rule;
+package ru.l3r8y.checks;

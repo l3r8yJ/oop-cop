@@ -28,10 +28,11 @@ import java.util.Objects;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolver;
+import ru.l3r8y.checks.LongClassNameCheck;
 import ru.l3r8y.fake.FakeClass;
 
 /**
- * JUnit extension with suppressed {@link ru.l3r8y.rule.LongClassNameCheck}.
+ * JUnit extension with suppressed {@link LongClassNameCheck}.
  * @since 0.3.6
  */
 public final class SuppressedLongClassName implements ParameterResolver {

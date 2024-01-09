@@ -21,7 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.rule;
+
+package ru.l3r8y.checks;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,28 +34,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import ru.l3r8y.Check;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
 import ru.l3r8y.parser.ClassNames;
 
+/*
+* @todo #35 Remove code duplications.
+* The CompositeErNamedClass#complaints
+* and CompositeErNamedClass#checkWithErNamedClassRule
+* are code duplication from CompositeMethodsContainsAssignment.
+* Refactoring is necessary.
+* */
 /**
- * Composite Long Class Name.
+ * Checks all java files with {@link ErSuffixCheck}.
  *
- * @since 0.2.0
+ * @since 0.1.6
  */
 @RequiredArgsConstructor
-public final class CompositeClassName implements Rule {
+public final class CompositeErNamed implements Check {
 
     /**
-     * Path to start.
+     * The start path.
      */
     private final Path start;
-
-    /**
-     * Length to pass.
-     */
-    private final int fine;
 
     @Override
     public Collection<Complaint> complaints() {
@@ -67,7 +70,7 @@ public final class CompositeClassName implements Rule {
                     .filter(p -> p.toString().endsWith(".java"))
                     .map(ClassNames::new)
                     .map(ClassNames::all)
-                    .map(this::checkLongName)
+                    .map(CompositeErNamed::checkWithErNamedRule)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             } catch (final IOException ex) {
@@ -85,26 +88,23 @@ public final class CompositeClassName implements Rule {
         return accum;
     }
 
-    /*
-     * @todo #81 Introduce new class from #checkLongName private method.
-     *  we should introduce new reusable class from private method
-     *  #checkLongName.
-     *  Don't forget to remove this puzzle.
-     */
     /**
-     * Checks long class name in a collection of names.
-     * @param names Class names
-     * @return Complaints.
+     * Checks with {@link ErSuffixCheck}.
+     *
+     * @param names Collection of class names.
+     * @return Collection of complaints.
      */
-    private Collection<Complaint> checkLongName(final Collection<ClassName> names) {
+    private static Collection<Complaint> checkWithErNamedRule(
+        final Collection<ClassName> names
+    ) {
         final Collection<Complaint> result;
         if (names.isEmpty()) {
             result = Collections.emptyList();
         } else {
             final Collection<Complaint> cmps = new ArrayList<>(0);
             names.stream()
-                .map(cl -> new LongClassNameCheck(cl, this.fine))
-                .map(LongClassNameCheck::complaints)
+                .map(ErSuffixCheck::new)
+                .map(ErSuffixCheck::complaints)
                 .forEach(cmps::addAll);
             result = cmps;
         }

@@ -21,23 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y;
+package ru.l3r8y.checks;
 
-import java.util.Collection;
+import java.util.List;
+import org.cactoos.list.ListOf;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.junit.jupiter.api.Test;
 
 /**
- * The rule.
+ * Test case for {@link ClassCanSuppress}.
  *
- * @since 0.1.0
+ * @since 0.3.7
  */
-@FunctionalInterface
-public interface Rule {
+final class ClassCanSuppressTest {
 
-    /**
-     * Return a collection of all complaints.
-     *
-     * @return A collection of Complaints.
-     */
-    Collection<Complaint> complaints();
-
+    @Test
+    void readsMainChecks() {
+        final List<String> checks = new ClassCanSuppress().value();
+        MatcherAssert.assertThat(
+            String.format(
+                "Checks %s do not match with expected checks",
+                checks
+            ),
+            checks,
+            new IsEqual<>(
+                new ListOf<>(
+                    "ErSuffixCheck",
+                    "LongClassNameCheck",
+                    "MutableStateCheck"
+                )
+            )
+        );
+    }
 }

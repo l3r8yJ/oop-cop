@@ -21,50 +21,78 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.rule;
+/*
+ * @todo #1 Write implementation to pass #failsWithoutThisKeyword test case
+ * Assigment must fails not only with 'this.' construction.
+ */
+package ru.l3r8y.checks;
 
 import java.nio.file.Path;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import ru.l3r8y.extensions.LongNamedClass;
-import ru.l3r8y.extensions.SuppressedLongClassName;
+import ru.l3r8y.extensions.CaseWithoutThis;
+import ru.l3r8y.extensions.InvalidClass;
+import ru.l3r8y.extensions.ManySuppressions;
+import ru.l3r8y.extensions.Marked;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
- * Test case for {@link ru.l3r8y.rule.LongClassNameCheck}.
+ * Test case for {@link AssignmentCheck}.
  *
- * @since 0.2.0
+ * @since 0.1.0
  */
-final class LongClassNameCheckTest {
+final class AssignmentCheckTest {
 
     @Test
-    @ExtendWith(LongNamedClass.class)
-    void failsWithErOnEnd(final Path clazz) {
+    @ExtendWith(InvalidClass.class)
+    void failsWhenInvalid(final Path clazz) {
         MatcherAssert.assertThat(
-            "Build is not failed as expected",
-            new CompositeClassName(clazz, 15).complaints(),
-            Matchers.not(Matchers.empty())
+            "InvalidClass contains 1 broken method",
+            new AssignmentCheck(clazz).complaints(),
+            Matchers.hasSize(1)
+        );
+    }
+
+    @Test
+    @ExtendWith(CaseWithoutThis.class)
+    @Disabled
+    void failsWithoutThisKeyword(final Path clazz) {
+        MatcherAssert.assertThat(
+            "CaseWithoutThis contains 1 broken method",
+            new AssignmentCheck(clazz).complaints(),
+            Matchers.hasSize(1)
         );
     }
 
     @Test
     @ExtendWith(ValidClass.class)
-    void passesWhenNameIsFine(final Path clazz) {
+    void passesWhenValid(final Path clazz) {
         MatcherAssert.assertThat(
-            "Build is not successed as expected",
-            new CompositeClassName(clazz, 13).complaints(),
+            "ValidClass contains no broken methods",
+            new AssignmentCheck(clazz).complaints(),
             Matchers.empty()
         );
     }
 
     @Test
-    @ExtendWith(SuppressedLongClassName.class)
-    void passesWhenSuppressed(final Path clazz) {
+    @ExtendWith(Marked.class)
+    void passesWhenMutableMarked(final Path clazz) {
         MatcherAssert.assertThat(
-            "Suppressed class has complaints, but it shouldn't",
-            new CompositeClassName(clazz, 12).complaints(),
+            "Marked class wasn't checked",
+            new AssignmentCheck(clazz).complaints(),
+            Matchers.empty()
+        );
+    }
+
+    @Test
+    @ExtendWith(ManySuppressions.class)
+    void passesWhenManySuppressed(final Path clazz) {
+        MatcherAssert.assertThat(
+            "Class with many suppressions is checked, but it shouldn't",
+            new AssignmentCheck(clazz).complaints(),
             Matchers.empty()
         );
     }

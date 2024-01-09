@@ -21,34 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package ru.l3r8y.rule;
+package ru.l3r8y.checks;
 
 import java.nio.file.Path;
-import java.util.Collection;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import ru.l3r8y.Complaint;
-import ru.l3r8y.extensions.ErNamedClass;
-import ru.l3r8y.extensions.IsSuppressedErSuffix;
+import ru.l3r8y.extensions.LongNamedClass;
+import ru.l3r8y.extensions.SuppressedLongClassName;
 import ru.l3r8y.extensions.ValidClass;
 
 /**
- * Test case for {@link ErSuffixCheck}.
+ * Test case for {@link CompositeClassName}.
  *
- * @since 0.1.6
+ * @since 0.2.0
  */
-final class ErSuffixCheckTest {
+final class CompositeClassNameTest {
 
     @Test
-    @ExtendWith(ErNamedClass.class)
+    @ExtendWith(LongNamedClass.class)
     void failsWithErOnEnd(final Path clazz) {
         MatcherAssert.assertThat(
-            "Will fail with bad name",
-            new CompositeErNamed(clazz).complaints(),
+            "Build is not failed as expected",
+            new CompositeClassName(clazz, 15).complaints(),
             Matchers.not(Matchers.empty())
         );
     }
@@ -57,26 +53,19 @@ final class ErSuffixCheckTest {
     @ExtendWith(ValidClass.class)
     void passesWhenNameIsFine(final Path clazz) {
         MatcherAssert.assertThat(
-            "Ok when class name without 'er' suffix",
-            new CompositeErNamed(clazz).complaints(),
+            "Build is not successed as expected",
+            new CompositeClassName(clazz, 13).complaints(),
             Matchers.empty()
         );
     }
 
     @Test
-    @ExtendWith(IsSuppressedErSuffix.class)
-    void passesSuppressedWorker(final Path clazz) {
-        final Collection<Complaint> complaints =
-            new CompositeErNamed(clazz).complaints();
-        final int expected = 0;
+    @ExtendWith(SuppressedLongClassName.class)
+    void passesWhenSuppressed(final Path clazz) {
         MatcherAssert.assertThat(
-            String.format(
-                "Complaints %s are not the expected (%s) size",
-                complaints,
-                expected
-            ),
-            complaints.size(),
-            new IsEqual<>(expected)
+            "Suppressed class has complaints, but it shouldn't",
+            new CompositeClassName(clazz, 12).complaints(),
+            Matchers.empty()
         );
     }
 }

@@ -21,53 +21,60 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.complaint;
+package ru.l3r8y.checks;
 
 import java.nio.file.Path;
+import java.util.Collection;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import ru.l3r8y.ClassName;
-import ru.l3r8y.checks.ErSuffixCheck;
+import ru.l3r8y.Complaint;
+import ru.l3r8y.extensions.ErNamedClass;
+import ru.l3r8y.extensions.IsSuppressedErSuffix;
 import ru.l3r8y.extensions.ValidClass;
-import ru.l3r8y.parser.ParsedClassName;
 
 /**
- * Test case for {@link ClassifiedComplaint}.
+ * Test case for {@link CompositeErNamed}.
  *
- * @since 0.3.7
+ * @since 0.1.6
  */
-final class ClassifiedComplaintTest {
+final class CompositeErNamedTest {
+
+    @Test
+    @ExtendWith(ErNamedClass.class)
+    void failsWithErOnEnd(final Path clazz) {
+        MatcherAssert.assertThat(
+            "Will fail with bad name",
+            new CompositeErNamed(clazz).complaints(),
+            Matchers.not(Matchers.empty())
+        );
+    }
 
     @Test
     @ExtendWith(ValidClass.class)
-    void complainsWithCheckClassification(final Path clazz) {
-        final String name = "Test.java";
-        final ClassName parsed = new ParsedClassName(name, clazz);
-        final Class<ErSuffixCheck> check = ErSuffixCheck.class;
-        final String explanation = "explanations..";
-        final String expected = String.format(
-            "'%s': '%s' has bad naming, %s (%s)",
-            parsed.path(),
-            name,
-            explanation,
-            check.getSimpleName()
+    void passesWhenNameIsFine(final Path clazz) {
+        MatcherAssert.assertThat(
+            "Ok when class name without 'er' suffix",
+            new CompositeErNamed(clazz).complaints(),
+            Matchers.empty()
         );
-        final String classified = new ClassifiedComplaint(
-            new WrongClassNaming(
-                parsed,
-                explanation
-            ),
-            check
-        ).message();
+    }
+
+    @Test
+    @ExtendWith(IsSuppressedErSuffix.class)
+    void passesSuppressedWorker(final Path clazz) {
+        final Collection<Complaint> complaints =
+            new CompositeErNamed(clazz).complaints();
+        final int expected = 0;
         MatcherAssert.assertThat(
             String.format(
-                "Complaint %s does not match with expected format %s",
-                classified,
+                "Complaints %s are not the expected (%s) size",
+                complaints,
                 expected
             ),
-            classified,
+            complaints.size(),
             new IsEqual<>(expected)
         );
     }

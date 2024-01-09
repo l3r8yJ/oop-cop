@@ -21,36 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.extensions;
+package ru.l3r8y.checks;
 
-import java.nio.file.Path;
-import java.util.Objects;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ParameterContext;
-import org.junit.jupiter.api.extension.ParameterResolver;
-import ru.l3r8y.checks.ErSuffixCheck;
-import ru.l3r8y.fake.FakeClass;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.cactoos.Scalar;
+import org.cactoos.list.ListOf;
 
 /**
- * Suppressed worker for {@link ErSuffixCheck}.
+ * Check names that can be suppressed on class-level.
  *
- * @since 0.2.6
+ * @since 0.3.7
  */
-public final class IsSuppressedErSuffix implements ParameterResolver {
+@RequiredArgsConstructor
+public final class ClassCanSuppress implements Scalar<List<String>> {
 
     @Override
-    public boolean supportsParameter(
-        final ParameterContext pctx,
-        final ExtensionContext ectx
-    ) {
-        return Objects.equals(pctx.getParameter().getType(), Path.class);
-    }
-
-    @Override
-    public Object resolveParameter(
-        final ParameterContext pctx,
-        final ExtensionContext ectx
-    ) {
-        return new FakeClass("SuppressedWorker.java").asPath();
+    @SneakyThrows
+    public List<String> value() {
+        return new ListOf<>(
+            ErSuffixCheck.class.getSimpleName(),
+            LongClassNameCheck.class.getSimpleName(),
+            MutableStateCheck.class.getSimpleName()
+        );
     }
 }

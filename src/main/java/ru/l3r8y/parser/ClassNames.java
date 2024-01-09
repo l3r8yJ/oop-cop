@@ -30,9 +30,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
-import org.cactoos.list.ListOf;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Names;
+import ru.l3r8y.checks.ClassCanSuppress;
 
 /**
  * All class names from file.
@@ -52,7 +52,6 @@ public final class ClassNames implements Names {
      */
     private final Collection<ClassName> accum = new ArrayList<>(0);
 
-    // @checkstyle MethodBodyCommentsCheck (25 lines)
     @Override
     public Collection<ClassName> all() {
         try {
@@ -63,18 +62,7 @@ public final class ClassNames implements Names {
                         new Declaration(
                             new IgnoresSuppressed(
                                 new Default(this.accum, this.path),
-                                new ListOf<>(
-                                    /*
-                                     * @todo #85:90min Fetch check names
-                                     *  from rule/* package (or check/*).
-                                     *  Instead of hard-coding, we should fetch
-                                     *  the ruleset from related package.
-                                     *  Don't forget to remove this puzzle.
-                                     */
-                                    "ErSuffixCheck",
-                                    "MutableStateCheck",
-                                    "LongClassNameCheck"
-                                )
+                                new ClassCanSuppress().value()
                             ),
                             clazz
                         ).declare()

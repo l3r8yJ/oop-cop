@@ -21,60 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/*
- * #22:15m/DEV Message about annotation.
- * Suggest removing mutability of class or mark class with {@code @Mutable}.
- */
-package ru.l3r8y.rule;
+package ru.l3r8y.checks;
 
 import java.util.Collection;
-import java.util.regex.Pattern;
+import java.util.Collections;
+import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
+import ru.l3r8y.Check;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Method;
-import ru.l3r8y.Rule;
-import ru.l3r8y.complaint.WrongMethodSignature;
 
 /**
- * It checks if a method contains an assignment.
+ * It's a rule that can be applied to a `Condition` object.
  *
  * @since 0.1.0
  */
 @AllArgsConstructor
-public final class MethodChangesState implements Rule {
+public final class ConditionCheck implements Check {
 
     /**
-     * Pattern which matches this assignments.
-     * <p>
-     *  {@code this.field = newValue;}
-     * </p>
+     * The predicate.
      */
-    private static final Pattern PATTERN = Pattern.compile("this\\.[a-zA-Z_]\\w*\\s*=\\s*.+?;");
+    private final Supplier<Boolean> predicate;
 
     /**
-     * The method to check.
+     * The complaint.
      */
-    private final Method method;
+    private final Complaint complaint;
 
     @Override
     public Collection<Complaint> complaints() {
-        return new ConditionRule(
-            this::containsAssigment,
-            new WrongMethodSignature(
-                this.method,
-                // @checkstyle StringLiteralsConcatenationCheck (4 lines).
-                "method body contains an assignment, setters violates OOP principles,"
-                + " read: https://www.l3r8y.ru/2023/03/17/hands-off-the-state-of-the-object"
-            )
-        ).complaints();
-    }
-
-    /**
-     * If the method body contains an assignment, return true.
-     *
-     * @return A boolean value.
-     */
-    private boolean containsAssigment() {
-        return MethodChangesState.PATTERN.matcher(this.method.body()).find();
+        final Collection<Complaint> accum;
+        if (this.predicate.get()) {
+            accum = Collections.singleton(this.complaint);
+        } else {
+            accum = Collections.emptyList();
+        }
+        return accum;
     }
 }

@@ -21,54 +21,68 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package ru.l3r8y.rule;
+package ru.l3r8y.checks;
 
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
+import ru.l3r8y.Check;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Rule;
 import ru.l3r8y.complaint.ClassifiedComplaint;
 import ru.l3r8y.complaint.LinkedComplaint;
 import ru.l3r8y.complaint.WrongClassNaming;
 
 /**
- * It checks if class is -er named.
+ * Check for Long class name.
  *
- * @since 0.1.6
+ * @since 0.2.0
  */
 @RequiredArgsConstructor
-public final class ErSuffixCheck implements Rule {
+public final class LongClassNameCheck implements Check {
 
     /**
-     * The name of class to check.
+     * Class name.
      */
     private final ClassName name;
 
+    /**
+     * Length to pass.
+     */
+    private final int fine;
+
     @Override
     public Collection<Complaint> complaints() {
-        return new ConditionRule(
-            this::isEndsWithEr,
+        return new ConditionCheck(
+            this::longerThanOk,
             new ClassifiedComplaint(
                 new LinkedComplaint(
                     new WrongClassNaming(
                         this.name,
-                        "class ends with '-er' suffix, it's prohibited"
+                        String.format(
+                            "class name is more than %s, consider more simple name",
+                            this.fine
+                        )
                     ),
-                    "https://www.yegor256.com/2015/03/09/objects-end-with-er.html"
+                    "https://www.yegor256.com/2015/01/12/compound-name-is-code-smell.html"
                 ),
                 this.getClass()
             )
         ).complaints();
     }
 
-    /**
-     * Is ends with -er.
-     *
-     * @return True if ends with '-er'.
+    /*
+     * @todo #81 Introduce new class from #longerThanOk private method.
+     *  we should introduce new reusable class from private method
+     *  #longerThanOk.
+     *  Don't forget to remove this puzzle.
      */
-    private boolean isEndsWithEr() {
-        return this.name.value().endsWith("er");
+
+    /**
+     * Is name ok?
+     *
+     * @return True if longer
+     */
+    private boolean longerThanOk() {
+        return this.name.value().length() > this.fine;
     }
 }

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package ru.l3r8y.rule;
+package ru.l3r8y.checks;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,27 +32,32 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import ru.l3r8y.Check;
+import ru.l3r8y.ClassName;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.Method;
-import ru.l3r8y.Rule;
-import ru.l3r8y.parser.ClassMethods;
+import ru.l3r8y.parser.ClassNames;
 
 /**
- * It's a rule that matches a path that is composed of other rules.
+ * Composite Long Class Name.
  *
- * @since 0.1.0
+ * @since 0.2.0
  */
-@AllArgsConstructor
-public final class AssigmentCheck implements Rule {
+@RequiredArgsConstructor
+public final class CompositeClassName implements Check {
 
     /**
-     * A path to the root of the project.
+     * Path to start.
      */
     private final Path start;
 
+    /**
+     * Length to pass.
+     */
+    private final int fine;
+
     @Override
-    public List<Complaint> complaints() {
+    public Collection<Complaint> complaints() {
         final List<Complaint> accum;
         if (Files.exists(this.start)) {
             try (Stream<Path> files = Files.walk(this.start)) {
@@ -60,9 +65,9 @@ public final class AssigmentCheck implements Rule {
                     .filter(Files::exists)
                     .filter(Files::isRegularFile)
                     .filter(p -> p.toString().endsWith(".java"))
-                    .map(ClassMethods::new)
-                    .map(ClassMethods::all)
-                    .map(AssigmentCheck::checkAssigment)
+                    .map(ClassNames::new)
+                    .map(ClassNames::all)
+                    .map(this::checkLongName)
                     .flatMap(Collection::stream)
                     .collect(Collectors.toList());
             } catch (final IOException ex) {
@@ -80,21 +85,26 @@ public final class AssigmentCheck implements Rule {
         return accum;
     }
 
-    /**
-     * It takes a collection of methods, and returns a collection of complaints.
-     *
-     * @param methods A collection of methods to check
-     * @return A collection of complaints
+    /*
+     * @todo #81 Introduce new class from #checkLongName private method.
+     *  we should introduce new reusable class from private method
+     *  #checkLongName.
+     *  Don't forget to remove this puzzle.
      */
-    private static Collection<Complaint> checkAssigment(final Collection<Method> methods) {
+    /**
+     * Checks long class name in a collection of names.
+     * @param names Class names
+     * @return Complaints.
+     */
+    private Collection<Complaint> checkLongName(final Collection<ClassName> names) {
         final Collection<Complaint> result;
-        if (methods.isEmpty()) {
+        if (names.isEmpty()) {
             result = Collections.emptyList();
         } else {
             final Collection<Complaint> cmps = new ArrayList<>(0);
-            methods.stream()
-                .map(MethodChangesState::new)
-                .map(MethodChangesState::complaints)
+            names.stream()
+                .map(cl -> new LongClassNameCheck(cl, this.fine))
+                .map(LongClassNameCheck::complaints)
                 .forEach(cmps::addAll);
             result = cmps;
         }
