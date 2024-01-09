@@ -26,6 +26,7 @@ package ru.l3r8y.parser;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.cactoos.Scalar;
 
 /**
  * Code that ignores suppressed classes.
@@ -43,7 +44,7 @@ public final class IgnoresSuppressed implements Code {
     /**
      * All checks.
      */
-    private final List<String> all;
+    private final Scalar<List<String>> all;
 
     @Override
     public void add(final ClassOrInterfaceDeclaration declaration) {

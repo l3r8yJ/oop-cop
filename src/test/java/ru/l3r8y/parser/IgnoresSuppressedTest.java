@@ -51,7 +51,7 @@ final class IgnoresSuppressedTest {
         final List<ClassName> accum = new ListOf<>();
         new IgnoresSuppressed(
             new Default(accum, Paths.get("test")),
-            new ListOf<>(
+            () -> new ListOf<>(
                 "ErSuffixCheck"
             )
         ).add(declaration);
@@ -73,7 +73,7 @@ final class IgnoresSuppressedTest {
         final List<ClassName> accum = new ListOf<>();
         new IgnoresSuppressed(
             new Default(accum, Paths.get("test")),
-            new ListOf<>()
+            ListOf::new
         ).add(declaration);
         final String expected = "Parser";
         final String name = accum.get(0).value();
@@ -98,7 +98,7 @@ final class IgnoresSuppressedTest {
                 node ->
                     new IgnoresSuppressed(
                         new Default(accum, clazz),
-                        new ListOf<>(
+                        () -> new ListOf<>(
                             "ErSuffixCheck",
                             "MutableStateCheck"
                         )

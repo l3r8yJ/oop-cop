@@ -51,13 +51,13 @@ public final class IsSuppressed implements Scalar<Boolean> {
     /**
      * Checks to suppress.
      */
-    private final List<String> checks;
+    private final Scalar<List<String>> checks;
 
     @Override
     @SneakyThrows
     public Boolean value() {
         final List<String> prefixed = new ListOf<>();
-        this.checks.forEach(
+        this.checks.value().forEach(
             check -> prefixed.add(
                 String.format("%s.%s", IsSuppressed.PREFIX, check)
             )

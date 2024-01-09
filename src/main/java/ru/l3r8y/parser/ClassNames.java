@@ -62,7 +62,7 @@ public final class ClassNames implements Names {
                         new Declaration(
                             new IgnoresSuppressed(
                                 new Default(this.accum, this.path),
-                                new ClassCanSuppress().value()
+                                new ClassCanSuppress()
                             ),
                             clazz
                         ).declare()

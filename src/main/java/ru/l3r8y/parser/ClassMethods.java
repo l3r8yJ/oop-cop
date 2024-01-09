@@ -104,7 +104,7 @@ public final class ClassMethods implements Methods {
             if (
                 !new IsSuppressed(
                     suppressed,
-                    new ClassCanSuppress().value()
+                    new ClassCanSuppress()
                 ).value()
             ) {
                 this.fromNodeToParsedMethod(

@@ -50,7 +50,7 @@ final class IsSuppressedTest {
             ),
             new IsSuppressed(
                 checks,
-                new ListOf<>(check)
+                () -> new ListOf<>(check)
             ).value(),
             new IsEqual<>(true)
         );
@@ -68,7 +68,7 @@ final class IsSuppressedTest {
             ),
             new IsSuppressed(
                 checks,
-                new ListOf<>(check)
+                () -> new ListOf<>(check)
             ).value(),
             new IsEqual<>(false)
         );
