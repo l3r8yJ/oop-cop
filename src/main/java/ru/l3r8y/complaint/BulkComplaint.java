@@ -21,49 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package ru.l3r8y.complaint;
 
-import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.regex.Pattern;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import ru.l3r8y.Complaint;
-import ru.l3r8y.parser.ParsedMethod;
 
 /**
- * Test case for {@link CompoundComplaint}.
+ * The compound complaint. Merges all complaints into one.
  *
- * @since 0.1.4
+ * @since 0.1.0
  */
-class CompoundComplaintTest {
+@AllArgsConstructor
+public final class BulkComplaint implements Complaint {
 
     /**
-     * Separator for test.
+     * The complaints.
      */
-    private static final Pattern SEP = Pattern.compile("<sep>");
+    private final Collection<? extends Complaint> complaints;
 
-    @Test
-    void mergesMessages() {
-        final Collection<Complaint> complaints = Collections.nCopies(
-            5,
-            new WrongMethodSignature(
-                new ParsedMethod(
-                    "ClassName",
-                    "myCoolMethod()",
-                    "{ return null; }",
-                    Paths.get("")
-                ),
-                "some cool explanation!<sep>"
-            )
-        );
-        MatcherAssert.assertThat(
-            "Length before equals length after",
-            CompoundComplaintTest.SEP.split(new CompoundComplaint(complaints).message()).length,
-            Matchers.equalTo(complaints.size())
-        );
+    @Override
+    public String message() {
+        return this.complaints.stream()
+            .map(Complaint::message)
+            .collect(Collectors.joining("\n", "\n", ""));
     }
 }
