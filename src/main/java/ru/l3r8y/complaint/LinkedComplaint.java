@@ -47,7 +47,7 @@ public final class LinkedComplaint implements Complaint {
     @Override
     public String message() {
         return String.format(
-            "%s; read: %s",
+            "%s\n\tread: '%s'",
             this.origin.message(),
             this.link
         );

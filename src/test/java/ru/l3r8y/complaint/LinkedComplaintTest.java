@@ -50,7 +50,7 @@ final class LinkedComplaintTest {
             new WrongClassNaming(parsed, explanation), link
         ).message();
         final String expected = String.format(
-            "'%s': '%s' has bad naming, %s; read: %s",
+            "'%s': '%s' has bad naming, %s\n\tread: '%s'",
             parsed.path(), name, explanation, link
         );
         MatcherAssert.assertThat(

@@ -37,7 +37,7 @@ import ru.l3r8y.checks.AssignmentCheck;
 import ru.l3r8y.checks.CompositeClassName;
 import ru.l3r8y.checks.CompositeErNamed;
 import ru.l3r8y.checks.LongClassNameCheck;
-import ru.l3r8y.complaint.CompoundComplaint;
+import ru.l3r8y.complaint.BulkComplaint;
 
 /**
  * It's a Maven plugin that runs a set of rules against the source code of the
@@ -85,7 +85,7 @@ public final class ValidateMojo extends AbstractMojo {
             ).complaints()
         );
         if (!complaints.isEmpty() && this.failOnError) {
-            throw new MojoFailureException(new CompoundComplaint(complaints).message());
+            throw new MojoFailureException(new BulkComplaint(complaints).message());
         }
         if (complaints.isEmpty()) {
             this.getLog().info("Violations not found");

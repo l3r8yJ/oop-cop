@@ -24,7 +24,9 @@
 
 String log = new File(basedir, 'build.log').text;
 [
-  "Method 'HasSetters#setField' has wrong method signature, because method body contains an assignment, setters violates OOP principles, read: https://www.l3r8y.ru/2023/03/17/hands-off-the-state-of-the-object",
-  "'BadNamer' has bad naming, class ends with '-er' suffix, it's prohibited; read: https://www.yegor256.com/2015/03/09/objects-end-with-er.html (ErSuffixCheck)"
+  "Method 'HasSetters#setField' has wrong method signature, because method body contains an assignment, setters violates OOP principles\n" +
+          "\tread: 'https://www.l3r8y.ru/2023/03/17/hands-off-the-state-of-the-object'",
+  "'BadNamer' has bad naming, class ends with '-er' suffix, it's prohibited\n" +
+          "\tread: 'https://www.yegor256.com/2015/03/09/objects-end-with-er.html' (ErSuffixCheck)"
 ].each { assert log.contains(it): "Log doesn't contain ['$it']" }
 true
