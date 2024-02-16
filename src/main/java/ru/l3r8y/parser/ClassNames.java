@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
-import org.cactoos.list.ListOf;
 import ru.l3r8y.ClassName;
 import ru.l3r8y.Names;
 
@@ -63,18 +62,7 @@ public final class ClassNames implements Names {
                         new Declaration(
                             new IgnoresSuppressed(
                                 new Default(this.accum, this.path),
-                                () -> new ListOf<>(
-                                    /*
-                                     * @todo #85:90min Fetch check names
-                                     *  from rule/* package (or check/*).
-                                     *  Instead of hard-coding, we should fetch
-                                     *  the ruleset from related package.
-                                     *  Don't forget to remove this puzzle.
-                                     */
-                                    "ErSuffixCheck",
-                                    "MutableStateCheck",
-                                    "LongClassNameCheck"
-                                )
+                                new ScannedChecks()
                             ),
                             clazz
                         ).declare()
