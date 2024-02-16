@@ -33,6 +33,7 @@ import lombok.AllArgsConstructor;
 import ru.l3r8y.Check;
 import ru.l3r8y.Complaint;
 import ru.l3r8y.Method;
+import ru.l3r8y.complaint.LinkedComplaint;
 import ru.l3r8y.complaint.WrongMethodSignature;
 
 /**
@@ -44,7 +45,7 @@ import ru.l3r8y.complaint.WrongMethodSignature;
 public final class MutableStateCheck implements Check {
 
     /**
-     * Pattern which matches this assignments.
+     * Pattern which matches this assignment.
      * <p>
      *  {@code this.field = newValue;}
      * </p>
@@ -60,11 +61,12 @@ public final class MutableStateCheck implements Check {
     public Collection<Complaint> complaints() {
         return new ConditionCheck(
             this::containsAssigment,
-            new WrongMethodSignature(
-                this.method,
-                // @checkstyle StringLiteralsConcatenationCheck (4 lines).
-                "method body contains an assignment, setters violates OOP principles,"
-                + " read: https://www.l3r8y.ru/2023/03/17/hands-off-the-state-of-the-object"
+            new LinkedComplaint(
+                new WrongMethodSignature(
+                    this.method,
+                    "method body contains an assignment, setters violates OOP principles"
+                ),
+                "https://www.l3r8y.ru/2023/03/17/hands-off-the-state-of-the-object"
             )
         ).complaints();
     }
