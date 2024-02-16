@@ -82,6 +82,8 @@
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
     <jcabi-aspects.version>0.25.1</jcabi-aspects.version>
     <aspectjrt.version>1.9.19</aspectjrt.version>
+    <guava.version>33.0.0-jre</guava.version>
+    <jcabi-maven-plugin.version>0.17.0</jcabi-maven-plugin.version>
   </properties>
   <dependencies>
     <dependency>
@@ -159,7 +161,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.0.0-jre</version>
+      <version>${guava.version}</version>
     </dependency>    <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
@@ -198,7 +200,7 @@
       <plugin>
         <groupId>com.jcabi</groupId>
         <artifactId>jcabi-maven-plugin</artifactId>
-        <version>0.17.0</version>
+        <version>${jcabi-maven-plugin.version}</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
