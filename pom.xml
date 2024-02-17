@@ -22,7 +22,6 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   ~ SOFTWARE.
   -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.l3r8y</groupId>
@@ -84,6 +83,7 @@
     <aspectjrt.version>1.9.21.1</aspectjrt.version>
     <guava.version>33.0.0-jre</guava.version>
     <jcabi-maven-plugin.version>0.17.0</jcabi-maven-plugin.version>
+    <streamex.version>0.8.2</streamex.version>
   </properties>
   <dependencies>
     <dependency>
@@ -159,10 +159,16 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>one.util</groupId>
+      <artifactId>streamex</artifactId>
+      <version>${streamex.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>${guava.version}</version>
-    </dependency>    <dependency>
+    </dependency>
+    <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
       <version>${aspectjrt.version}</version>
