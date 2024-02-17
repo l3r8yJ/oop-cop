@@ -84,7 +84,7 @@ public final class ScannedChecks implements Scalar<Set<String>> {
      * Return true if class is implementation of Check interface,
      * false otherwise.
      *
-     * @param info Name of the class
+     * @param info Info about class
      * @return If class is Check returns true, false otherwise
      * @see Check
      */
