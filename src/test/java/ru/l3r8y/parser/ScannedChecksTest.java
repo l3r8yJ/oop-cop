@@ -45,8 +45,9 @@ final class ScannedChecksTest {
         final Set<String> checks = new ScannedChecks(pack).value();
         new Assertion<>(
             new FormattedText(
-                "%s should contain each Check implementation from 'ru.l3r8y.checks' package",
-                checks
+                "%s should contain each Check implementation from '%s' package",
+                checks,
+                pack
             ).toString(),
             checks,
             new HasSize(size)
