@@ -40,7 +40,7 @@ import ru.l3r8y.extensions.ValidClass;
 /**
  * Test case for {@link Default}.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 final class DefaultTest {
 

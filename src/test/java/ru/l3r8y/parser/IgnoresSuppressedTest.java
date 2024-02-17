@@ -30,6 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import org.cactoos.list.ListOf;
+import org.cactoos.set.SetOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ import ru.l3r8y.extensions.ParserDeclaration;
 /**
  * Test case for {@link IgnoresSuppressed}.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 final class IgnoresSuppressedTest {
 
@@ -51,9 +52,7 @@ final class IgnoresSuppressedTest {
         final List<ClassName> accum = new ListOf<>();
         new IgnoresSuppressed(
             new Default(accum, Paths.get("test")),
-            () -> new ListOf<>(
-                "ErSuffixCheck"
-            )
+            () -> new SetOf<>("ErSuffixCheck")
         ).add(declaration);
         MatcherAssert.assertThat(
             String.format(
@@ -73,7 +72,7 @@ final class IgnoresSuppressedTest {
         final List<ClassName> accum = new ListOf<>();
         new IgnoresSuppressed(
             new Default(accum, Paths.get("test")),
-            ListOf::new
+            SetOf::new
         ).add(declaration);
         final String expected = "Parser";
         final String name = accum.get(0).value();
@@ -98,7 +97,7 @@ final class IgnoresSuppressedTest {
                 node ->
                     new IgnoresSuppressed(
                         new Default(accum, clazz),
-                        () -> new ListOf<>(
+                        () -> new SetOf<>(
                             "ErSuffixCheck",
                             "MutableStateCheck"
                         )

@@ -23,22 +23,22 @@
  */
 package ru.l3r8y.checks;
 
-import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.cactoos.Scalar;
-import org.cactoos.list.ListOf;
+import org.cactoos.set.SetOf;
 
 /**
  * Check names that can be suppressed on class-level.
  *
- * @since 0.3.7
+ * @since 0.2.6
  */
 @RequiredArgsConstructor
-public final class ClassCanSuppress implements Scalar<List<String>> {
+public final class ClassCanSuppress implements Scalar<Set<String>> {
 
     @Override
-    public List<String> value() {
-        return new ListOf<>(
+    public Set<String> value() {
+        return new SetOf<>(
             ErSuffixCheck.class.getSimpleName(),
             LongClassNameCheck.class.getSimpleName(),
             MutableStateCheck.class.getSimpleName()

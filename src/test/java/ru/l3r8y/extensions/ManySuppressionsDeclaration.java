@@ -38,7 +38,7 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 /**
  * JUnit extension with Java class that have many suppressions.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 public final class ManySuppressionsDeclaration implements ParameterResolver {
 

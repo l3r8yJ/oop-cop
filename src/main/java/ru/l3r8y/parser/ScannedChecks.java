@@ -23,11 +23,16 @@
  */
 package ru.l3r8y.parser;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.jcabi.aspects.Loggable;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
+import one.util.streamex.StreamEx;
 import org.cactoos.Scalar;
+import ru.l3r8y.Check;
 
 /**
  * Just the bulk of scanned checks.
@@ -35,7 +40,7 @@ import org.cactoos.Scalar;
  * @since 0.2.7
  */
 @Loggable(Loggable.DEBUG)
-public final class ScannedChecks implements Scalar<List<String>> {
+public final class ScannedChecks implements Scalar<Set<String>> {
 
     /**
      * The package to scan.
@@ -59,13 +64,40 @@ public final class ScannedChecks implements Scalar<List<String>> {
     }
 
     @Override
-    public List<String> value() throws Exception {
-        return ClassPath.from(Thread.currentThread().getContextClassLoader())
-            .getAllClasses()
-            .stream()
-            .filter(clazz -> clazz.getPackageName().equalsIgnoreCase(this.pckg))
-            .map(ClassPath.ClassInfo::getSimpleName)
-            .filter(name -> !name.endsWith("Test") && !name.contains("package"))
-            .collect(Collectors.toList());
+    public Set<String> value() {
+        Set<String> result;
+        try {
+            result = ClassPath.from(Thread.currentThread().getContextClassLoader())
+                .getAllClasses()
+                .stream()
+                .filter(info -> info.getPackageName().equalsIgnoreCase(this.pckg))
+                .filter(ScannedChecks::isCheck)
+                .map(ClassPath.ClassInfo::getSimpleName)
+                .collect(ImmutableSet.toImmutableSet());
+        } catch (final IOException ignored) {
+            result = Collections.emptySet();
+        }
+        return result;
+    }
+
+    /**
+     * Return true if class is implementation of Check interface,
+     * false otherwise.
+     *
+     * @param info Name of the class
+     * @return If class is Check returns true, false otherwise
+     * @see Check
+     */
+    private static boolean isCheck(final ClassPath.ClassInfo info) {
+        boolean result;
+        try {
+            final Class<?> clazz = Class.forName(info.getName());
+            final Optional<Class<?>> iface = StreamEx.of(clazz.getInterfaces())
+                .findAny(parent -> parent.equals(Check.class));
+            result = iface.isPresent();
+        } catch (final ClassNotFoundException ignored) {
+            result = false;
+        }
+        return result;
     }
 }

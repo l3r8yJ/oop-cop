@@ -28,7 +28,7 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 /**
  * Code to analyze.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 public interface Code {
 

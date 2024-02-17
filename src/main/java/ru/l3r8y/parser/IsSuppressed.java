@@ -25,6 +25,7 @@ package ru.l3r8y.parser;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.cactoos.Scalar;
@@ -44,14 +45,14 @@ public final class IsSuppressed implements Scalar<Boolean> {
     private static final String PREFIX = "OOP";
 
     /**
-     * Suppressions.
+     * Suppressed.
      */
-    private final List<String> suppressions;
+    private final Set<String> suppressed;
 
     /**
      * Checks to suppress.
      */
-    private final Scalar<List<String>> checks;
+    private final Scalar<Set<String>> checks;
 
     @Override
     @SneakyThrows
@@ -62,7 +63,7 @@ public final class IsSuppressed implements Scalar<Boolean> {
                 String.format("%s.%s", IsSuppressed.PREFIX, check)
             )
         );
-        return new HashSet<>(prefixed).containsAll(this.suppressions);
+        return new HashSet<>(prefixed).containsAll(this.suppressed);
     }
 
 }

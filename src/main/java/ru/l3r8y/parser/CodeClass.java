@@ -26,7 +26,7 @@ package ru.l3r8y.parser;
 /**
  * Code class.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 public interface CodeClass {
 

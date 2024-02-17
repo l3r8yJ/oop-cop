@@ -32,7 +32,7 @@ import ru.l3r8y.ClassName;
 /**
  * Default code.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 @RequiredArgsConstructor
 public final class Default implements Code {

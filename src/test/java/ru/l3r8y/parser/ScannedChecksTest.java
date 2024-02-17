@@ -23,10 +23,12 @@
  */
 package ru.l3r8y.parser;
 
-import java.util.List;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import java.util.Set;
+import org.cactoos.text.FormattedText;
 import org.junit.jupiter.api.Test;
+import org.llorllale.cactoos.matchers.Assertion;
+import org.llorllale.cactoos.matchers.HasSize;
+import org.llorllale.cactoos.matchers.Throws;
 
 /**
  * Test suite for {@link ScannedChecks}.
@@ -36,17 +38,32 @@ import org.junit.jupiter.api.Test;
 final class ScannedChecksTest {
 
     @Test
-    void returnsAllChecksInPackage() throws Exception {
-        final List<String> checks = new ScannedChecks().value();
-        final int classes = 8;
-        MatcherAssert.assertThat(
-            String.format(
-                "%s should contain each check from ru.l3r8y.check package",
+    @SuppressWarnings("JTCOP.RuleAssertionMessage")
+    void returnsAllChecksInPackage() {
+        final int size = 7;
+        final String pack = "ru.l3r8y.checks";
+        final Set<String> checks = new ScannedChecks(pack).value();
+        new Assertion<>(
+            new FormattedText(
+                "%s should contain each Check implementation from 'ru.l3r8y.checks' package",
                 checks
-            ),
+            ).toString(),
             checks,
-            Matchers.hasSize(classes)
-        );
+            new HasSize(size)
+        ).affirm();
     }
 
+    @Test
+    @SuppressWarnings("JTCOP.RuleAssertionMessage")
+    void throwsOnCollectionChange() {
+        final Set<String> checks = new ScannedChecks().value();
+        new Assertion<>(
+            new FormattedText(
+            "Should throw exception when trying to modify: \n\t%s",
+                checks
+            ).toString(),
+            () -> checks.add("123"),
+            new Throws<>(UnsupportedOperationException.class)
+        ).affirm();
+    }
 }

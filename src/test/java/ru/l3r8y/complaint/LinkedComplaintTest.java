@@ -35,7 +35,7 @@ import ru.l3r8y.parser.ParsedClassName;
 /**
  * Test case for {@link LinkedComplaint}.
  *
- * @since 0.3.7
+ * @since 0.2.6
  */
 final class LinkedComplaintTest {
 

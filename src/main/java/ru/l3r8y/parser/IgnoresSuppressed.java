@@ -24,14 +24,14 @@
 package ru.l3r8y.parser;
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.cactoos.Scalar;
 
 /**
  * Code that ignores suppressed classes.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 @RequiredArgsConstructor
 public final class IgnoresSuppressed implements Code {
@@ -44,11 +44,11 @@ public final class IgnoresSuppressed implements Code {
     /**
      * All checks.
      */
-    private final Scalar<List<String>> all;
+    private final Scalar<Set<String>> all;
 
     @Override
     public void add(final ClassOrInterfaceDeclaration declaration) {
-        final List<String> suppressed = new SuppressedChecks(declaration).value();
+        final Set<String> suppressed = new SuppressedChecks(declaration).value();
         if (suppressed.isEmpty()) {
             this.origin.add(declaration);
         }

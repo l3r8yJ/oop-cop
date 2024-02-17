@@ -23,8 +23,8 @@
  */
 package ru.l3r8y.parser;
 
-import java.util.List;
-import org.cactoos.list.ListOf;
+import java.util.Set;
+import org.cactoos.set.SetOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ final class IsSuppressedTest {
     @Test
     void suppressesCheck() {
         final String check = "ErSuffixCheck";
-        final List<String> checks = new ListOf<>(
+        final Set<String> checks = new SetOf<>(
             String.format("OOP.%s", check)
         );
         MatcherAssert.assertThat(
@@ -50,7 +50,7 @@ final class IsSuppressedTest {
             ),
             new IsSuppressed(
                 checks,
-                () -> new ListOf<>(check)
+                () -> new SetOf<>(check)
             ).value(),
             new IsEqual<>(true)
         );
@@ -59,7 +59,7 @@ final class IsSuppressedTest {
     @Test
     void returnsFalseOnNotSuppressedCheck() {
         final String check = "MutableStateCheck";
-        final List<String> checks = new ListOf<>("OOP.ErSuffixCheck");
+        final Set<String> checks = new SetOf<>("OOP.ErSuffixCheck");
         MatcherAssert.assertThat(
             String.format(
                 "Check %s is not suppressed, suppressed checks %s",
@@ -68,7 +68,7 @@ final class IsSuppressedTest {
             ),
             new IsSuppressed(
                 checks,
-                () -> new ListOf<>(check)
+                () -> new SetOf<>(check)
             ).value(),
             new IsEqual<>(false)
         );

@@ -35,7 +35,7 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 
 /**
  * JUnit extension with Parser Java class declaration.
- * @since 0.3.6
+ * @since 0.2.6
  */
 public final class ParserDeclaration implements ParameterResolver {
 

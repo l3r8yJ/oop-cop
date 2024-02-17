@@ -33,7 +33,7 @@ import ru.l3r8y.fake.FakeClass;
 
 /**
  * JUnit extension with suppressed {@link LongClassNameCheck}.
- * @since 0.3.6
+ * @since 0.2.6
  */
 public final class SuppressedLongClassName implements ParameterResolver {
 

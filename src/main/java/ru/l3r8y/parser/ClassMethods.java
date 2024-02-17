@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import ru.l3r8y.Method;
 import ru.l3r8y.Methods;
@@ -94,7 +94,7 @@ public final class ClassMethods implements Methods {
         if (clazz instanceof ClassOrInterfaceDeclaration) {
             final ClassOrInterfaceDeclaration declaration = ClassOrInterfaceDeclaration.class
                 .cast(clazz);
-            final List<String> suppressed = new SuppressedChecks(declaration).value();
+            final Set<String> suppressed = new SuppressedChecks(declaration).value();
             if (suppressed.isEmpty()) {
                 this.fromNodeToParsedMethod(
                     methods,

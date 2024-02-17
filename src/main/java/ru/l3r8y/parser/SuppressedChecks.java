@@ -27,11 +27,12 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr;
-import java.util.List;
+import com.google.common.collect.ImmutableSet;
+import java.util.Collections;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 import org.cactoos.Scalar;
-import org.cactoos.list.ListOf;
+import org.cactoos.set.SetOf;
 
 /*
  * @todo #38 This class is too complex.
@@ -46,7 +47,7 @@ import org.cactoos.list.ListOf;
  *
  * @since 0.2.6
  */
-public final class SuppressedChecks implements Scalar<List<String>> {
+public final class SuppressedChecks implements Scalar<Set<String>> {
 
     /**
      * Declaration.
@@ -65,7 +66,7 @@ public final class SuppressedChecks implements Scalar<List<String>> {
     // @checkstyle ReturnCountCheck (40 lines).
     @Override
     @SuppressWarnings({"PMD.OnlyOneReturn", "PMD.AvoidDeeplyNestedIfStmts"})
-    public List<String> value() {
+    public Set<String> value() {
         final Optional<AnnotationExpr> annotation =
             this.declaration.getAnnotationByName("SuppressWarnings");
         if (annotation.isPresent()) {
@@ -76,7 +77,7 @@ public final class SuppressedChecks implements Scalar<List<String>> {
                 final Expression members = single.get().getMemberValue();
                 // @checkstyle NestedIfDepthCheck (6 lines).
                 if (members.isStringLiteralExpr()) {
-                    return new ListOf<>(
+                    return new SetOf<>(
                         members.asStringLiteralExpr()
                             .asString()
                     );
@@ -90,11 +91,11 @@ public final class SuppressedChecks implements Scalar<List<String>> {
                             expression ->
                                 expression.asStringLiteralExpr()
                                     .asString()
-                        ).collect(Collectors.toList());
+                        ).collect(ImmutableSet.toImmutableSet());
                 }
             }
-            return new ListOf<>();
+            return Collections.emptySet();
         }
-        return new ListOf<>();
+        return Collections.emptySet();
     }
 }

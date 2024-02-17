@@ -23,8 +23,8 @@
  */
 package ru.l3r8y.checks;
 
-import java.util.List;
-import org.cactoos.list.ListOf;
+import java.util.Set;
+import org.cactoos.set.SetOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
@@ -32,13 +32,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Test case for {@link ClassCanSuppress}.
  *
- * @since 0.3.7
+ * @since 0.2.6
  */
 final class ClassCanSuppressTest {
 
     @Test
     void readsMainChecks() {
-        final List<String> checks = new ClassCanSuppress().value();
+        final Set<String> checks = new ClassCanSuppress().value();
         MatcherAssert.assertThat(
             String.format(
                 "Checks %s do not match with expected checks",
@@ -46,7 +46,7 @@ final class ClassCanSuppressTest {
             ),
             checks,
             new IsEqual<>(
-                new ListOf<>(
+                new SetOf<>(
                     "ErSuffixCheck",
                     "LongClassNameCheck",
                     "MutableStateCheck"

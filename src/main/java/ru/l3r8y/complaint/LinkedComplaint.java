@@ -29,7 +29,7 @@ import ru.l3r8y.Complaint;
 /**
  * Complaint with linked URLs to some content-to-learn.
  *
- * @since 0.3.7
+ * @since 0.2.6
  */
 @RequiredArgsConstructor
 public final class LinkedComplaint implements Complaint {

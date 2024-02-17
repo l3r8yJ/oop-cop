@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Class declaration.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 @RequiredArgsConstructor
 public final class Declaration implements CodeClass {

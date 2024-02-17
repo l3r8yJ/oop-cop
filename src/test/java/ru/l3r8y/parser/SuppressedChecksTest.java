@@ -25,8 +25,8 @@ package ru.l3r8y.parser;
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.expr.SimpleName;
-import java.util.List;
-import org.cactoos.list.ListOf;
+import java.util.Set;
+import org.cactoos.set.SetOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ import ru.l3r8y.extensions.ParserDeclaration;
 /**
  * Test case for {@link SuppressedChecks}.
  *
- * @since 0.3.6
+ * @since 0.2.6
  */
 final class SuppressedChecksTest {
 
@@ -45,8 +45,8 @@ final class SuppressedChecksTest {
     @ExtendWith(ParserDeclaration.class)
     void parsesSuppression(final ClassOrInterfaceDeclaration declaration) {
         final String suppress = "OOP.ErSuffixCheck";
-        final List<String> found = new SuppressedChecks(declaration).value();
-        final ListOf<String> expected = new ListOf<>(suppress);
+        final Set<String> found = new SuppressedChecks(declaration).value();
+        final Set<String> expected = new SetOf<>(suppress);
         MatcherAssert.assertThat(
             String.format(
                 "Suppressed checks %s do not match with expected format %s",
@@ -63,8 +63,8 @@ final class SuppressedChecksTest {
     @Test
     @ExtendWith(ManySuppressionsDeclaration.class)
     void parsesManySuppressions(final ClassOrInterfaceDeclaration declaration) {
-        final List<String> found = new SuppressedChecks(declaration).value();
-        final ListOf<String> expected = new ListOf<>(
+        final Set<String> found = new SuppressedChecks(declaration).value();
+        final Set<String> expected = new SetOf<>(
             "OOP.MutableStateCheck",
             "OOP.ErSuffixCheck"
         );
@@ -86,7 +86,7 @@ final class SuppressedChecksTest {
         final ClassOrInterfaceDeclaration declaration =
             new ClassOrInterfaceDeclaration();
         declaration.setName(new SimpleName("Parser"));
-        final List<String> found = new SuppressedChecks(declaration).value();
+        final Set<String> found = new SuppressedChecks(declaration).value();
         MatcherAssert.assertThat(
             String.format(
                 "Suppressed checks %s are not empty as expected",
