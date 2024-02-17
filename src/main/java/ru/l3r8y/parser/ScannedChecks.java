@@ -92,9 +92,9 @@ public final class ScannedChecks implements Scalar<Set<String>> {
         boolean result;
         try {
             final Class<?> clazz = Class.forName(info.getName());
-            final Optional<Class<?>> iface = StreamEx.of(clazz.getInterfaces())
+            final Optional<Class<?>> check = StreamEx.of(clazz.getInterfaces())
                 .findAny(parent -> parent.equals(Check.class));
-            result = iface.isPresent();
+            result = check.isPresent();
         } catch (final ClassNotFoundException ignored) {
             result = false;
         }
