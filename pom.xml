@@ -79,7 +79,7 @@ SOFTWARE.
     <qulice-maven-plugin.version>0.22.0</qulice-maven-plugin.version>
     <oop-cop.version>0.2.8</oop-cop.version>
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
-    <jcabi-aspects.version>0.25.1</jcabi-aspects.version>
+    <jcabi-aspects.version>0.26.0</jcabi-aspects.version>
     <aspectjrt.version>1.9.21.1</aspectjrt.version>
     <guava.version>33.0.0-jre</guava.version>
     <jcabi-maven-plugin.version>0.17.0</jcabi-maven-plugin.version>
