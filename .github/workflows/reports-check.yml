@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: tracehubpm/reports-check-action@0.1.1-deepinfra
+      - uses: tracehubpm/reports-check-action@0.1.4-deepinfra
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           deepinfra_token: ${{ secrets.DEEPINFRA_TOKEN }}
