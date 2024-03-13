@@ -76,7 +76,7 @@ SOFTWARE.
     <jacoco.version>0.8.11</jacoco.version>
     <nexus-staging.version>1.6.8</nexus-staging.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-    <qulice-maven-plugin.version>0.22.0</qulice-maven-plugin.version>
+    <qulice-maven-plugin.version>0.22.2</qulice-maven-plugin.version>
     <oop-cop.version>0.2.8</oop-cop.version>
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
     <jcabi-aspects.version>0.26.0</jcabi-aspects.version>
