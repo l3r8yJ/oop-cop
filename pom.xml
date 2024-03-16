@@ -80,7 +80,7 @@ SOFTWARE.
     <oop-cop.version>0.2.8</oop-cop.version>
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
     <jcabi-aspects.version>0.26.0</jcabi-aspects.version>
-    <aspectjrt.version>1.9.21.1</aspectjrt.version>
+    <aspectjrt.version>1.9.21.2</aspectjrt.version>
     <guava.version>33.1.0-jre</guava.version>
     <jcabi-maven-plugin.version>0.17.0</jcabi-maven-plugin.version>
     <streamex.version>0.8.2</streamex.version>
