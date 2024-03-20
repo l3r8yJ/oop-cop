@@ -71,7 +71,7 @@ SOFTWARE.
     <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
     <maven-invoker-plugin.version>3.6.0</maven-invoker-plugin.version>
     <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
-    <lombok.version>1.18.30</lombok.version>
+    <lombok.version>1.18.32</lombok.version>
     <jtcop.version>1.2.0</jtcop.version>
     <jacoco.version>0.8.11</jacoco.version>
     <nexus-staging.version>1.6.8</nexus-staging.version>
