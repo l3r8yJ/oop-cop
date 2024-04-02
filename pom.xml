@@ -73,7 +73,7 @@ SOFTWARE.
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <lombok.version>1.18.32</lombok.version>
     <jtcop.version>1.2.0</jtcop.version>
-    <jacoco.version>0.8.11</jacoco.version>
+    <jacoco.version>0.8.12</jacoco.version>
     <nexus-staging.version>1.6.8</nexus-staging.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
     <qulice-maven-plugin.version>0.22.0</qulice-maven-plugin.version>
