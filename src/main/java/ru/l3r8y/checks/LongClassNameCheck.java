@@ -23,6 +23,7 @@
  */
 package ru.l3r8y.checks;
 
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import ru.l3r8y.Check;
 import ru.l3r8y.ClassName;
@@ -30,7 +31,6 @@ import ru.l3r8y.Complaint;
 import ru.l3r8y.complaint.ClassifiedComplaint;
 import ru.l3r8y.complaint.LinkedComplaint;
 import ru.l3r8y.complaint.WrongClassNaming;
-import java.util.Collection;
 
 /**
  * Check for Long class name.
