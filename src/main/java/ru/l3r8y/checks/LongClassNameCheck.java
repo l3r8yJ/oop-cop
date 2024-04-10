@@ -23,7 +23,6 @@
  */
 package ru.l3r8y.checks;
 
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import ru.l3r8y.Check;
 import ru.l3r8y.ClassName;
@@ -31,6 +30,7 @@ import ru.l3r8y.Complaint;
 import ru.l3r8y.complaint.ClassifiedComplaint;
 import ru.l3r8y.complaint.LinkedComplaint;
 import ru.l3r8y.complaint.WrongClassNaming;
+import java.util.Collection;
 
 /**
  * Check for Long class name.
@@ -59,8 +59,9 @@ public final class LongClassNameCheck implements Check {
                     new WrongClassNaming(
                         this.name,
                         String.format(
-                            "class name is more than %s, consider more simple name",
-                            this.fine
+                            "class name is more than %s, the actual length is %s, consider using shorter name",
+                            this.fine,
+                            this.name.value().length()
                         )
                     ),
                     "https://www.yegor256.com/2015/01/12/compound-name-is-code-smell.html"
@@ -78,7 +79,7 @@ public final class LongClassNameCheck implements Check {
      */
 
     /**
-     * Is name ok?
+     * Is the name ok?
      *
      * @return True if longer
      */
