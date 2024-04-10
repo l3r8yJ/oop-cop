@@ -59,8 +59,9 @@ public final class LongClassNameCheck implements Check {
                     new WrongClassNaming(
                         this.name,
                         String.format(
-                            "class name is more than %s, consider more simple name",
-                            this.fine
+                            "class name is more than %s, the actual length is %s, consider using shorter name",
+                            this.fine,
+                            this.name.value().length()
                         )
                     ),
                     "https://www.yegor256.com/2015/01/12/compound-name-is-code-smell.html"
@@ -78,7 +79,7 @@ public final class LongClassNameCheck implements Check {
      */
 
     /**
-     * Is name ok?
+     * Is the name ok?
      *
      * @return True if longer
      */
