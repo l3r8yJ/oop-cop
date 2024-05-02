@@ -81,7 +81,7 @@ SOFTWARE.
     <cactoos-matchers.version>0.25</cactoos-matchers.version>
     <jcabi-aspects.version>0.26.0</jcabi-aspects.version>
     <aspectjrt.version>1.9.22</aspectjrt.version>
-    <guava.version>33.1.0-jre</guava.version>
+    <guava.version>33.2.0-jre</guava.version>
     <jcabi-maven-plugin.version>0.17.0</jcabi-maven-plugin.version>
     <streamex.version>0.8.2</streamex.version>
   </properties>
