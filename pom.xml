@@ -68,7 +68,7 @@ SOFTWARE.
     <maven-plugin.version>3.10.2</maven-plugin.version>
     <maven.version>3.9.9</maven.version>
     <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
-    <maven-surefire-plugin.version>3.4.0</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
     <maven-invoker-plugin.version>3.8.0</maven-invoker-plugin.version>
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <lombok.version>1.18.32</lombok.version>
